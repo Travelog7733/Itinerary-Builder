@@ -16,7 +16,6 @@
   --line:#E4ECE9;
   --text:#1B1F1E;
   --muted:#6B7471;
-  --radius:14px;
   --shadow:0 8px 30px rgba(0,0,0,.04);
   --font:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;
 }
@@ -31,7 +30,6 @@ body{
   font-family:var(--font);
   background:#F4F7F6;
   color:var(--text);
-  line-height:1.4;
 }
 
 .wrap{
@@ -44,7 +42,7 @@ body{
 /* HEADER */
 
 .top{
-  background:var(--bg);
+  background:#fff;
   border:1px solid var(--line);
   border-radius:24px;
   padding:22px;
@@ -56,13 +54,11 @@ body{
   display:grid;
   grid-template-columns:1fr auto;
   gap:20px;
-  align-items:start;
 }
 
 .brand{
   font-size:30px;
   font-weight:700;
-  letter-spacing:-1px;
 }
 
 .brand span{
@@ -72,16 +68,14 @@ body{
 .itin-row{
   margin-top:8px;
   display:flex;
-  align-items:center;
   gap:10px;
-  flex-wrap:wrap;
+  align-items:center;
 }
 
 .itin-label{
   font-size:12px;
   color:var(--muted);
   text-transform:uppercase;
-  letter-spacing:.08em;
 }
 
 .itin-badge{
@@ -116,35 +110,31 @@ body{
   font-size:11px;
   color:var(--muted);
   text-transform:uppercase;
-  letter-spacing:.08em;
 }
 
 .input,
-.date-input,
-textarea{
+textarea,
+.date-input{
   width:100%;
   border:1px solid var(--line);
-  background:#fff;
   border-radius:12px;
-  padding:11px 14px;
+  padding:12px 14px;
   font-size:14px;
-  color:var(--text);
-  transition:.2s;
+  background:#fff;
 }
 
 .input:focus,
-.date-input:focus,
-textarea:focus{
+textarea:focus,
+.date-input:focus{
   outline:none;
   border-color:var(--brand);
-  box-shadow:0 0 0 3px rgba(29,158,117,.10);
 }
 
 /* STRIP */
 
 .strip{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:1fr 1fr;
   gap:14px;
   margin-top:20px;
 }
@@ -159,20 +149,17 @@ textarea:focus{
 .strip-title{
   font-size:11px;
   color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:.08em;
   margin-bottom:8px;
+  text-transform:uppercase;
 }
 
 .warn{
-  margin-top:8px;
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
+  margin-top:10px;
+  display:inline-block;
   background:#FFF3DA;
   color:#9B670C;
-  border-radius:999px;
   padding:6px 10px;
+  border-radius:999px;
   font-size:12px;
 }
 
@@ -188,25 +175,21 @@ textarea:focus{
 }
 
 .section-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
   margin-bottom:18px;
-  flex-wrap:wrap;
 }
 
 .section-title{
-  font-size:18px;
+  font-size:20px;
   font-weight:600;
 }
 
 .section-sub{
   font-size:13px;
   color:var(--muted);
+  margin-top:4px;
 }
 
-/* RATES */
+/* PRICE */
 
 .rates-grid{
   display:grid;
@@ -224,17 +207,16 @@ textarea:focus{
 .mini-title{
   font-size:12px;
   color:var(--muted);
-  margin-bottom:12px;
+  margin-bottom:14px;
   text-transform:uppercase;
-  letter-spacing:.08em;
 }
 
 .rate-row{
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   gap:10px;
-  margin-bottom:10px;
+  margin-bottom:12px;
 }
 
 .small-input{
@@ -243,22 +225,17 @@ textarea:focus{
   border:1px solid var(--line);
   border-radius:10px;
   padding:8px 10px;
-  font-size:14px;
 }
-
-/* TOTAL */
 
 .total{
   margin-top:20px;
-  background:linear-gradient(135deg,#F2FBF7,#F7FFFC);
+  background:#F2FBF7;
   border:1px solid #CFECDD;
   border-radius:18px;
   padding:18px;
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  gap:18px;
-  flex-wrap:wrap;
+  align-items:center;
 }
 
 .total-label{
@@ -283,21 +260,20 @@ textarea:focus{
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:760px;
 }
 
 th{
-  background:var(--bg-soft);
+  background:#F7FAF9;
+  padding:14px;
   font-size:12px;
   color:var(--muted);
   text-transform:uppercase;
-  padding:14px;
   text-align:left;
   border-bottom:1px solid var(--line);
 }
 
 td{
-  padding:10px 14px;
+  padding:14px;
   border-bottom:1px solid var(--line);
   vertical-align:top;
 }
@@ -305,15 +281,14 @@ td{
 .day-pill{
   background:#EAF8F2;
   color:#0B664F;
-  padding:6px 10px;
+  padding:6px 12px;
   border-radius:999px;
-  display:inline-block;
   font-size:12px;
   font-weight:600;
 }
 
 .cell-textarea{
-  min-height:70px;
+  min-height:80px;
   resize:vertical;
 }
 
@@ -333,7 +308,6 @@ td{
   font-size:14px;
   font-weight:600;
   cursor:pointer;
-  transition:.2s;
 }
 
 .btn-primary{
@@ -351,22 +325,22 @@ td{
 }
 
 .btn-light:hover{
-  background:var(--bg-soft);
+  background:#F7FAF9;
 }
 
 /* MOBILE */
 
 @media(max-width:960px){
 
-  .rates-grid{
-    grid-template-columns:1fr;
-  }
-
   .top-grid{
     grid-template-columns:1fr;
   }
 
   .meta-grid{
+    grid-template-columns:1fr;
+  }
+
+  .rates-grid{
     grid-template-columns:1fr;
   }
 
@@ -382,12 +356,12 @@ td{
     padding:14px;
   }
 
-  .btn{
-    width:100%;
-  }
-
   .actions{
     flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
   }
 
 }
@@ -406,30 +380,32 @@ td{
     <div class="top-grid">
 
       <div>
+
         <div class="brand">
           travel<span>og</span>
         </div>
 
         <div class="itin-row">
           <span class="itin-label">Itinerary No.</span>
-          <span class="itin-badge" id="itinNo">TG-001</span>
+          <span class="itin-badge">TG-001</span>
         </div>
 
         <div class="page-title">
           Travel Itinerary
         </div>
+
       </div>
 
       <div class="meta-grid">
 
         <div class="field">
           <label class="label">Customer Name</label>
-          <input class="input" id="customerName" placeholder="Enter customer name">
+          <input class="input" placeholder="Enter customer name">
         </div>
 
         <div class="field">
           <label class="label">Sales Person</label>
-          <input class="input" id="salesPerson" placeholder="Enter sales person">
+          <input class="input" placeholder="Enter sales person">
         </div>
 
       </div>
@@ -456,15 +432,13 @@ td{
 
   </div>
 
-  <!-- PRICE -->
+  <!-- PRICE QUOTE -->
 
   <div class="card">
 
     <div class="section-head">
-      <div>
-        <div class="section-title">Price Quote</div>
-        <div class="section-sub">Rates & passenger summary</div>
-      </div>
+      <div class="section-title">Price Quote</div>
+      <div class="section-sub">Rates & passenger summary</div>
     </div>
 
     <div class="rates-grid">
@@ -492,7 +466,7 @@ td{
 
       </div>
 
-      <!-- PAX -->
+      <!-- PASSENGERS -->
 
       <div class="mini-card">
 
@@ -556,22 +530,18 @@ td{
 
   </div>
 
-  <!-- ITINERARY -->
+  <!-- DAY WISE ITINERARY -->
 
   <div class="card">
 
     <div class="section-head">
-
-      <div>
-        <div class="section-title">
-          Day-wise Itinerary
-        </div>
-
-        <div class="section-sub">
-          Daily travel schedule
-        </div>
+      <div class="section-title">
+        Day-wise Itinerary
       </div>
 
+      <div class="section-sub">
+        Daily travel schedule
+      </div>
     </div>
 
     <div class="table-wrap">
@@ -581,8 +551,7 @@ td{
         <thead>
 
           <tr>
-            <th>Day</th>
-            <th>Date</th>
+            <th style="width:140px;">Day</th>
             <th>Activity</th>
             <th>Notes</th>
           </tr>
@@ -597,13 +566,6 @@ td{
               <span class="day-pill">
                 Day 1
               </span>
-            </td>
-
-            <td>
-              <input
-                type="text"
-                class="input"
-                placeholder="Enter date manually">
             </td>
 
             <td>
@@ -626,13 +588,6 @@ td{
               <span class="day-pill">
                 Day 2
               </span>
-            </td>
-
-            <td>
-              <input
-                type="text"
-                class="input"
-                placeholder="Enter date manually">
             </td>
 
             <td>
@@ -691,7 +646,8 @@ function addDay(){
 
   dayCount++;
 
-  const tbody = document.getElementById("itineraryBody");
+  const tbody =
+    document.getElementById("itineraryBody");
 
   const row = `
 
@@ -701,13 +657,6 @@ function addDay(){
         <span class="day-pill">
           Day ${dayCount}
         </span>
-      </td>
-
-      <td>
-        <input
-          type="text"
-          class="input"
-          placeholder="Enter date manually">
       </td>
 
       <td>
@@ -726,7 +675,10 @@ function addDay(){
 
   `;
 
-  tbody.insertAdjacentHTML("beforeend", row);
+  tbody.insertAdjacentHTML(
+    "beforeend",
+    row
+  );
 
 }
 
@@ -734,11 +686,13 @@ function addDay(){
 
 function saveItinerary(){
 
-  alert("Itinerary saved successfully!");
+  alert(
+    "Itinerary saved successfully!"
+  );
 
 }
 
-/* DOWNLOAD */
+/* PDF */
 
 function downloadPDF(){
 
@@ -750,20 +704,37 @@ function downloadPDF(){
 
 function clearAll(){
 
-  if(confirm("Clear all itinerary data?")){
+  if(confirm(
+    "Clear all itinerary data?"
+  )){
 
-    document.querySelectorAll("input").forEach(el=>{
-      el.value = "";
-    });
+    document
+      .querySelectorAll("input")
+      .forEach(el=>{
+        el.value="";
+      });
 
-    document.querySelectorAll("textarea").forEach(el=>{
-      el.value = "";
-    });
+    document
+      .querySelectorAll("textarea")
+      .forEach(el=>{
+        el.value="";
+      });
 
-    document.getElementById("grandTotal").innerText = "₹ 0";
-    document.getElementById("adultTotal").innerText = "₹ 0";
-    document.getElementById("childTotal").innerText = "₹ 0";
-    document.getElementById("infantTotal").innerText = "₹ 0";
+    document.getElementById(
+      "adultTotal"
+    ).innerText="₹ 0";
+
+    document.getElementById(
+      "childTotal"
+    ).innerText="₹ 0";
+
+    document.getElementById(
+      "infantTotal"
+    ).innerText="₹ 0";
+
+    document.getElementById(
+      "grandTotal"
+    ).innerText="₹ 0";
 
   }
 
@@ -771,63 +742,109 @@ function clearAll(){
 
 /* TOTAL CALCULATION */
 
-const calcInputs = [
+const calcFields = [
+
   "adultRate",
   "childRate",
   "infantRate",
   "adultPax",
   "childPax",
   "infantPax"
+
 ];
 
-calcInputs.forEach(id=>{
+calcFields.forEach(id=>{
 
   document
     .getElementById(id)
-    .addEventListener("input", calculateTotals);
+    .addEventListener(
+      "input",
+      calculateTotals
+    );
 
 });
 
 function calculateTotals(){
 
   const adultRate =
-    Number(document.getElementById("adultRate").value) || 0;
+    Number(
+      document.getElementById(
+        "adultRate"
+      ).value
+    ) || 0;
 
   const childRate =
-    Number(document.getElementById("childRate").value) || 0;
+    Number(
+      document.getElementById(
+        "childRate"
+      ).value
+    ) || 0;
 
   const infantRate =
-    Number(document.getElementById("infantRate").value) || 0;
+    Number(
+      document.getElementById(
+        "infantRate"
+      ).value
+    ) || 0;
 
   const adultPax =
-    Number(document.getElementById("adultPax").value) || 0;
+    Number(
+      document.getElementById(
+        "adultPax"
+      ).value
+    ) || 0;
 
   const childPax =
-    Number(document.getElementById("childPax").value) || 0;
+    Number(
+      document.getElementById(
+        "childPax"
+      ).value
+    ) || 0;
 
   const infantPax =
-    Number(document.getElementById("infantPax").value) || 0;
+    Number(
+      document.getElementById(
+        "infantPax"
+      ).value
+    ) || 0;
 
-  const adultTotal = adultRate * adultPax;
-  const childTotal = childRate * childPax;
-  const infantTotal = infantRate * infantPax;
+  const adultTotal =
+    adultRate * adultPax;
+
+  const childTotal =
+    childRate * childPax;
+
+  const infantTotal =
+    infantRate * infantPax;
 
   const grand =
     adultTotal +
     childTotal +
     infantTotal;
 
-  document.getElementById("adultTotal").innerText =
-    "₹ " + adultTotal.toLocaleString("en-IN");
+  document.getElementById(
+    "adultTotal"
+  ).innerText =
+    "₹ " +
+    adultTotal.toLocaleString("en-IN");
 
-  document.getElementById("childTotal").innerText =
-    "₹ " + childTotal.toLocaleString("en-IN");
+  document.getElementById(
+    "childTotal"
+  ).innerText =
+    "₹ " +
+    childTotal.toLocaleString("en-IN");
 
-  document.getElementById("infantTotal").innerText =
-    "₹ " + infantTotal.toLocaleString("en-IN");
+  document.getElementById(
+    "infantTotal"
+  ).innerText =
+    "₹ " +
+    infantTotal.toLocaleString("en-IN");
 
-  document.getElementById("grandTotal").innerText =
-    "₹ " + grand.toLocaleString("en-IN");
+  document.getElementById(
+    "grandTotal"
+  ).innerText =
+    "₹ " +
+    grand.toLocaleString("en-IN");
 
 }
 
