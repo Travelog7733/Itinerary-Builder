@@ -39,7 +39,7 @@ body{
 
 .wrap{
   width:100%;
-  max-width:1180px;
+  max-width:1280px;
   margin:auto;
   padding:20px;
 }
@@ -62,9 +62,8 @@ body{
 }
 
 .brand{
-  font-size:32px;
+  font-size:34px;
   font-weight:700;
-  letter-spacing:-1px;
 }
 
 .brand span{
@@ -74,8 +73,8 @@ body{
 .itin-row{
   margin-top:10px;
   display:flex;
-  align-items:center;
   gap:10px;
+  align-items:center;
 }
 
 .itin-label{
@@ -102,7 +101,7 @@ body{
 
 .meta-grid{
   display:grid;
-  grid-template-columns:repeat(2,minmax(180px,1fr));
+  grid-template-columns:repeat(2,minmax(220px,1fr));
   gap:14px;
 }
 
@@ -128,7 +127,6 @@ textarea,
   font-size:14px;
   background:#fff;
   font-family:var(--font);
-  line-height:1.5;
   color:#111;
 }
 
@@ -138,8 +136,6 @@ textarea:focus,
   outline:none;
   border-color:var(--brand);
 }
-
-/* ---------- STRIP ---------- */
 
 .strip{
   display:grid;
@@ -194,7 +190,6 @@ textarea:focus,
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:18px;
-  margin-bottom:18px;
 }
 
 .hotel-block,
@@ -390,29 +385,69 @@ td{
   color:#fff;
 }
 
-.btn-primary:hover{
-  background:var(--brand-dark);
-}
-
 .btn-light{
   background:#fff;
   border:1px solid var(--line);
 }
 
-.btn-light:hover{
-  background:#F7FAF9;
+/* ---------- SAVED SECTION ---------- */
+
+.saved-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:22px;
+  margin-top:20px;
 }
 
-/* ---------- PDF MODE ---------- */
-
-.pdf-mode .actions{
-  display:none !important;
+.saved-item{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px;
+  margin-bottom:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
 }
 
-.pdf-mode textarea,
-.pdf-mode input{
-  border:none !important;
-  background:transparent !important;
+.saved-left{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.saved-title{
+  font-weight:700;
+}
+
+.saved-sub{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.saved-actions{
+  display:flex;
+  gap:8px;
+}
+
+.small-btn{
+  border:none;
+  padding:8px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:600;
+}
+
+.load-btn{
+  background:#EAF8F2;
+  color:#0B664F;
+}
+
+.delete-btn{
+  background:#FFE9E9;
+  color:#B42318;
 }
 
 /* ---------- MOBILE ---------- */
@@ -451,7 +486,7 @@ travel<span>og</span>
 
 <div class="itin-row">
 <span class="itin-label">Itinerary No.</span>
-<span class="itin-badge">TG-001</span>
+<span class="itin-badge" id="itinNumber">TG-001</span>
 </div>
 
 <div class="page-title">
@@ -464,12 +499,12 @@ Travel Itinerary
 
 <div class="field">
 <label class="label">Customer Name</label>
-<input class="input" placeholder="Enter customer name">
+<input class="input save-field" id="customerName">
 </div>
 
 <div class="field">
 <label class="label">Sales Person</label>
-<input class="input" placeholder="Enter sales person">
+<input class="input save-field" id="salesPerson">
 </div>
 
 </div>
@@ -480,12 +515,12 @@ Travel Itinerary
 
 <div class="strip-card">
 <div class="strip-title">Travel Date</div>
-<input type="date" class="date-input">
+<input type="date" class="date-input save-field" id="travelDate">
 </div>
 
 <div class="strip-card">
 <div class="strip-title">Quote Expiry</div>
-<input type="date" class="date-input">
+<input type="date" class="date-input save-field" id="quoteExpiry">
 </div>
 
 </div>
@@ -498,28 +533,15 @@ Travel Itinerary
 
 <div class="extra-grid">
 
-<!-- HOTEL -->
-
 <div class="hotel-block">
 
-<div class="block-title">
-Hotel Details
-</div>
+<div class="block-title">Hotel Details</div>
 
 <div id="hotelContainer">
 
 <div class="hotel-item">
-
-<div class="field">
-<label class="label">Hotel Name</label>
-<input class="input" placeholder="Enter hotel name">
-</div>
-
-<div class="field">
-<label class="label">Destination</label>
-<input class="input" placeholder="Enter destination">
-</div>
-
+<input class="input hotel-name" placeholder="Hotel Name">
+<input class="input hotel-destination" placeholder="Destination">
 </div>
 
 </div>
@@ -530,28 +552,15 @@ Hotel Details
 
 </div>
 
-<!-- CRUISE -->
-
 <div class="cruise-block">
 
-<div class="block-title">
-Cruise Details
-</div>
+<div class="block-title">Cruise Details</div>
 
 <div id="cruiseContainer">
 
 <div class="cruise-item">
-
-<div class="field">
-<label class="label">Cruise Name</label>
-<input class="input" placeholder="Enter cruise name">
-</div>
-
-<div class="field">
-<label class="label">Destination</label>
-<input class="input" placeholder="Enter destination">
-</div>
-
+<input class="input cruise-name" placeholder="Cruise Name">
+<input class="input cruise-destination" placeholder="Destination">
 </div>
 
 </div>
@@ -679,7 +688,7 @@ Daily travel schedule
 <thead>
 
 <tr>
-<th style="width:140px;">Day</th>
+<th>Day</th>
 <th>Activity</th>
 <th>Meals / Transfer</th>
 <th>Notes</th>
@@ -696,8 +705,7 @@ Daily travel schedule
 </td>
 
 <td>
-<textarea class="input cell-textarea"
-placeholder="Arrival & City Tour"></textarea>
+<textarea class="input cell-textarea activity"></textarea>
 </td>
 
 <td>
@@ -721,8 +729,7 @@ placeholder="Arrival & City Tour"></textarea>
 </td>
 
 <td>
-<textarea class="input cell-textarea"
-placeholder="Additional notes"></textarea>
+<textarea class="input cell-textarea notes"></textarea>
 </td>
 
 </tr>
@@ -747,8 +754,8 @@ placeholder="Additional notes"></textarea>
 + Add Day
 </button>
 
-<button class="btn btn-light" onclick="saveItinerary()">
-Save
+<button class="btn btn-primary" onclick="saveItinerary()">
+Save Itinerary
 </button>
 
 <button class="btn btn-light" onclick="downloadPDF()">
@@ -763,7 +770,24 @@ Clear All
 
 </div>
 
-<!-- LIBRARIES -->
+<!-- SAVED -->
+
+<div class="wrap">
+
+<div class="saved-card">
+
+<div class="section-head">
+<div class="section-title">Saved Itineraries</div>
+<div class="section-sub">
+Saved automatically in browser memory
+</div>
+</div>
+
+<div id="savedList"></div>
+
+</div>
+
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -773,7 +797,42 @@ Clear All
 
 let dayCount = 1;
 
-/* ---------- TOGGLE BUTTON ---------- */
+/* ---------- ITIN NUMBER ---------- */
+
+function getNextItineraryNumber(){
+
+  let current =
+    localStorage.getItem("travelog_last_number");
+
+  current = current ? Number(current) : 1;
+
+  const formatted =
+    "TG-" +
+    String(current).padStart(3,"0");
+
+  document.getElementById(
+    "itinNumber"
+  ).innerText = formatted;
+
+}
+
+function increaseItineraryNumber(){
+
+  let current =
+    localStorage.getItem("travelog_last_number");
+
+  current = current ? Number(current) : 1;
+
+  current++;
+
+  localStorage.setItem(
+    "travelog_last_number",
+    current
+  );
+
+}
+
+/* ---------- TOGGLE ---------- */
 
 function toggleBtn(btn){
   btn.classList.toggle("active");
@@ -786,17 +845,8 @@ function addHotel(){
   const html = `
 
   <div class="hotel-item">
-
-    <div class="field">
-      <label class="label">Hotel Name</label>
-      <input class="input" placeholder="Enter hotel name">
-    </div>
-
-    <div class="field">
-      <label class="label">Destination</label>
-      <input class="input" placeholder="Enter destination">
-    </div>
-
+    <input class="input hotel-name" placeholder="Hotel Name">
+    <input class="input hotel-destination" placeholder="Destination">
   </div>
 
   `;
@@ -814,17 +864,8 @@ function addCruise(){
   const html = `
 
   <div class="cruise-item">
-
-    <div class="field">
-      <label class="label">Cruise Name</label>
-      <input class="input" placeholder="Enter cruise name">
-    </div>
-
-    <div class="field">
-      <label class="label">Destination</label>
-      <input class="input" placeholder="Enter destination">
-    </div>
-
+    <input class="input cruise-name" placeholder="Cruise Name">
+    <input class="input cruise-destination" placeholder="Destination">
   </div>
 
   `;
@@ -839,81 +880,221 @@ function addCruise(){
 
 function addDay(){
 
-dayCount++;
+  dayCount++;
 
-const row = `
+  const row = `
 
-<tr>
+  <tr>
 
-<td>
-<span class="day-pill">Day ${dayCount}</span>
-</td>
+  <td>
+  <span class="day-pill">Day ${dayCount}</span>
+  </td>
 
-<td>
-<textarea class="input cell-textarea"
-placeholder="Activity"></textarea>
-</td>
+  <td>
+  <textarea class="input cell-textarea activity"></textarea>
+  </td>
 
-<td>
+  <td>
 
-<div class="option-group">
+  <div class="option-group">
+  <button type="button" class="option-btn" onclick="toggleBtn(this)">B</button>
+  <button type="button" class="option-btn" onclick="toggleBtn(this)">L</button>
+  <button type="button" class="option-btn" onclick="toggleBtn(this)">D</button>
+  <button type="button" class="option-btn" onclick="toggleBtn(this)">BR</button>
+  </div>
 
-<button type="button" class="option-btn" onclick="toggleBtn(this)">B</button>
-<button type="button" class="option-btn" onclick="toggleBtn(this)">L</button>
-<button type="button" class="option-btn" onclick="toggleBtn(this)">D</button>
-<button type="button" class="option-btn" onclick="toggleBtn(this)">BR</button>
+  <div class="option-group">
+  <button type="button" class="option-btn" onclick="toggleBtn(this)">Shared</button>
+  <button type="button" class="option-btn" onclick="toggleBtn(this)">Private</button>
+  </div>
 
-</div>
+  </td>
 
-<div class="option-group">
+  <td>
+  <textarea class="input cell-textarea notes"></textarea>
+  </td>
 
-<button type="button" class="option-btn" onclick="toggleBtn(this)">Shared</button>
-<button type="button" class="option-btn" onclick="toggleBtn(this)">Private</button>
+  </tr>
 
-</div>
+  `;
 
-</td>
-
-<td>
-<textarea class="input cell-textarea"
-placeholder="Additional notes"></textarea>
-</td>
-
-</tr>
-
-`;
-
-document
-.getElementById("itineraryBody")
-.insertAdjacentHTML("beforeend", row);
+  document
+  .getElementById("itineraryBody")
+  .insertAdjacentHTML("beforeend", row);
 
 }
 
-/* ---------- SAVE ---------- */
+/* ---------- SAVE MEMORY ---------- */
 
 function saveItinerary(){
-alert("Itinerary saved successfully!");
+
+  const itinerary = {
+
+    number:
+      document.getElementById(
+        "itinNumber"
+      ).innerText,
+
+    customer:
+      document.getElementById(
+        "customerName"
+      ).value,
+
+    sales:
+      document.getElementById(
+        "salesPerson"
+      ).value,
+
+    travelDate:
+      document.getElementById(
+        "travelDate"
+      ).value,
+
+    created:
+      new Date().toLocaleString()
+
+  };
+
+  let saved =
+    JSON.parse(
+      localStorage.getItem(
+        "travelog_saved"
+      ) || "[]"
+    );
+
+  saved.unshift(itinerary);
+
+  localStorage.setItem(
+    "travelog_saved",
+    JSON.stringify(saved)
+  );
+
+  renderSaved();
+
+  alert("Itinerary Saved!");
+
+  increaseItineraryNumber();
+
+  getNextItineraryNumber();
+
+}
+
+/* ---------- RENDER SAVED ---------- */
+
+function renderSaved(){
+
+  const container =
+    document.getElementById(
+      "savedList"
+    );
+
+  let saved =
+    JSON.parse(
+      localStorage.getItem(
+        "travelog_saved"
+      ) || "[]"
+    );
+
+  if(saved.length === 0){
+
+    container.innerHTML =
+      "<p>No saved itineraries yet.</p>";
+
+    return;
+
+  }
+
+  container.innerHTML = "";
+
+  saved.forEach((item,index)=>{
+
+    container.innerHTML += `
+
+    <div class="saved-item">
+
+      <div class="saved-left">
+
+        <div class="saved-title">
+          ${item.number}
+        </div>
+
+        <div class="saved-sub">
+          ${item.customer || "No Customer"}
+        </div>
+
+        <div class="saved-sub">
+          ${item.travelDate || ""}
+        </div>
+
+      </div>
+
+      <div class="saved-actions">
+
+        <button
+          class="small-btn delete-btn"
+          onclick="deleteSaved(${index})">
+
+          Delete
+
+        </button>
+
+      </div>
+
+    </div>
+
+    `;
+
+  });
+
+}
+
+/* ---------- DELETE ---------- */
+
+function deleteSaved(index){
+
+  let saved =
+    JSON.parse(
+      localStorage.getItem(
+        "travelog_saved"
+      ) || "[]"
+    );
+
+  saved.splice(index,1);
+
+  localStorage.setItem(
+    "travelog_saved",
+    JSON.stringify(saved)
+  );
+
+  renderSaved();
+
 }
 
 /* ---------- CLEAR ---------- */
 
 function clearAll(){
 
-if(confirm("Clear all itinerary data?")){
+  if(confirm("Clear all data?")){
 
-document.querySelectorAll("input").forEach(el=>{
-el.value="";
-});
+    document
+    .querySelectorAll("input")
+    .forEach(el=>{
+      el.value="";
+    });
 
-document.querySelectorAll("textarea").forEach(el=>{
-el.value="";
-});
+    document
+    .querySelectorAll("textarea")
+    .forEach(el=>{
+      el.value="";
+    });
 
-document.querySelectorAll(".option-btn").forEach(btn=>{
-btn.classList.remove("active");
-});
+    document
+    .querySelectorAll(".option-btn")
+    .forEach(btn=>{
+      btn.classList.remove("active");
+    });
 
-}
+  }
 
 }
 
@@ -929,14 +1110,22 @@ const fields = [
 ];
 
 fields.forEach(id=>{
-document.getElementById(id)
-.addEventListener("input", calculateTotals);
+
+  document
+  .getElementById(id)
+  .addEventListener(
+    "input",
+    calculateTotals
+  );
+
 });
 
 function cleanNumber(value){
+
   return Number(
     value.replace(/[^0-9]/g,'')
   ) || 0;
+
 }
 
 function calculateTotals(){
@@ -959,24 +1148,35 @@ cleanNumber(document.getElementById("childPax").value);
 const infantPax =
 cleanNumber(document.getElementById("infantPax").value);
 
-const adultTotal = adultRate * adultPax;
-const childTotal = childRate * childPax;
-const infantTotal = infantRate * infantPax;
+const adultTotal =
+adultRate * adultPax;
+
+const childTotal =
+childRate * childPax;
+
+const infantTotal =
+infantRate * infantPax;
 
 const grand =
-adultTotal + childTotal + infantTotal;
+adultTotal +
+childTotal +
+infantTotal;
 
 document.getElementById("adultTotal").innerText =
-"₹ " + adultTotal.toLocaleString("en-IN");
+"₹ " +
+adultTotal.toLocaleString("en-IN");
 
 document.getElementById("childTotal").innerText =
-"₹ " + childTotal.toLocaleString("en-IN");
+"₹ " +
+childTotal.toLocaleString("en-IN");
 
 document.getElementById("infantTotal").innerText =
-"₹ " + infantTotal.toLocaleString("en-IN");
+"₹ " +
+infantTotal.toLocaleString("en-IN");
 
 document.getElementById("grandTotal").innerText =
-"₹ " + grand.toLocaleString("en-IN");
+"₹ " +
+grand.toLocaleString("en-IN");
 
 }
 
@@ -984,77 +1184,86 @@ document.getElementById("grandTotal").innerText =
 
 async function downloadPDF(){
 
-const { jsPDF } = window.jspdf;
+  const { jsPDF } = window.jspdf;
 
-const element =
-document.getElementById("pdfContent");
+  const element =
+    document.getElementById(
+      "pdfContent"
+    );
 
-const canvas =
-await html2canvas(element,{
-scale:2,
-useCORS:true,
-backgroundColor:"#F4F7F6"
-});
+  const canvas =
+    await html2canvas(element,{
+      scale:2,
+      useCORS:true,
+      backgroundColor:"#F4F7F6"
+    });
 
-const imgData =
-canvas.toDataURL("image/png");
+  const imgData =
+    canvas.toDataURL("image/png");
 
-const pdf =
-new jsPDF("p","mm","a4");
+  const pdf =
+    new jsPDF("p","mm","a4");
 
-const pdfWidth =
-pdf.internal.pageSize.getWidth();
+  const pdfWidth =
+    pdf.internal.pageSize.getWidth();
 
-const pdfHeight =
-pdf.internal.pageSize.getHeight();
+  const pdfHeight =
+    pdf.internal.pageSize.getHeight();
 
-const imgWidth = pdfWidth;
+  const imgWidth = pdfWidth;
 
-const imgHeight =
-(canvas.height * imgWidth) /
-canvas.width;
+  const imgHeight =
+    (canvas.height * imgWidth) /
+    canvas.width;
 
-let heightLeft = imgHeight;
-let position = 0;
+  let heightLeft =
+    imgHeight;
 
-pdf.addImage(
-imgData,
-"PNG",
-0,
-position,
-imgWidth,
-imgHeight
-);
+  let position = 0;
 
-heightLeft -= pdfHeight;
+  pdf.addImage(
+    imgData,
+    "PNG",
+    0,
+    position,
+    imgWidth,
+    imgHeight
+  );
 
-while(heightLeft > 0){
+  heightLeft -= pdfHeight;
 
-position =
-heightLeft - imgHeight;
+  while(heightLeft > 0){
 
-pdf.addPage();
+    position =
+      heightLeft - imgHeight;
 
-pdf.addImage(
-imgData,
-"PNG",
-0,
-position,
-imgWidth,
-imgHeight
-);
+    pdf.addPage();
 
-heightLeft -= pdfHeight;
+    pdf.addImage(
+      imgData,
+      "PNG",
+      0,
+      position,
+      imgWidth,
+      imgHeight
+    );
+
+    heightLeft -= pdfHeight;
+
+  }
+
+  pdf.save(
+    "travelog-itinerary.pdf"
+  );
 
 }
 
-pdf.save("travelog-itinerary.pdf");
+/* ---------- INIT ---------- */
 
-}
+getNextItineraryNumber();
+renderSaved();
 
 </script>
 
 </body>
 </html>
-
-
