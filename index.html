@@ -1,5 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Travelog Itinerary</title>
 
 <style>
+
 :root{
   --brand:#1D9E75;
   --brand-dark:#0F6E56;
@@ -33,7 +41,7 @@ body{
   padding:20px;
 }
 
-/* ---------- HEADER ---------- */
+/* HEADER */
 
 .top{
   background:var(--bg);
@@ -132,7 +140,7 @@ textarea:focus{
   box-shadow:0 0 0 3px rgba(29,158,117,.10);
 }
 
-/* ---------- STRIP ---------- */
+/* STRIP */
 
 .strip{
   display:grid;
@@ -168,7 +176,7 @@ textarea:focus{
   font-size:12px;
 }
 
-/* ---------- CARD ---------- */
+/* CARD */
 
 .card{
   background:#fff;
@@ -198,7 +206,7 @@ textarea:focus{
   color:var(--muted);
 }
 
-/* ---------- RATES ---------- */
+/* RATES */
 
 .rates-grid{
   display:grid;
@@ -229,14 +237,6 @@ textarea:focus{
   margin-bottom:10px;
 }
 
-.rate-row:last-child{
-  margin-bottom:0;
-}
-
-.rate-row span{
-  font-size:13px;
-}
-
 .small-input{
   width:110px;
   text-align:right;
@@ -246,7 +246,7 @@ textarea:focus{
   font-size:14px;
 }
 
-/* ---------- TOTAL ---------- */
+/* TOTAL */
 
 .total{
   margin-top:20px;
@@ -270,10 +270,9 @@ textarea:focus{
   font-size:32px;
   font-weight:700;
   color:var(--brand-dark);
-  letter-spacing:-1px;
 }
 
-/* ---------- TABLE ---------- */
+/* TABLE */
 
 .table-wrap{
   overflow:auto;
@@ -292,7 +291,6 @@ th{
   font-size:12px;
   color:var(--muted);
   text-transform:uppercase;
-  letter-spacing:.06em;
   padding:14px;
   text-align:left;
   border-bottom:1px solid var(--line);
@@ -302,10 +300,6 @@ td{
   padding:10px 14px;
   border-bottom:1px solid var(--line);
   vertical-align:top;
-}
-
-tr:last-child td{
-  border-bottom:none;
 }
 
 .day-pill{
@@ -323,7 +317,7 @@ tr:last-child td{
   resize:vertical;
 }
 
-/* ---------- BUTTONS ---------- */
+/* BUTTONS */
 
 .actions{
   display:flex;
@@ -360,7 +354,7 @@ tr:last-child td{
   background:var(--bg-soft);
 }
 
-/* ---------- MOBILE ---------- */
+/* MOBILE */
 
 @media(max-width:960px){
 
@@ -380,31 +374,6 @@ tr:last-child td{
     grid-template-columns:1fr;
   }
 
-  .page-title{
-    font-size:20px;
-  }
-
-  .section-title{
-    font-size:16px;
-  }
-
-  .card{
-    padding:18px;
-    border-radius:20px;
-  }
-
-  .top{
-    padding:18px;
-  }
-
-  .total{
-    align-items:flex-start;
-  }
-
-  .total-amt{
-    font-size:28px;
-  }
-
 }
 
 @media(max-width:640px){
@@ -413,17 +382,8 @@ tr:last-child td{
     padding:14px;
   }
 
-  .brand{
-    font-size:26px;
-  }
-
-  .page-title{
-    font-size:18px;
-  }
-
   .btn{
     width:100%;
-    justify-content:center;
   }
 
   .actions{
@@ -431,36 +391,45 @@ tr:last-child td{
   }
 
 }
+
 </style>
+</head>
+
+<body>
 
 <div class="wrap">
 
   <!-- HEADER -->
+
   <div class="top">
 
     <div class="top-grid">
 
       <div>
-        <div class="brand">travel<span>og</span></div>
+        <div class="brand">
+          travel<span>og</span>
+        </div>
 
         <div class="itin-row">
           <span class="itin-label">Itinerary No.</span>
-          <span class="itin-badge">TG-001</span>
+          <span class="itin-badge" id="itinNo">TG-001</span>
         </div>
 
-        <div class="page-title">Travel Itinerary</div>
+        <div class="page-title">
+          Travel Itinerary
+        </div>
       </div>
 
       <div class="meta-grid">
 
         <div class="field">
           <label class="label">Customer Name</label>
-          <input class="input" placeholder="Enter customer name">
+          <input class="input" id="customerName" placeholder="Enter customer name">
         </div>
 
         <div class="field">
           <label class="label">Sales Person</label>
-          <input class="input" placeholder="Enter sales person">
+          <input class="input" id="salesPerson" placeholder="Enter sales person">
         </div>
 
       </div>
@@ -488,6 +457,7 @@ tr:last-child td{
   </div>
 
   <!-- PRICE -->
+
   <div class="card">
 
     <div class="section-head">
@@ -499,63 +469,60 @@ tr:last-child td{
 
     <div class="rates-grid">
 
-      <!-- Rates -->
       <div class="mini-card">
         <div class="mini-title">Rates</div>
 
         <div class="rate-row">
           <span>Adult</span>
-          <input class="small-input" placeholder="₹ 0">
+          <input class="small-input" id="adultRate" placeholder="₹ 0">
         </div>
 
         <div class="rate-row">
           <span>Child</span>
-          <input class="small-input" placeholder="₹ 0">
+          <input class="small-input" id="childRate" placeholder="₹ 0">
         </div>
 
         <div class="rate-row">
           <span>Infant</span>
-          <input class="small-input" placeholder="₹ 0">
+          <input class="small-input" id="infantRate" placeholder="₹ 0">
         </div>
       </div>
 
-      <!-- Pax -->
       <div class="mini-card">
         <div class="mini-title">Passengers</div>
 
         <div class="rate-row">
           <span>Adults</span>
-          <input class="small-input" placeholder="0">
+          <input class="small-input" id="adultPax" placeholder="0">
         </div>
 
         <div class="rate-row">
           <span>Children</span>
-          <input class="small-input" placeholder="0">
+          <input class="small-input" id="childPax" placeholder="0">
         </div>
 
         <div class="rate-row">
           <span>Infants</span>
-          <input class="small-input" placeholder="0">
+          <input class="small-input" id="infantPax" placeholder="0">
         </div>
       </div>
 
-      <!-- Sub -->
       <div class="mini-card">
         <div class="mini-title">Summary</div>
 
         <div class="rate-row">
           <span>Adults</span>
-          <strong>₹ 24,000</strong>
+          <strong id="adultTotal">₹ 0</strong>
         </div>
 
         <div class="rate-row">
           <span>Children</span>
-          <strong>₹ 8,000</strong>
+          <strong id="childTotal">₹ 0</strong>
         </div>
 
         <div class="rate-row">
-          <span>Add-ons</span>
-          <strong>₹ 2,000</strong>
+          <span>Infants</span>
+          <strong id="infantTotal">₹ 0</strong>
         </div>
       </div>
 
@@ -566,12 +533,15 @@ tr:last-child td{
         <div class="total-label">Grand Total</div>
       </div>
 
-      <div class="total-amt">₹ 34,000</div>
+      <div class="total-amt" id="grandTotal">
+        ₹ 0
+      </div>
     </div>
 
   </div>
 
   <!-- ITINERARY -->
+
   <div class="card">
 
     <div class="section-head">
@@ -594,31 +564,45 @@ tr:last-child td{
           </tr>
         </thead>
 
-        <tbody>
+        <tbody id="itineraryBody">
 
           <tr>
-            <td><span class="day-pill">Day 1</span></td>
-            <td>12/05/2026</td>
-
             <td>
-              <textarea class="input cell-textarea" placeholder="Arrival & City Tour"></textarea>
+              <span class="day-pill">Day 1</span>
             </td>
 
             <td>
-              <textarea class="input cell-textarea" placeholder="Additional notes"></textarea>
+              <input type="date" class="input">
+            </td>
+
+            <td>
+              <textarea class="input cell-textarea"
+              placeholder="Arrival & City Tour"></textarea>
+            </td>
+
+            <td>
+              <textarea class="input cell-textarea"
+              placeholder="Additional notes"></textarea>
             </td>
           </tr>
 
           <tr>
-            <td><span class="day-pill">Day 2</span></td>
-            <td>13/05/2026</td>
-
             <td>
-              <textarea class="input cell-textarea" placeholder="Beach visit"></textarea>
+              <span class="day-pill">Day 2</span>
             </td>
 
             <td>
-              <textarea class="input cell-textarea" placeholder="Additional notes"></textarea>
+              <input type="date" class="input">
+            </td>
+
+            <td>
+              <textarea class="input cell-textarea"
+              placeholder="Beach visit"></textarea>
+            </td>
+
+            <td>
+              <textarea class="input cell-textarea"
+              placeholder="Additional notes"></textarea>
             </td>
           </tr>
 
@@ -627,19 +611,52 @@ tr:last-child td{
       </table>
 
     </div>
+
+    <!-- BUTTONS -->
+
+    <div class="actions">
+
+      <button class="btn btn-primary" onclick="addDay()">
+        + Add Day
+      </button>
+
+      <button class="btn btn-light" onclick="saveItinerary()">
+        Save
+      </button>
+
+      <button class="btn btn-light" onclick="downloadPDF()">
+        Download PDF
+      </button>
+
+      <button class="btn btn-light" onclick="clearAll()">
+        Clear All
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
 <script>
+
 let dayCount = 2;
 
-function addDay() {
+/* ADD DAY */
+
+function addDay(){
 
   dayCount++;
 
-  const tbody = document.querySelector("tbody");
+  const tbody = document.getElementById("itineraryBody");
 
   const row = `
     <tr>
+
       <td>
-        <span class="day-pill">Day ${dayCount}</span>
+        <span class="day-pill">
+          Day ${dayCount}
+        </span>
       </td>
 
       <td>
@@ -648,48 +665,116 @@ function addDay() {
 
       <td>
         <textarea class="input cell-textarea"
-          placeholder="Activity"></textarea>
+        placeholder="Activity"></textarea>
       </td>
 
       <td>
         <textarea class="input cell-textarea"
-          placeholder="Notes"></textarea>
+        placeholder="Notes"></textarea>
       </td>
+
     </tr>
   `;
 
   tbody.insertAdjacentHTML("beforeend", row);
+
 }
 
-function saveItinerary() {
+/* SAVE */
+
+function saveItinerary(){
+
+  localStorage.setItem(
+    "travelog-data",
+    document.body.innerHTML
+  );
 
   alert("Itinerary saved successfully!");
 
 }
 
-function downloadPDF() {
+/* DOWNLOAD */
 
-  alert("PDF download function connected.");
+function downloadPDF(){
 
-  // attach jsPDF logic here later
+  window.print();
 
 }
 
-function clearAll() {
+/* CLEAR */
+
+function clearAll(){
 
   if(confirm("Clear all itinerary data?")){
 
     document.querySelectorAll("input").forEach(el=>{
-      if(el.type !== "button") el.value = "";
+      el.value = "";
     });
 
     document.querySelectorAll("textarea").forEach(el=>{
       el.value = "";
     });
 
+    document.getElementById("grandTotal").innerText = "₹ 0";
+
+    document.getElementById("adultTotal").innerText = "₹ 0";
+
+    document.getElementById("childTotal").innerText = "₹ 0";
+
+    document.getElementById("infantTotal").innerText = "₹ 0";
+
   }
 
 }
+
+/* AUTO TOTAL */
+
+const calcInputs = [
+  "adultRate",
+  "childRate",
+  "infantRate",
+  "adultPax",
+  "childPax",
+  "infantPax"
+];
+
+calcInputs.forEach(id=>{
+
+  document.getElementById(id).addEventListener("input",calculateTotals);
+
+});
+
+function calculateTotals(){
+
+  const adultRate = Number(document.getElementById("adultRate").value) || 0;
+  const childRate = Number(document.getElementById("childRate").value) || 0;
+  const infantRate = Number(document.getElementById("infantRate").value) || 0;
+
+  const adultPax = Number(document.getElementById("adultPax").value) || 0;
+  const childPax = Number(document.getElementById("childPax").value) || 0;
+  const infantPax = Number(document.getElementById("infantPax").value) || 0;
+
+  const adultTotal = adultRate * adultPax;
+  const childTotal = childRate * childPax;
+  const infantTotal = infantRate * infantPax;
+
+  const grand = adultTotal + childTotal + infantTotal;
+
+  document.getElementById("adultTotal").innerText =
+    "₹ " + adultTotal.toLocaleString("en-IN");
+
+  document.getElementById("childTotal").innerText =
+    "₹ " + childTotal.toLocaleString("en-IN");
+
+  document.getElementById("infantTotal").innerText =
+    "₹ " + infantTotal.toLocaleString("en-IN");
+
+  document.getElementById("grandTotal").innerText =
+    "₹ " + grand.toLocaleString("en-IN");
+
+}
+
 </script>
 
-</div>
+</body>
+</html>
