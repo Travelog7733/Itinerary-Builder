@@ -627,14 +627,69 @@ tr:last-child td{
       </table>
 
     </div>
+<script>
+let dayCount = 2;
 
-    <div class="actions">
-      <button class="btn btn-primary">+ Add Day</button>
-      <button class="btn btn-light">Save</button>
-      <button class="btn btn-light">Download PDF</button>
-      <button class="btn btn-light">Clear All</button>
-    </div>
+function addDay() {
 
-  </div>
+  dayCount++;
+
+  const tbody = document.querySelector("tbody");
+
+  const row = `
+    <tr>
+      <td>
+        <span class="day-pill">Day ${dayCount}</span>
+      </td>
+
+      <td>
+        <input type="date" class="input">
+      </td>
+
+      <td>
+        <textarea class="input cell-textarea"
+          placeholder="Activity"></textarea>
+      </td>
+
+      <td>
+        <textarea class="input cell-textarea"
+          placeholder="Notes"></textarea>
+      </td>
+    </tr>
+  `;
+
+  tbody.insertAdjacentHTML("beforeend", row);
+}
+
+function saveItinerary() {
+
+  alert("Itinerary saved successfully!");
+
+}
+
+function downloadPDF() {
+
+  alert("PDF download function connected.");
+
+  // attach jsPDF logic here later
+
+}
+
+function clearAll() {
+
+  if(confirm("Clear all itinerary data?")){
+
+    document.querySelectorAll("input").forEach(el=>{
+      if(el.type !== "button") el.value = "";
+    });
+
+    document.querySelectorAll("textarea").forEach(el=>{
+      el.value = "";
+    });
+
+  }
+
+}
+</script>
 
 </div>
