@@ -43,8 +43,6 @@ body{
   padding:20px;
 }
 
-/* ---------- HEADER ---------- */
-
 .top{
   background:#fff;
   border:1px solid var(--line);
@@ -157,8 +155,6 @@ textarea:focus,
   text-transform:uppercase;
 }
 
-/* ---------- CARD ---------- */
-
 .card{
   background:#fff;
   border:1px solid var(--line);
@@ -182,8 +178,6 @@ textarea:focus,
   color:var(--muted);
   margin-top:4px;
 }
-
-/* ---------- HOTEL / CRUISE ---------- */
 
 .extra-grid{
   display:grid;
@@ -225,8 +219,6 @@ textarea:focus,
   font-size:13px;
   font-weight:600;
 }
-
-/* ---------- PRICE ---------- */
 
 .rates-grid{
   display:grid;
@@ -290,8 +282,6 @@ textarea:focus,
   color:var(--brand-dark);
 }
 
-/* ---------- TABLE ---------- */
-
 .table-wrap{
   overflow:auto;
   border:1px solid var(--line);
@@ -334,8 +324,6 @@ td{
   resize:vertical;
 }
 
-/* ---------- OPTIONS ---------- */
-
 .option-group{
   display:flex;
   flex-wrap:wrap;
@@ -359,8 +347,6 @@ td{
   color:#fff;
   border-color:#1D9E75;
 }
-
-/* ---------- BUTTONS ---------- */
 
 .actions{
   display:flex;
@@ -388,8 +374,6 @@ td{
   background:#fff;
   border:1px solid var(--line);
 }
-
-/* ---------- SAVED SECTION ---------- */
 
 .saved-card{
   background:#fff;
@@ -428,6 +412,7 @@ td{
 .saved-actions{
   display:flex;
   gap:8px;
+  flex-wrap:wrap;
 }
 
 .small-btn{
@@ -449,7 +434,15 @@ td{
   color:#B42318;
 }
 
-/* ---------- MOBILE ---------- */
+.edit-btn{
+  background:#EEF4FF;
+  color:#0B3D91;
+}
+
+.download-btn{
+  background:#FFF4E5;
+  color:#B54708;
+}
 
 @media(max-width:960px){
 
@@ -470,8 +463,6 @@ td{
 <body>
 
 <div class="wrap" id="pdfContent">
-
-<!-- HEADER -->
 
 <div class="top">
 
@@ -498,12 +489,12 @@ Travel Itinerary
 
 <div class="field">
 <label class="label">Customer Name</label>
-<input class="input save-field" id="customerName">
+<input class="input" id="customerName">
 </div>
 
 <div class="field">
 <label class="label">Sales Person</label>
-<input class="input save-field" id="salesPerson">
+<input class="input" id="salesPerson">
 </div>
 
 </div>
@@ -514,19 +505,17 @@ Travel Itinerary
 
 <div class="strip-card">
 <div class="strip-title">Travel Date</div>
-<input type="date" class="date-input save-field" id="travelDate">
+<input type="date" class="date-input" id="travelDate">
 </div>
 
 <div class="strip-card">
 <div class="strip-title">Quote Expiry</div>
-<input type="date" class="date-input save-field" id="quoteExpiry">
+<input type="date" class="date-input" id="quoteExpiry">
 </div>
 
 </div>
 
 </div>
-
-<!-- HOTEL / CRUISE -->
 
 <div class="card">
 
@@ -573,8 +562,6 @@ Travel Itinerary
 </div>
 
 </div>
-
-<!-- PRICE -->
 
 <div class="card">
 
@@ -664,8 +651,6 @@ Travel Itinerary
 
 </div>
 
-<!-- ITINERARY -->
-
 <div class="card">
 
 <div class="section-head">
@@ -743,8 +728,6 @@ Daily travel schedule
 
 </div>
 
-<!-- BUTTONS -->
-
 <div class="wrap">
 
 <div class="actions">
@@ -769,8 +752,6 @@ Clear All
 
 </div>
 
-<!-- SAVED -->
-
 <div class="wrap">
 
 <div class="saved-card">
@@ -778,7 +759,7 @@ Clear All
 <div class="section-head">
 <div class="section-title">Saved Itineraries</div>
 <div class="section-sub">
-Saved automatically in browser memory
+Saved automatically in Firebase
 </div>
 </div>
 
@@ -792,8 +773,6 @@ Saved automatically in browser memory
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-<!-- FIREBASE -->
-
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
@@ -804,16 +783,18 @@ import {
   addDoc,
   getDocs,
   deleteDoc,
-  doc
+  doc,
+  getDoc,
+  updateDoc
 } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyALSpB73XK5DiR2Ut59NSkKmalPkUGb49c",
-  authDomain: "travelog-itinerary.firebaseapp.com",
-  projectId: "travelog-itinerary",
-  storageBucket: "travelog-itinerary.firebasestorage.app",
-  messagingSenderId: "33567258851",
-  appId: "1:33567258851:web:790e8f165a3d917bf7edd6"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_BUCKET",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -826,14 +807,15 @@ window.addDoc = addDoc;
 window.getDocs = getDocs;
 window.deleteDoc = deleteDoc;
 window.doc = doc;
+window.getDoc = getDoc;
+window.updateDoc = updateDoc;
 
 </script>
 
 <script>
 
 let dayCount = 1;
-
-/* ---------- ITIN NUMBER ---------- */
+let editingId = null;
 
 function getNextItineraryNumber(){
 
@@ -843,8 +825,7 @@ function getNextItineraryNumber(){
   current = current ? Number(current) : 1;
 
   const formatted =
-    "TG-" +
-    String(current).padStart(3,"0");
+    "TG-" + String(current).padStart(3,"0");
 
   document.getElementById(
     "itinNumber"
@@ -868,23 +849,17 @@ function increaseItineraryNumber(){
 
 }
 
-/* ---------- TOGGLE ---------- */
-
 function toggleBtn(btn){
   btn.classList.toggle("active");
 }
 
-/* ---------- ADD HOTEL ---------- */
-
 function addHotel(){
 
   const html = `
-
   <div class="hotel-item">
     <input class="input hotel-name" placeholder="Hotel Name">
     <input class="input hotel-destination" placeholder="Destination">
   </div>
-
   `;
 
   document
@@ -893,17 +868,13 @@ function addHotel(){
 
 }
 
-/* ---------- ADD CRUISE ---------- */
-
 function addCruise(){
 
   const html = `
-
   <div class="cruise-item">
     <input class="input cruise-name" placeholder="Cruise Name">
     <input class="input cruise-destination" placeholder="Destination">
   </div>
-
   `;
 
   document
@@ -912,14 +883,11 @@ function addCruise(){
 
 }
 
-/* ---------- ADD DAY ---------- */
-
 function addDay(){
 
   dayCount++;
 
   const row = `
-
   <tr>
 
   <td>
@@ -951,7 +919,6 @@ function addDay(){
   </td>
 
   </tr>
-
   `;
 
   document
@@ -960,60 +927,63 @@ function addDay(){
 
 }
 
-/* ---------- SAVE FIREBASE ---------- */
-
 async function saveItinerary(){
 
   const itinerary = {
 
     number:
-      document.getElementById(
-        "itinNumber"
-      ).innerText,
+      document.getElementById("itinNumber").innerText,
 
     customer:
-      document.getElementById(
-        "customerName"
-      ).value,
+      document.getElementById("customerName").value,
 
     sales:
-      document.getElementById(
-        "salesPerson"
-      ).value,
+      document.getElementById("salesPerson").value,
 
     travelDate:
-      document.getElementById(
-        "travelDate"
-      ).value,
+      document.getElementById("travelDate").value,
+
+    quoteExpiry:
+      document.getElementById("quoteExpiry").value,
 
     created:
       new Date().toLocaleString()
 
   };
 
-  await addDoc(
-    collection(db, "itineraries"),
-    itinerary
-  );
+  if(editingId){
+
+    await updateDoc(
+      doc(db, "itineraries", editingId),
+      itinerary
+    );
+
+    alert("Itinerary Updated!");
+
+    editingId = null;
+
+  }else{
+
+    await addDoc(
+      collection(db, "itineraries"),
+      itinerary
+    );
+
+    alert("Itinerary Saved!");
+
+    increaseItineraryNumber();
+    getNextItineraryNumber();
+
+  }
 
   renderSaved();
 
-  alert("Itinerary Saved!");
-
-  increaseItineraryNumber();
-
-  getNextItineraryNumber();
-
 }
-
-/* ---------- RENDER SAVED ---------- */
 
 async function renderSaved(){
 
   const container =
-    document.getElementById(
-      "savedList"
-    );
+    document.getElementById("savedList");
 
   const querySnapshot =
     await getDocs(
@@ -1058,11 +1028,27 @@ async function renderSaved(){
       <div class="saved-actions">
 
         <button
+          class="small-btn load-btn"
+          onclick="loadSaved('${docItem.id}')">
+          Load
+        </button>
+
+        <button
+          class="small-btn edit-btn"
+          onclick="editSaved('${docItem.id}')">
+          Edit
+        </button>
+
+        <button
+          class="small-btn download-btn"
+          onclick="downloadSaved('${docItem.id}')">
+          PDF
+        </button>
+
+        <button
           class="small-btn delete-btn"
           onclick="deleteSaved('${docItem.id}')">
-
           Delete
-
         </button>
 
       </div>
@@ -1075,7 +1061,60 @@ async function renderSaved(){
 
 }
 
-/* ---------- DELETE ---------- */
+async function loadSaved(id){
+
+  const ref =
+    doc(db, "itineraries", id);
+
+  const snap =
+    await getDoc(ref);
+
+  const item =
+    snap.data();
+
+  document.getElementById(
+    "itinNumber"
+  ).innerText = item.number || "";
+
+  document.getElementById(
+    "customerName"
+  ).value = item.customer || "";
+
+  document.getElementById(
+    "salesPerson"
+  ).value = item.sales || "";
+
+  document.getElementById(
+    "travelDate"
+  ).value = item.travelDate || "";
+
+  document.getElementById(
+    "quoteExpiry"
+  ).value = item.quoteExpiry || "";
+
+  alert("Itinerary Loaded!");
+
+}
+
+async function editSaved(id){
+
+  editingId = id;
+
+  await loadSaved(id);
+
+  alert("Editing Mode Enabled");
+
+}
+
+async function downloadSaved(id){
+
+  await loadSaved(id);
+
+  setTimeout(()=>{
+    downloadPDF();
+  },500);
+
+}
 
 async function deleteSaved(id){
 
@@ -1086,8 +1125,6 @@ async function deleteSaved(id){
   renderSaved();
 
 }
-
-/* ---------- CLEAR ---------- */
 
 function clearAll(){
 
@@ -1114,8 +1151,6 @@ function clearAll(){
   }
 
 }
-
-/* ---------- TOTAL ---------- */
 
 const fields = [
 "adultRate",
@@ -1197,16 +1232,12 @@ grand.toLocaleString("en-IN");
 
 }
 
-/* ---------- PDF ---------- */
-
 async function downloadPDF(){
 
   const { jsPDF } = window.jspdf;
 
   const element =
-    document.getElementById(
-      "pdfContent"
-    );
+    document.getElementById("pdfContent");
 
   const canvas =
     await html2canvas(element,{
@@ -1274,8 +1305,6 @@ async function downloadPDF(){
   );
 
 }
-
-/* ---------- INIT ---------- */
 
 window.addEventListener("load", async () => {
 
