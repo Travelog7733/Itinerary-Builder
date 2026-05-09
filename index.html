@@ -122,10 +122,12 @@ textarea,
   width:100%;
   border:1px solid var(--line);
   border-radius:12px;
-  padding:12px 14px;
+  padding:14px 14px 12px;
   font-size:14px;
   background:#fff;
   font-family:var(--font);
+  line-height:1.5;
+  color:#111;
 }
 
 .input:focus,
@@ -221,15 +223,22 @@ textarea:focus,
   justify-content:space-between;
   align-items:center;
   gap:10px;
-  margin-bottom:12px;
+  margin-bottom:14px;
+}
+
+.rate-row:last-child{
+  margin-bottom:0;
 }
 
 .small-input{
-  width:110px;
+  width:120px;
   text-align:right;
   border:1px solid var(--line);
   border-radius:10px;
-  padding:8px 10px;
+  padding:12px 12px 10px;
+  font-size:15px;
+  line-height:1.4;
+  font-family:var(--font);
 }
 
 .total{
@@ -237,7 +246,7 @@ textarea:focus,
   background:#F2FBF7;
   border:1px solid #CFECDD;
   border-radius:18px;
-  padding:18px;
+  padding:22px;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -249,9 +258,10 @@ textarea:focus,
 }
 
 .total-amt{
-  font-size:34px;
+  font-size:42px;
   font-weight:700;
   color:var(--brand-dark);
+  line-height:1.2;
 }
 
 /* ---------- TABLE ---------- */
@@ -293,7 +303,7 @@ td{
 }
 
 .cell-textarea{
-  min-height:80px;
+  min-height:90px;
   resize:vertical;
 }
 
@@ -332,6 +342,32 @@ td{
 
 .btn-light:hover{
   background:#F7FAF9;
+}
+
+/* ---------- PDF FIX ---------- */
+
+.pdf-mode input,
+.pdf-mode textarea{
+  border:none !important;
+  background:transparent !important;
+  padding:0 !important;
+  height:auto !important;
+  min-height:auto !important;
+  resize:none !important;
+  overflow:visible !important;
+  box-shadow:none !important;
+  outline:none !important;
+  font-size:14px !important;
+  line-height:1.6 !important;
+  color:#111 !important;
+}
+
+.pdf-mode textarea{
+  white-space:pre-wrap;
+}
+
+.pdf-mode .actions{
+  display:none !important;
 }
 
 /* ---------- MOBILE ---------- */
@@ -377,7 +413,7 @@ td{
 
 <body>
 
-<!-- PDF AREA ONLY -->
+<!-- PDF CONTENT -->
 
 <div class="wrap" id="pdfContent">
 
@@ -451,6 +487,8 @@ td{
 
     <div class="rates-grid">
 
+      <!-- RATES -->
+
       <div class="mini-card">
 
         <div class="mini-title">Rates</div>
@@ -472,6 +510,8 @@ td{
 
       </div>
 
+      <!-- PASSENGERS -->
+
       <div class="mini-card">
 
         <div class="mini-title">Passengers</div>
@@ -492,6 +532,8 @@ td{
         </div>
 
       </div>
+
+      <!-- SUMMARY -->
 
       <div class="mini-card">
 
@@ -614,7 +656,7 @@ td{
 
 </div>
 
-<!-- BUTTONS OUTSIDE PDF -->
+<!-- BUTTONS -->
 
 <div class="wrap">
 
@@ -649,6 +691,23 @@ td{
 <script>
 
 let dayCount = 2;
+
+/* ---------- AUTO TEXTAREA HEIGHT ---------- */
+
+function autoResizeTextarea(el){
+
+  el.style.height = "auto";
+  el.style.height = el.scrollHeight + "px";
+
+}
+
+document.addEventListener("input", function(e){
+
+  if(e.target.tagName === "TEXTAREA"){
+    autoResizeTextarea(e.target);
+  }
+
+});
 
 /* ---------- ADD DAY ---------- */
 
@@ -863,6 +922,58 @@ async function downloadPDF(){
       "pdfContent"
     );
 
+  /* convert inputs to plain text for perfect PDF */
+
+  element.classList.add("pdf-mode");
+
+  const fields =
+    element.querySelectorAll(
+      "input, textarea"
+    );
+
+  fields.forEach(field=>{
+
+    const value =
+      field.value ||
+      field.placeholder ||
+      "";
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "pdf-text";
+
+    div.style.minHeight =
+      field.offsetHeight + "px";
+
+    div.style.width = "100%";
+
+    div.style.whiteSpace =
+      "pre-wrap";
+
+    div.style.wordBreak =
+      "break-word";
+
+    div.style.fontSize =
+      "14px";
+
+    div.style.lineHeight =
+      "1.6";
+
+    div.innerText = value;
+
+    field.dataset.original =
+      field.outerHTML;
+
+    field.replaceWith(div);
+
+  });
+
+  await new Promise(resolve =>
+    setTimeout(resolve, 500)
+  );
+
   const canvas =
     await html2canvas(
       element,
@@ -938,6 +1049,8 @@ async function downloadPDF(){
   pdf.save(
     "travelog-itinerary.pdf"
   );
+
+  location.reload();
 
 }
 
