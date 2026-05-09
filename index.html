@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>Travelog Itinerary</title>
 
@@ -372,35 +372,12 @@ td{
 
 }
 
-/* ---------- PDF / PRINT ---------- */
-
-@media print{
-
-  body{
-    background:#fff;
-  }
-
-  .wrap{
-    padding:0;
-    max-width:100%;
-  }
-
-  .actions{
-    display:none;
-  }
-
-  .card,
-  .top{
-    box-shadow:none;
-    break-inside:avoid;
-  }
-
-}
-
 </style>
 </head>
 
 <body>
+
+<!-- PDF AREA ONLY -->
 
 <div class="wrap" id="pdfContent">
 
@@ -480,17 +457,17 @@ td{
 
         <div class="rate-row">
           <span>Adult</span>
-          <input class="small-input" id="adultRate" placeholder="₹ 0">
+          <input class="small-input" id="adultRate">
         </div>
 
         <div class="rate-row">
           <span>Child</span>
-          <input class="small-input" id="childRate" placeholder="₹ 0">
+          <input class="small-input" id="childRate">
         </div>
 
         <div class="rate-row">
           <span>Infant</span>
-          <input class="small-input" id="infantRate" placeholder="₹ 0">
+          <input class="small-input" id="infantRate">
         </div>
 
       </div>
@@ -501,17 +478,17 @@ td{
 
         <div class="rate-row">
           <span>Adults</span>
-          <input class="small-input" id="adultPax" placeholder="0">
+          <input class="small-input" id="adultPax">
         </div>
 
         <div class="rate-row">
           <span>Children</span>
-          <input class="small-input" id="childPax" placeholder="0">
+          <input class="small-input" id="childPax">
         </div>
 
         <div class="rate-row">
           <span>Infants</span>
-          <input class="small-input" id="infantPax" placeholder="0">
+          <input class="small-input" id="infantPax">
         </div>
 
       </div>
@@ -560,6 +537,7 @@ td{
   <div class="card">
 
     <div class="section-head">
+
       <div class="section-title">
         Day-wise Itinerary
       </div>
@@ -567,6 +545,7 @@ td{
       <div class="section-sub">
         Daily travel schedule
       </div>
+
     </div>
 
     <div class="table-wrap">
@@ -588,9 +567,7 @@ td{
           <tr>
 
             <td>
-              <span class="day-pill">
-                Day 1
-              </span>
+              <span class="day-pill">Day 1</span>
             </td>
 
             <td>
@@ -610,9 +587,7 @@ td{
           <tr>
 
             <td>
-              <span class="day-pill">
-                Day 2
-              </span>
+              <span class="day-pill">Day 2</span>
             </td>
 
             <td>
@@ -635,33 +610,37 @@ td{
 
     </div>
 
-    <!-- BUTTONS -->
+  </div>
 
-    <div class="actions">
+</div>
 
-      <button class="btn btn-primary" onclick="addDay()">
-        + Add Day
-      </button>
+<!-- BUTTONS OUTSIDE PDF -->
 
-      <button class="btn btn-light" onclick="saveItinerary()">
-        Save
-      </button>
+<div class="wrap">
 
-      <button class="btn btn-light" onclick="downloadPDF()">
-        Download PDF
-      </button>
+  <div class="actions">
 
-      <button class="btn btn-light" onclick="clearAll()">
-        Clear All
-      </button>
+    <button class="btn btn-primary" onclick="addDay()">
+      + Add Day
+    </button>
 
-    </div>
+    <button class="btn btn-light" onclick="saveItinerary()">
+      Save
+    </button>
+
+    <button class="btn btn-light" onclick="downloadPDF()">
+      Download PDF
+    </button>
+
+    <button class="btn btn-light" onclick="clearAll()">
+      Clear All
+    </button>
 
   </div>
 
 </div>
 
-<!-- PDF LIBRARIES -->
+<!-- LIBRARIES -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -678,7 +657,9 @@ function addDay(){
   dayCount++;
 
   const tbody =
-    document.getElementById("itineraryBody");
+    document.getElementById(
+      "itineraryBody"
+    );
 
   const row = `
 
@@ -765,7 +746,7 @@ function clearAll(){
 
 /* ---------- TOTAL ---------- */
 
-const calcFields = [
+const fields = [
 
   "adultRate",
   "childRate",
@@ -776,7 +757,7 @@ const calcFields = [
 
 ];
 
-calcFields.forEach(id=>{
+fields.forEach(id=>{
 
   document
     .getElementById(id)
@@ -871,7 +852,7 @@ function calculateTotals(){
 
 }
 
-/* ---------- PDF EXPORT ---------- */
+/* ---------- PDF ---------- */
 
 async function downloadPDF(){
 
