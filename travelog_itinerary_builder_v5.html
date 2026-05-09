@@ -1,0 +1,501 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font-sans);}
+.wrap{padding:1.5rem 1rem 3rem;max-width:100%;}
+.top-bar{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.2rem;flex-wrap:wrap;gap:12px;}
+.brand{font-size:22px;font-weight:500;color:var(--color-text-primary);letter-spacing:-0.5px;}
+.brand span{color:#1D9E75;}
+.itin-no{display:inline-flex;align-items:center;gap:6px;margin-top:4px;}
+.itin-badge{font-size:13px;font-weight:500;color:#085041;background:#E1F5EE;border-radius:5px;padding:3px 10px;letter-spacing:0.5px;border:0.5px solid #9FE1CB;}
+.itin-label{font-size:11px;color:var(--color-text-tertiary);}
+.meta-fields{display:flex;gap:12px;flex-wrap:wrap;}
+.meta-field{display:flex;flex-direction:column;gap:3px;}
+.meta-label{font-size:11px;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:0.5px;}
+.meta-input{font-size:13px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:5px 10px;background:var(--color-background-primary);color:var(--color-text-primary);min-width:140px;}
+.meta-input:focus{outline:none;border-color:#1D9E75;}
+.date-input{font-size:13px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:5px 10px;background:var(--color-background-primary);color:var(--color-text-primary);width:160px;}
+.date-input:focus{outline:none;border-color:#1D9E75;}
+
+.info-strip{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1.2rem;padding:10px 14px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);align-items:center;}
+.info-item{display:flex;align-items:center;gap:7px;}
+.info-item-label{font-size:11px;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:0.4px;white-space:nowrap;}
+.info-sep{width:0.5px;height:28px;background:var(--color-border-tertiary);}
+.expiry-warn{font-size:11px;color:#BA7517;background:#FAEEDA;border-radius:4px;padding:2px 8px;display:none;}
+.expiry-warn.show{display:inline;}
+
+h1.heading{font-size:18px;font-weight:500;color:var(--color-text-primary);margin-bottom:1rem;border-bottom:0.5px solid var(--color-border-tertiary);padding-bottom:0.75rem;}
+.section-heading{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.section-heading span{font-size:11px;font-weight:400;color:var(--color-text-tertiary);}
+.rates-block{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);padding:14px 16px;margin-bottom:1.5rem;}
+.rates-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:12px;}
+.rates-col-title{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;padding-bottom:5px;border-bottom:0.5px solid var(--color-border-tertiary);}
+.rate-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+.rate-tag{font-size:11px;color:var(--color-text-tertiary);min-width:46px;}
+.rate-sym{font-size:12px;color:var(--color-text-tertiary);}
+.rate-input{border:0.5px solid var(--color-border-tertiary);border-radius:5px;background:var(--color-background-primary);font-size:13px;font-weight:500;color:var(--color-text-primary);font-family:var(--font-sans);padding:4px 7px;width:90px;}
+.rate-input:focus{outline:none;border-color:#1D9E75;}
+.pax-input{border:0.5px solid var(--color-border-tertiary);border-radius:5px;background:var(--color-background-primary);font-size:13px;font-weight:500;color:var(--color-text-primary);font-family:var(--font-sans);padding:4px 7px;width:70px;text-align:center;}
+.pax-input:focus{outline:none;border-color:#1D9E75;}
+.addons-section{border-top:0.5px solid var(--color-border-tertiary);padding-top:10px;margin-top:2px;}
+.addons-title{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.addons-list{display:flex;flex-direction:column;gap:6px;}
+.addon-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.addon-name-input{border:0.5px solid var(--color-border-tertiary);border-radius:5px;background:var(--color-background-primary);font-size:12.5px;color:var(--color-text-primary);font-family:var(--font-sans);padding:4px 8px;width:160px;}
+.addon-name-input:focus{outline:none;border-color:#1D9E75;}
+.addon-amt-input{border:0.5px solid var(--color-border-tertiary);border-radius:5px;background:var(--color-background-primary);font-size:12.5px;color:var(--color-text-primary);font-family:var(--font-sans);padding:4px 8px;width:100px;}
+.addon-amt-input:focus{outline:none;border-color:#1D9E75;}
+.addon-qty-input{border:0.5px solid var(--color-border-tertiary);border-radius:5px;background:var(--color-background-primary);font-size:12.5px;color:var(--color-text-primary);font-family:var(--font-sans);padding:4px 6px;width:54px;text-align:center;}
+.addon-qty-input:focus{outline:none;border-color:#1D9E75;}
+.addon-sub{font-size:12px;color:#1D9E75;font-weight:500;min-width:70px;}
+.btn-tiny{background:none;border:0.5px solid var(--color-border-secondary);border-radius:4px;font-size:11px;padding:2px 6px;cursor:pointer;color:var(--color-text-secondary);}
+.btn-tiny:hover{background:var(--color-background-primary);}
+.btn-add-addon{display:inline-flex;align-items:center;gap:4px;background:none;border:0.5px dashed var(--color-border-secondary);border-radius:5px;font-size:12px;padding:4px 10px;cursor:pointer;color:var(--color-text-secondary);margin-top:4px;}
+.btn-add-addon:hover{background:var(--color-background-primary);}
+.total-bar{display:flex;align-items:center;justify-content:space-between;background:var(--color-background-primary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);padding:10px 14px;margin-top:12px;flex-wrap:wrap;gap:8px;}
+.total-label{font-size:12px;color:var(--color-text-secondary);}
+.total-break{font-size:11px;color:var(--color-text-tertiary);margin-top:2px;}
+.total-amt{font-size:20px;font-weight:500;color:#0F6E56;}
+.table-wrap{overflow-x:auto;margin-bottom:1rem;}
+table{width:100%;border-collapse:collapse;font-size:12.5px;table-layout:auto;}
+thead tr{background:var(--color-background-secondary);}
+th{padding:8px 10px;text-align:left;font-weight:500;font-size:11px;color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary);white-space:nowrap;}
+td{padding:6px 8px;border:0.5px solid var(--color-border-tertiary);vertical-align:top;}
+tr:hover td{background:var(--color-background-secondary);}
+.day-label{font-weight:500;color:#085041;font-size:12px;white-space:nowrap;}
+.cell-input{width:100%;border:none;background:transparent;font-size:12.5px;color:var(--color-text-primary);font-family:var(--font-sans);padding:2px;resize:none;}
+.cell-input:focus{outline:1px solid #1D9E75;border-radius:3px;}
+.cell-date{width:100%;border:none;background:transparent;font-size:12px;color:var(--color-text-primary);font-family:var(--font-sans);padding:2px;}
+.cell-date:focus{outline:1px solid #1D9E75;border-radius:3px;}
+.btn-add{display:inline-flex;align-items:center;gap:6px;background:#1D9E75;color:#fff;border:none;border-radius:var(--border-radius-md);padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;margin-bottom:0.5rem;}
+.btn-add:hover{background:#0F6E56;}
+.btn-remove{background:none;border:0.5px solid var(--color-border-tertiary);border-radius:4px;padding:2px 6px;cursor:pointer;font-size:11px;color:var(--color-text-tertiary);}
+.btn-remove:hover{color:#D85A30;border-color:#D85A30;}
+.bottom-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:1rem;align-items:center;}
+.btn-secondary{display:inline-flex;align-items:center;gap:6px;background:none;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:7px 14px;font-size:13px;cursor:pointer;color:var(--color-text-primary);}
+.btn-secondary:hover{background:var(--color-background-secondary);}
+.btn-save{display:inline-flex;align-items:center;gap:6px;background:#1D9E75;color:#fff;border:none;border-radius:var(--border-radius-md);padding:8px 18px;font-size:13px;font-weight:500;cursor:pointer;}
+.btn-save:hover{background:#0F6E56;}
+.btn-pdf{display:none;align-items:center;gap:6px;background:#185FA5;color:#fff;border:none;border-radius:var(--border-radius-md);padding:8px 18px;font-size:13px;font-weight:500;cursor:pointer;}
+.btn-pdf:hover{background:#0C447C;}
+.btn-pdf.visible{display:inline-flex;}
+.save-msg{font-size:12px;color:#1D9E75;display:none;}
+.save-msg.visible{display:inline;}
+</style>
+
+<div class="wrap">
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <div>
+      <div class="brand">travel<span>og</span></div>
+      <div class="itin-no">
+        <span class="itin-label">Itinerary No.</span>
+        <span class="itin-badge" id="itinNo">TG-001</span>
+      </div>
+      <h1 class="heading" style="margin-top:0.6rem;">Itinerary</h1>
+    </div>
+    <div class="meta-fields">
+      <div class="meta-field">
+        <span class="meta-label">Customer name</span>
+        <input class="meta-input" type="text" placeholder="Enter customer name" id="customerName" />
+      </div>
+      <div class="meta-field">
+        <span class="meta-label">Sales person</span>
+        <input class="meta-input" type="text" placeholder="Enter sales person" id="salesPerson" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Date strip -->
+  <div class="info-strip">
+    <div class="info-item">
+      <i class="ti ti-calendar" style="font-size:16px;color:#1D9E75;" aria-hidden="true"></i>
+      <span class="info-item-label">Travel Date</span>
+      <input class="date-input" type="date" id="travelDate" onchange="checkExpiry()" />
+    </div>
+    <div class="info-sep"></div>
+    <div class="info-item">
+      <i class="ti ti-calendar-due" style="font-size:16px;color:#BA7517;" aria-hidden="true"></i>
+      <span class="info-item-label">Quote Expiry</span>
+      <input class="date-input" type="date" id="expiryDate" onchange="checkExpiry()" />
+    </div>
+    <span class="expiry-warn" id="expiryWarn"><i class="ti ti-alert-triangle" style="font-size:13px;vertical-align:-1px;margin-right:3px;" aria-hidden="true"></i>Quote expires soon or has expired</span>
+  </div>
+
+  <!-- Price Quote -->
+  <div class="section-heading">
+    <i class="ti ti-receipt" style="font-size:16px;color:#1D9E75;" aria-hidden="true"></i>
+    Price Quote
+    <span>rates, pax & add-ons</span>
+  </div>
+  <div class="rates-block">
+    <div class="rates-grid">
+      <div>
+        <div class="rates-col-title">Rates</div>
+        <div class="rate-row"><span class="rate-tag">Adult</span><span class="rate-sym">₹</span><input class="rate-input" id="rateAdult" type="number" min="0" placeholder="0.00" oninput="calcTotal()" /></div>
+        <div class="rate-row"><span class="rate-tag">Child</span><span class="rate-sym">₹</span><input class="rate-input" id="rateChild" type="number" min="0" placeholder="0.00" oninput="calcTotal()" /></div>
+        <div class="rate-row"><span class="rate-tag">Infant</span><span class="rate-sym">₹</span><input class="rate-input" id="rateInfant" type="number" min="0" placeholder="0.00" oninput="calcTotal()" /></div>
+      </div>
+      <div>
+        <div class="rates-col-title">Pax</div>
+        <div class="rate-row"><span class="rate-tag">Adults</span><input class="pax-input" id="paxAdult" type="number" min="0" placeholder="0" oninput="calcTotal()" /></div>
+        <div class="rate-row"><span class="rate-tag">Children</span><input class="pax-input" id="paxChild" type="number" min="0" placeholder="0" oninput="calcTotal()" /></div>
+        <div class="rate-row"><span class="rate-tag">Infants</span><input class="pax-input" id="paxInfant" type="number" min="0" placeholder="0" oninput="calcTotal()" /></div>
+      </div>
+      <div>
+        <div class="rates-col-title">Sub-totals</div>
+        <div class="rate-row" style="margin-bottom:6px;"><span class="rate-tag" style="color:var(--color-text-tertiary);">Adults</span><span style="font-size:12px;color:#1D9E75;font-weight:500;" id="subAdult">₹ 0.00</span></div>
+        <div class="rate-row" style="margin-bottom:6px;"><span class="rate-tag" style="color:var(--color-text-tertiary);">Children</span><span style="font-size:12px;color:#1D9E75;font-weight:500;" id="subChild">₹ 0.00</span></div>
+        <div class="rate-row" style="margin-bottom:6px;"><span class="rate-tag" style="color:var(--color-text-tertiary);">Infants</span><span style="font-size:12px;color:#1D9E75;font-weight:500;" id="subInfant">₹ 0.00</span></div>
+      </div>
+    </div>
+
+    <div class="addons-section">
+      <div class="addons-title">Add-ons</div>
+      <div class="addons-list" id="addonsList"></div>
+      <button class="btn-add-addon" onclick="addAddon()"><i class="ti ti-plus" aria-hidden="true"></i> Add item</button>
+    </div>
+
+    <div class="total-bar">
+      <div>
+        <div class="total-label">Grand Total</div>
+        <div class="total-break" id="totalBreak"></div>
+      </div>
+      <div class="total-amt" id="totalAmt">₹ 0.00</div>
+    </div>
+  </div>
+
+  <!-- Day table -->
+  <div class="section-heading" style="margin-bottom:8px;">
+    <i class="ti ti-map-2" style="font-size:16px;color:#1D9E75;" aria-hidden="true"></i>
+    Day-wise Itinerary
+  </div>
+  <div class="table-wrap">
+    <table id="itineraryTable">
+      <thead>
+        <tr>
+          <th style="width:54px;">Day</th>
+          <th style="width:120px;">Date</th>
+          <th style="min-width:180px;"><input class="cell-input" id="headingLabel" value="Heading / Activity" style="font-weight:500;font-size:11px;color:var(--color-text-secondary);" title="Click to rename" /></th>
+          <th style="min-width:180px;">Notes</th>
+          <th style="width:38px;"></th>
+        </tr>
+      </thead>
+      <tbody id="dayRows"></tbody>
+    </table>
+  </div>
+
+  <button class="btn-add" onclick="addDay()"><i class="ti ti-plus" aria-hidden="true"></i> Add day</button>
+
+  <div class="bottom-bar">
+    <button class="btn-save" onclick="saveItinerary()"><i class="ti ti-device-floppy" aria-hidden="true"></i> Save</button>
+    <button class="btn-pdf" id="btnPdf" onclick="downloadPDF()"><i class="ti ti-file-type-pdf" aria-hidden="true"></i> Download PDF</button>
+    <span class="save-msg" id="saveMsg">Saved!</span>
+    <button class="btn-secondary" onclick="clearAll()"><i class="ti ti-trash" aria-hidden="true"></i> Clear all</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script>
+let days=[],dayCount=0,addons=[],addonCount=0,savedData=null,currentItinNo='';
+
+async function initItinNo(){
+  let seq=1;
+  try{const r=await window.storage.get('tg_itin_seq');seq=r?(parseInt(r.value)||1):1;}catch(e){seq=1;}
+  currentItinNo='TG-'+String(seq).padStart(3,'0');
+  document.getElementById('itinNo').textContent=currentItinNo;
+}
+async function bumpItinNo(){
+  let seq=1;
+  try{const r=await window.storage.get('tg_itin_seq');seq=r?(parseInt(r.value)||1):1;}catch(e){seq=1;}
+  seq++;
+  try{await window.storage.set('tg_itin_seq',String(seq));}catch(e){}
+  currentItinNo='TG-'+String(seq).padStart(3,'0');
+  document.getElementById('itinNo').textContent=currentItinNo;
+}
+initItinNo();
+
+function fmtDate(val){
+  if(!val) return '—';
+  const [y,m,d]=val.split('-');
+  return `${d}/${m}/${y}`;
+}
+
+function checkExpiry(){
+  const exp=document.getElementById('expiryDate').value;
+  const warn=document.getElementById('expiryWarn');
+  if(!exp){warn.classList.remove('show');return;}
+  const today=new Date(); today.setHours(0,0,0,0);
+  const expDate=new Date(exp);
+  const diff=Math.ceil((expDate-today)/(1000*60*60*24));
+  if(diff<=7) warn.classList.add('show');
+  else warn.classList.remove('show');
+}
+
+const fmtP=n=>'₹'+(parseFloat(n)||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmt=n=>'₹ '+(parseFloat(n)||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+function calcTotal(){
+  const ra=parseFloat(document.getElementById('rateAdult').value)||0;
+  const rc=parseFloat(document.getElementById('rateChild').value)||0;
+  const ri=parseFloat(document.getElementById('rateInfant').value)||0;
+  const pa=parseInt(document.getElementById('paxAdult').value)||0;
+  const pc=parseInt(document.getElementById('paxChild').value)||0;
+  const pi=parseInt(document.getElementById('paxInfant').value)||0;
+  const sa=ra*pa,sc=rc*pc,si=ri*pi;
+  document.getElementById('subAdult').textContent=fmt(sa);
+  document.getElementById('subChild').textContent=fmt(sc);
+  document.getElementById('subInfant').textContent=fmt(si);
+  const addonTotal=addons.reduce((s,a)=>s+((parseFloat(a.amount)||0)*(parseInt(a.qty)||1)),0);
+  const grand=sa+sc+si+addonTotal;
+  document.getElementById('totalAmt').textContent=fmt(grand);
+  let parts=[];
+  if(pa) parts.push(`${pa}A×₹${ra.toLocaleString('en-IN')}`);
+  if(pc) parts.push(`${pc}C×₹${rc.toLocaleString('en-IN')}`);
+  if(pi) parts.push(`${pi}I×₹${ri.toLocaleString('en-IN')}`);
+  if(addonTotal) parts.push(`Add-ons ₹${addonTotal.toLocaleString('en-IN')}`);
+  document.getElementById('totalBreak').textContent=parts.join(' + ');
+}
+
+function addAddon(){addonCount++;addons.push({id:addonCount,name:'',amount:'',qty:1});renderAddons();}
+function removeAddon(id){addons=addons.filter(a=>a.id!==id);renderAddons();calcTotal();}
+function updateAddonSub(id){const a=addons.find(x=>x.id===id);if(a){const el=document.getElementById('addon-sub-'+id);if(el)el.textContent=fmtP((parseFloat(a.amount)||0)*(parseInt(a.qty)||1));}}
+function renderAddons(){
+  const list=document.getElementById('addonsList');
+  list.innerHTML='';
+  addons.forEach((a,i)=>{
+    const row=document.createElement('div');
+    row.className='addon-row';
+    row.innerHTML=`
+      <input class="addon-name-input" type="text" placeholder="e.g. Extra baggage, Extra room" value="${a.name}" oninput="addons[${i}].name=this.value" />
+      <span class="rate-sym">₹</span>
+      <input class="addon-amt-input" type="number" min="0" placeholder="Amount" value="${a.amount}" oninput="addons[${i}].amount=this.value;updateAddonSub(${a.id});calcTotal()" />
+      <span style="font-size:11px;color:var(--color-text-tertiary);">×</span>
+      <input class="addon-qty-input" type="number" min="1" value="${a.qty}" oninput="addons[${i}].qty=this.value;updateAddonSub(${a.id});calcTotal()" />
+      <span class="addon-sub" id="addon-sub-${a.id}">${fmtP((parseFloat(a.amount)||0)*(parseInt(a.qty)||1))}</span>
+      <button class="btn-tiny" onclick="removeAddon(${a.id})">✕</button>`;
+    list.appendChild(row);
+  });
+}
+
+function addDay(){
+  dayCount++;
+  // auto-fill date: travel date + (dayCount-1) days
+  let autoDate='';
+  const td=document.getElementById('travelDate').value;
+  if(td){
+    const d=new Date(td);
+    d.setDate(d.getDate()+(dayCount-1));
+    autoDate=d.toISOString().split('T')[0];
+  }
+  days.push({id:dayCount,date:autoDate,heading:'',notes:''});
+  renderRows();
+}
+function removeDay(id){days=days.filter(d=>d.id!==id);renderRows();}
+function renderRows(){
+  const tbody=document.getElementById('dayRows');
+  tbody.innerHTML='';
+  days.forEach((day,di)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td><span class="day-label">Day ${di+1}</span></td>
+      <td><input class="cell-date" type="date" value="${day.date}" oninput="days[${di}].date=this.value" /></td>
+      <td><textarea class="cell-input" rows="2" placeholder="e.g. Arrival & City Tour" oninput="days[${di}].heading=this.value">${day.heading}</textarea></td>
+      <td><textarea class="cell-input" rows="2" placeholder="Add notes..." oninput="days[${di}].notes=this.value">${day.notes}</textarea></td>
+      <td><button class="btn-remove" onclick="removeDay(${day.id})" title="Remove day">✕</button></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// when travel date changes, re-fill day dates
+document.getElementById('travelDate').addEventListener('change', function(){
+  const td=this.value;
+  if(td){
+    days.forEach((day,i)=>{
+      const d=new Date(td);
+      d.setDate(d.getDate()+i);
+      day.date=d.toISOString().split('T')[0];
+    });
+    renderRows();
+  }
+  checkExpiry();
+});
+
+async function saveItinerary(){
+  savedData={
+    itinNo:currentItinNo,
+    customer:document.getElementById('customerName').value,
+    sales:document.getElementById('salesPerson').value,
+    travelDate:document.getElementById('travelDate').value,
+    expiryDate:document.getElementById('expiryDate').value,
+    rateAdult:document.getElementById('rateAdult').value,
+    rateChild:document.getElementById('rateChild').value,
+    rateInfant:document.getElementById('rateInfant').value,
+    paxAdult:document.getElementById('paxAdult').value,
+    paxChild:document.getElementById('paxChild').value,
+    paxInfant:document.getElementById('paxInfant').value,
+    colLabel:document.getElementById('headingLabel').value,
+    addons:JSON.parse(JSON.stringify(addons)),
+    days:JSON.parse(JSON.stringify(days))
+  };
+  document.getElementById('btnPdf').classList.add('visible');
+  const msg=document.getElementById('saveMsg');
+  msg.classList.add('visible');
+  setTimeout(()=>msg.classList.remove('visible'),2000);
+  await bumpItinNo();
+}
+
+function downloadPDF(){
+  if(!savedData) return;
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+  const pw=210,ml=14,mr=14;
+
+  // Header band
+  doc.setFillColor(13,110,86);
+  doc.rect(0,0,210,22,'F');
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(16);
+  doc.setTextColor(255,255,255);
+  doc.text('travelog',ml,14);
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(9);
+  doc.setTextColor(180,230,210);
+  doc.text('ITINERARY',ml+38,14);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(10);
+  doc.setTextColor(255,255,255);
+  doc.text(savedData.itinNo,pw-mr,14,{align:'right'});
+
+  let y=30;
+  // Customer & sales
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(9);
+  doc.setTextColor(100,100,100);
+  doc.text('Customer:',ml,y);
+  doc.setFont('helvetica','bold');
+  doc.setTextColor(30,30,30);
+  doc.text(savedData.customer||'—',ml+22,y);
+  doc.setFont('helvetica','normal');
+  doc.setTextColor(100,100,100);
+  doc.text('Sales Person:',130,y);
+  doc.setFont('helvetica','bold');
+  doc.setTextColor(30,30,30);
+  doc.text(savedData.sales||'—',156,y);
+
+  // Dates row
+  y+=7;
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(9);
+  doc.setTextColor(100,100,100);
+  doc.text('Travel Date:',ml,y);
+  doc.setFont('helvetica','bold');
+  doc.setTextColor(30,30,30);
+  doc.text(fmtDate(savedData.travelDate),ml+25,y);
+  doc.setFont('helvetica','normal');
+  doc.setTextColor(100,100,100);
+  doc.text('Quote Expiry:',130,y);
+  doc.setFont('helvetica','bold');
+  doc.setTextColor(savedData.expiryDate ? 186:30, savedData.expiryDate ? 117:30, savedData.expiryDate ? 11:30);
+  doc.text(fmtDate(savedData.expiryDate),158,y);
+
+  y+=8;
+  doc.setDrawColor(220,220,220);
+  doc.setLineWidth(0.3);
+  doc.line(ml,y,pw-mr,y);
+  y+=6;
+
+  // Price Quote heading
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(10);
+  doc.setTextColor(13,110,86);
+  doc.text('PRICE QUOTE',ml,y);
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(8);
+  doc.setTextColor(150,150,150);
+  doc.text('rates, pax & add-ons',ml+37,y);
+  y+=4;
+
+  const ra=parseFloat(savedData.rateAdult)||0;
+  const rc=parseFloat(savedData.rateChild)||0;
+  const ri=parseFloat(savedData.rateInfant)||0;
+  const pa=parseInt(savedData.paxAdult)||0;
+  const pc=parseInt(savedData.paxChild)||0;
+  const pi=parseInt(savedData.paxInfant)||0;
+
+  const tableBody=[
+    ['Adults',fmtP(ra),String(pa),fmtP(ra*pa)],
+    ['Children',fmtP(rc),String(pc),fmtP(rc*pc)],
+    ['Infants',fmtP(ri),String(pi),fmtP(ri*pi)],
+  ];
+  let addonTotal=0;
+  savedData.addons.forEach(a=>{
+    const sub=(parseFloat(a.amount)||0)*(parseInt(a.qty)||1);
+    addonTotal+=sub;
+    tableBody.push([a.name||'Add-on',fmtP(parseFloat(a.amount)||0),String(a.qty||1),fmtP(sub)]);
+  });
+  const grand=(ra*pa)+(rc*pc)+(ri*pi)+addonTotal;
+  tableBody.push([{content:'Grand Total',colSpan:3,styles:{halign:'right',fontStyle:'bold'}},{content:fmtP(grand),styles:{fontStyle:'bold',textColor:[13,110,86]}}]);
+
+  doc.autoTable({startY:y,margin:{left:ml,right:mr},
+    head:[['Item','Rate','Qty / Pax','Amount']],
+    body:tableBody,
+    styles:{fontSize:8.5,cellPadding:3,lineColor:[220,220,220],lineWidth:0.3},
+    headStyles:{fillColor:[231,247,241],textColor:[30,30,30],fontStyle:'bold',fontSize:8},
+    columnStyles:{0:{cellWidth:50},1:{cellWidth:40},2:{cellWidth:25,halign:'center'},3:{cellWidth:45,halign:'right'}},
+    theme:'grid'});
+
+  y=doc.lastAutoTable.finalY+8;
+
+  // Day itinerary heading
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(10);
+  doc.setTextColor(13,110,86);
+  doc.text('DAY-WISE ITINERARY',ml,y);
+  y+=4;
+
+  const colLabel=savedData.colLabel||'Heading / Activity';
+  const dayBody=savedData.days.map((day,di)=>[`Day ${di+1}`,fmtDate(day.date),day.heading||'',day.notes||'']);
+  doc.autoTable({startY:y,margin:{left:ml,right:mr},
+    head:[['Day','Date',colLabel,'Notes']],
+    body:dayBody,
+    styles:{fontSize:8.5,cellPadding:4,lineColor:[220,220,220],lineWidth:0.3,overflow:'linebreak'},
+    headStyles:{fillColor:[13,110,86],textColor:[255,255,255],fontStyle:'bold',fontSize:8},
+    alternateRowStyles:{fillColor:[245,251,248]},
+    columnStyles:{0:{cellWidth:16,halign:'center',fontStyle:'bold',textColor:[13,110,86]},1:{cellWidth:26},2:{cellWidth:74},3:{cellWidth:66}},
+    theme:'grid'});
+
+  const pageCount=doc.internal.getNumberOfPages();
+  for(let i=1;i<=pageCount;i++){
+    doc.setPage(i);
+    doc.setFillColor(245,251,248);
+    doc.rect(0,287,210,10,'F');
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(120,120,120);
+    doc.text(`travelog — ${savedData.itinNo}`,ml,293);
+    doc.text(`Page ${i} of ${pageCount}`,pw-mr,293,{align:'right'});
+  }
+  doc.save(`travelog_${savedData.itinNo}.pdf`);
+}
+
+function clearAll(){
+  if(confirm('Clear all data? This will start a fresh itinerary.')){
+    days=[];dayCount=0;addons=[];addonCount=0;savedData=null;
+    ['customerName','salesPerson'].forEach(id=>document.getElementById(id).value='');
+    ['travelDate','expiryDate'].forEach(id=>document.getElementById(id).value='');
+    ['rateAdult','rateChild','rateInfant','paxAdult','paxChild','paxInfant'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('totalAmt').textContent='₹ 0.00';
+    document.getElementById('totalBreak').textContent='';
+    ['subAdult','subChild','subInfant'].forEach(id=>document.getElementById(id).textContent='₹ 0.00');
+    document.getElementById('addonsList').innerHTML='';
+    document.getElementById('btnPdf').classList.remove('visible');
+    document.getElementById('expiryWarn').classList.remove('show');
+    renderRows();
+  }
+}
+
+addDay(); addDay(); addDay();
+</script>
