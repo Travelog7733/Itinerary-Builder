@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -793,6 +792,43 @@ Saved automatically in browser memory
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyALSpB73XK5DiR2Ut59NSkKmalPkUGb49c",
+  authDomain: "travelog-itinerary.firebaseapp.com",
+  projectId: "travelog-itinerary",
+  storageBucket: "travelog-itinerary.firebasestorage.app",
+  messagingSenderId: "33567258851",
+  appId: "1:33567258851:web:790e8f165a3d917bf7edd6"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+window.db = db;
+window.collection = collection;
+window.addDoc = addDoc;
+window.getDocs = getDocs;
+window.deleteDoc = deleteDoc;
+window.doc = doc;
+
+</script>
+
 <script>
 
 let dayCount = 1;
@@ -924,9 +960,9 @@ function addDay(){
 
 }
 
-/* ---------- SAVE MEMORY ---------- */
+/* ---------- SAVE FIREBASE ---------- */
 
-function saveItinerary(){
+async function saveItinerary(){
 
   const itinerary = {
 
@@ -955,18 +991,9 @@ function saveItinerary(){
 
   };
 
-  let saved =
-    JSON.parse(
-      localStorage.getItem(
-        "travelog_saved"
-      ) || "[]"
-    );
-
-  saved.unshift(itinerary);
-
-  localStorage.setItem(
-    "travelog_saved",
-    JSON.stringify(saved)
+  await addDoc(
+    collection(db, "itineraries"),
+    itinerary
   );
 
   renderSaved();
@@ -981,21 +1008,19 @@ function saveItinerary(){
 
 /* ---------- RENDER SAVED ---------- */
 
-function renderSaved(){
+async function renderSaved(){
 
   const container =
     document.getElementById(
       "savedList"
     );
 
-  let saved =
-    JSON.parse(
-      localStorage.getItem(
-        "travelog_saved"
-      ) || "[]"
+  const querySnapshot =
+    await getDocs(
+      collection(db, "itineraries")
     );
 
-  if(saved.length === 0){
+  if(querySnapshot.empty){
 
     container.innerHTML =
       "<p>No saved itineraries yet.</p>";
@@ -1006,7 +1031,9 @@ function renderSaved(){
 
   container.innerHTML = "";
 
-  saved.forEach((item,index)=>{
+  querySnapshot.forEach((docItem)=>{
+
+    const item = docItem.data();
 
     container.innerHTML += `
 
@@ -1032,7 +1059,7 @@ function renderSaved(){
 
         <button
           class="small-btn delete-btn"
-          onclick="deleteSaved(${index})">
+          onclick="deleteSaved('${docItem.id}')">
 
           Delete
 
@@ -1050,20 +1077,10 @@ function renderSaved(){
 
 /* ---------- DELETE ---------- */
 
-function deleteSaved(index){
+async function deleteSaved(id){
 
-  let saved =
-    JSON.parse(
-      localStorage.getItem(
-        "travelog_saved"
-      ) || "[]"
-    );
-
-  saved.splice(index,1);
-
-  localStorage.setItem(
-    "travelog_saved",
-    JSON.stringify(saved)
+  await deleteDoc(
+    doc(db, "itineraries", id)
   );
 
   renderSaved();
