@@ -1277,8 +1277,13 @@ async function downloadPDF(){
 
 /* ---------- INIT ---------- */
 
-getNextItineraryNumber();
-renderSaved();
+window.addEventListener("load", async () => {
+
+  getNextItineraryNumber();
+
+  await renderSaved();
+
+});
 
 </script>
 
