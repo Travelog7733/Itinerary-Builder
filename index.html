@@ -160,16 +160,6 @@ textarea:focus,
   text-transform:uppercase;
 }
 
-.warn{
-  margin-top:10px;
-  display:inline-block;
-  background:#FFF3DA;
-  color:#9B670C;
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:12px;
-}
-
 /* ---------- CARD ---------- */
 
 .card{
@@ -194,6 +184,15 @@ textarea:focus,
   font-size:13px;
   color:var(--muted);
   margin-top:4px;
+}
+
+/* ---------- HOTEL / CRUISE ---------- */
+
+.extra-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-bottom:18px;
 }
 
 /* ---------- PRICE ---------- */
@@ -226,10 +225,6 @@ textarea:focus,
   margin-bottom:14px;
 }
 
-.rate-row:last-child{
-  margin-bottom:0;
-}
-
 .small-input{
   width:120px;
   text-align:right;
@@ -239,6 +234,9 @@ textarea:focus,
   font-size:15px;
   line-height:1.4;
   font-family:var(--font);
+
+  color:#0B3D91;
+  font-weight:700;
 }
 
 .total{
@@ -261,7 +259,6 @@ textarea:focus,
   font-size:42px;
   font-weight:700;
   color:var(--brand-dark);
-  line-height:1.2;
 }
 
 /* ---------- TABLE ---------- */
@@ -307,6 +304,32 @@ td{
   resize:vertical;
 }
 
+/* ---------- MEAL BUTTONS ---------- */
+
+.option-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+
+.option-btn{
+  border:1px solid #CFECDD;
+  background:#fff;
+  color:#0B664F;
+  border-radius:10px;
+  padding:7px 12px;
+  font-size:12px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.option-btn.active{
+  background:#1D9E75;
+  color:#fff;
+  border-color:#1D9E75;
+}
+
 /* ---------- BUTTONS ---------- */
 
 .actions{
@@ -346,64 +369,25 @@ td{
 
 /* ---------- PDF FIX ---------- */
 
+.pdf-mode .actions{
+  display:none !important;
+}
+
 .pdf-mode input,
 .pdf-mode textarea{
   border:none !important;
   background:transparent !important;
-  padding:0 !important;
-  height:auto !important;
-  min-height:auto !important;
-  resize:none !important;
-  overflow:visible !important;
-  box-shadow:none !important;
-  outline:none !important;
-  font-size:14px !important;
-  line-height:1.6 !important;
-  color:#111 !important;
-}
-
-.pdf-mode textarea{
-  white-space:pre-wrap;
-}
-
-.pdf-mode .actions{
-  display:none !important;
 }
 
 /* ---------- MOBILE ---------- */
 
 @media(max-width:960px){
 
-  .top-grid{
-    grid-template-columns:1fr;
-  }
-
-  .meta-grid{
-    grid-template-columns:1fr;
-  }
-
-  .rates-grid{
-    grid-template-columns:1fr;
-  }
-
+  .top-grid,
+  .extra-grid,
+  .rates-grid,
   .strip{
     grid-template-columns:1fr;
-  }
-
-}
-
-@media(max-width:640px){
-
-  .wrap{
-    padding:14px;
-  }
-
-  .actions{
-    flex-direction:column;
-  }
-
-  .btn{
-    width:100%;
   }
 
 }
@@ -413,246 +397,251 @@ td{
 
 <body>
 
-<!-- PDF CONTENT -->
-
 <div class="wrap" id="pdfContent">
 
-  <!-- HEADER -->
+<!-- HEADER -->
 
-  <div class="top">
+<div class="top">
 
-    <div class="top-grid">
+<div class="top-grid">
 
-      <div>
+<div>
 
-        <div class="brand">
-          travel<span>og</span>
-        </div>
+<div class="brand">
+travel<span>og</span>
+</div>
 
-        <div class="itin-row">
-          <span class="itin-label">Itinerary No.</span>
-          <span class="itin-badge">TG-001</span>
-        </div>
+<div class="itin-row">
+<span class="itin-label">Itinerary No.</span>
+<span class="itin-badge">TG-001</span>
+</div>
 
-        <div class="page-title">
-          Travel Itinerary
-        </div>
+<div class="page-title">
+Travel Itinerary
+</div>
 
-      </div>
+</div>
 
-      <div class="meta-grid">
+<div class="meta-grid">
 
-        <div class="field">
-          <label class="label">Customer Name</label>
-          <input class="input" placeholder="Enter customer name">
-        </div>
+<div class="field">
+<label class="label">Customer Name</label>
+<input class="input" placeholder="Enter customer name">
+</div>
 
-        <div class="field">
-          <label class="label">Sales Person</label>
-          <input class="input" placeholder="Enter sales person">
-        </div>
+<div class="field">
+<label class="label">Sales Person</label>
+<input class="input" placeholder="Enter sales person">
+</div>
 
-      </div>
+</div>
 
-    </div>
+</div>
 
-    <div class="strip">
+<div class="strip">
 
-      <div class="strip-card">
-        <div class="strip-title">Travel Date</div>
-        <input type="date" class="date-input">
-      </div>
+<div class="strip-card">
+<div class="strip-title">Travel Date</div>
+<input type="date" class="date-input">
+</div>
 
-      <div class="strip-card">
-        <div class="strip-title">Quote Expiry</div>
-        <input type="date" class="date-input">
+<div class="strip-card">
+<div class="strip-title">Quote Expiry</div>
+<input type="date" class="date-input">
+</div>
 
-        <div class="warn">
-          Quote expires soon
-        </div>
-      </div>
+</div>
 
-    </div>
+</div>
 
-  </div>
+<!-- HOTEL / CRUISE -->
 
-  <!-- PRICE -->
+<div class="card">
 
-  <div class="card">
+<div class="extra-grid">
 
-    <div class="section-head">
-      <div class="section-title">Price Quote</div>
-      <div class="section-sub">Rates & passenger summary</div>
-    </div>
+<div class="field">
+<label class="label">Hotel Name</label>
+<input class="input" placeholder="Enter hotel name">
+</div>
 
-    <div class="rates-grid">
+<div class="field">
+<label class="label">Cruise Name</label>
+<input class="input" placeholder="Enter cruise name">
+</div>
 
-      <!-- RATES -->
+</div>
 
-      <div class="mini-card">
+</div>
 
-        <div class="mini-title">Rates</div>
+<!-- PRICE -->
 
-        <div class="rate-row">
-          <span>Adult</span>
-          <input class="small-input" id="adultRate">
-        </div>
+<div class="card">
 
-        <div class="rate-row">
-          <span>Child</span>
-          <input class="small-input" id="childRate">
-        </div>
+<div class="section-head">
+<div class="section-title">Price Quote</div>
+<div class="section-sub">Rates & passenger summary</div>
+</div>
 
-        <div class="rate-row">
-          <span>Infant</span>
-          <input class="small-input" id="infantRate">
-        </div>
+<div class="rates-grid">
 
-      </div>
+<div class="mini-card">
 
-      <!-- PASSENGERS -->
+<div class="mini-title">Rates</div>
 
-      <div class="mini-card">
+<div class="rate-row">
+<span>Adult</span>
+<input class="small-input" id="adultRate" placeholder="₹ 0">
+</div>
 
-        <div class="mini-title">Passengers</div>
+<div class="rate-row">
+<span>Child</span>
+<input class="small-input" id="childRate" placeholder="₹ 0">
+</div>
 
-        <div class="rate-row">
-          <span>Adults</span>
-          <input class="small-input" id="adultPax">
-        </div>
+<div class="rate-row">
+<span>Infant</span>
+<input class="small-input" id="infantRate" placeholder="₹ 0">
+</div>
 
-        <div class="rate-row">
-          <span>Children</span>
-          <input class="small-input" id="childPax">
-        </div>
+</div>
 
-        <div class="rate-row">
-          <span>Infants</span>
-          <input class="small-input" id="infantPax">
-        </div>
+<div class="mini-card">
 
-      </div>
+<div class="mini-title">Passengers</div>
 
-      <!-- SUMMARY -->
+<div class="rate-row">
+<span>Adults</span>
+<input class="small-input" id="adultPax" placeholder="0">
+</div>
 
-      <div class="mini-card">
+<div class="rate-row">
+<span>Children</span>
+<input class="small-input" id="childPax" placeholder="0">
+</div>
 
-        <div class="mini-title">Summary</div>
+<div class="rate-row">
+<span>Infants</span>
+<input class="small-input" id="infantPax" placeholder="0">
+</div>
 
-        <div class="rate-row">
-          <span>Adults</span>
-          <strong id="adultTotal">₹ 0</strong>
-        </div>
+</div>
 
-        <div class="rate-row">
-          <span>Children</span>
-          <strong id="childTotal">₹ 0</strong>
-        </div>
+<div class="mini-card">
 
-        <div class="rate-row">
-          <span>Infants</span>
-          <strong id="infantTotal">₹ 0</strong>
-        </div>
+<div class="mini-title">Summary</div>
 
-      </div>
+<div class="rate-row">
+<span>Adults</span>
+<strong id="adultTotal">₹ 0</strong>
+</div>
 
-    </div>
+<div class="rate-row">
+<span>Children</span>
+<strong id="childTotal">₹ 0</strong>
+</div>
 
-    <div class="total">
+<div class="rate-row">
+<span>Infants</span>
+<strong id="infantTotal">₹ 0</strong>
+</div>
 
-      <div>
-        <div class="total-label">
-          Grand Total
-        </div>
-      </div>
+</div>
 
-      <div class="total-amt" id="grandTotal">
-        ₹ 0
-      </div>
+</div>
 
-    </div>
+<div class="total">
 
-  </div>
+<div>
+<div class="total-label">Grand Total</div>
+</div>
 
-  <!-- ITINERARY -->
+<div class="total-amt" id="grandTotal">
+₹ 0
+</div>
 
-  <div class="card">
+</div>
 
-    <div class="section-head">
+</div>
 
-      <div class="section-title">
-        Day-wise Itinerary
-      </div>
+<!-- ITINERARY -->
 
-      <div class="section-sub">
-        Daily travel schedule
-      </div>
+<div class="card">
 
-    </div>
+<div class="section-head">
 
-    <div class="table-wrap">
+<div class="section-title">
+Day-wise Itinerary
+</div>
 
-      <table>
+<div class="section-sub">
+Daily travel schedule
+</div>
 
-        <thead>
+</div>
 
-          <tr>
-            <th style="width:140px;">Day</th>
-            <th>Activity</th>
-            <th>Notes</th>
-          </tr>
+<div class="table-wrap">
 
-        </thead>
+<table>
 
-        <tbody id="itineraryBody">
+<thead>
 
-          <tr>
+<tr>
+<th style="width:140px;">Day</th>
+<th>Activity</th>
+<th>Meals / Transfer</th>
+<th>Notes</th>
+</tr>
 
-            <td>
-              <span class="day-pill">Day 1</span>
-            </td>
+</thead>
 
-            <td>
-              <textarea
-                class="input cell-textarea"
-                placeholder="Arrival & City Tour"></textarea>
-            </td>
+<tbody id="itineraryBody">
 
-            <td>
-              <textarea
-                class="input cell-textarea"
-                placeholder="Additional notes"></textarea>
-            </td>
+<tr>
 
-          </tr>
+<td>
+<span class="day-pill">Day 1</span>
+</td>
 
-          <tr>
+<td>
+<textarea class="input cell-textarea"
+placeholder="Arrival & City Tour"></textarea>
+</td>
 
-            <td>
-              <span class="day-pill">Day 2</span>
-            </td>
+<td>
 
-            <td>
-              <textarea
-                class="input cell-textarea"
-                placeholder="Beach visit"></textarea>
-            </td>
+<div class="option-group">
 
-            <td>
-              <textarea
-                class="input cell-textarea"
-                placeholder="Additional notes"></textarea>
-            </td>
+<button class="option-btn" onclick="toggleBtn(this)">B</button>
+<button class="option-btn" onclick="toggleBtn(this)">L</button>
+<button class="option-btn" onclick="toggleBtn(this)">D</button>
+<button class="option-btn" onclick="toggleBtn(this)">BR</button>
 
-          </tr>
+</div>
 
-        </tbody>
+<div class="option-group">
 
-      </table>
+<button class="option-btn" onclick="toggleBtn(this)">Shared</button>
+<button class="option-btn" onclick="toggleBtn(this)">Private</button>
 
-    </div>
+</div>
 
-  </div>
+</td>
+
+<td>
+<textarea class="input cell-textarea"
+placeholder="Additional notes"></textarea>
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
 
 </div>
 
@@ -660,25 +649,25 @@ td{
 
 <div class="wrap">
 
-  <div class="actions">
+<div class="actions">
 
-    <button class="btn btn-primary" onclick="addDay()">
-      + Add Day
-    </button>
+<button class="btn btn-primary" onclick="addDay()">
++ Add Day
+</button>
 
-    <button class="btn btn-light" onclick="saveItinerary()">
-      Save
-    </button>
+<button class="btn btn-light" onclick="saveItinerary()">
+Save
+</button>
 
-    <button class="btn btn-light" onclick="downloadPDF()">
-      Download PDF
-    </button>
+<button class="btn btn-light" onclick="downloadPDF()">
+Download PDF
+</button>
 
-    <button class="btn btn-light" onclick="clearAll()">
-      Clear All
-    </button>
+<button class="btn btn-light" onclick="clearAll()">
+Clear All
+</button>
 
-  </div>
+</div>
 
 </div>
 
@@ -690,224 +679,146 @@ td{
 
 <script>
 
-let dayCount = 2;
+let dayCount = 1;
 
-/* ---------- AUTO TEXTAREA HEIGHT ---------- */
+/* ---------- TOGGLE BUTTON ---------- */
 
-function autoResizeTextarea(el){
-
-  el.style.height = "auto";
-  el.style.height = el.scrollHeight + "px";
-
+function toggleBtn(btn){
+  btn.classList.toggle("active");
 }
-
-document.addEventListener("input", function(e){
-
-  if(e.target.tagName === "TEXTAREA"){
-    autoResizeTextarea(e.target);
-  }
-
-});
 
 /* ---------- ADD DAY ---------- */
 
 function addDay(){
 
-  dayCount++;
+dayCount++;
 
-  const tbody =
-    document.getElementById(
-      "itineraryBody"
-    );
+const row = `
 
-  const row = `
+<tr>
 
-    <tr>
+<td>
+<span class="day-pill">Day ${dayCount}</span>
+</td>
 
-      <td>
-        <span class="day-pill">
-          Day ${dayCount}
-        </span>
-      </td>
+<td>
+<textarea class="input cell-textarea"
+placeholder="Activity"></textarea>
+</td>
 
-      <td>
-        <textarea
-          class="input cell-textarea"
-          placeholder="Activity"></textarea>
-      </td>
+<td>
 
-      <td>
-        <textarea
-          class="input cell-textarea"
-          placeholder="Notes"></textarea>
-      </td>
+<div class="option-group">
 
-    </tr>
+<button class="option-btn" onclick="toggleBtn(this)">B</button>
+<button class="option-btn" onclick="toggleBtn(this)">L</button>
+<button class="option-btn" onclick="toggleBtn(this)">D</button>
+<button class="option-btn" onclick="toggleBtn(this)">BR</button>
 
-  `;
+</div>
 
-  tbody.insertAdjacentHTML(
-    "beforeend",
-    row
-  );
+<div class="option-group">
+
+<button class="option-btn" onclick="toggleBtn(this)">Shared</button>
+<button class="option-btn" onclick="toggleBtn(this)">Private</button>
+
+</div>
+
+</td>
+
+<td>
+<textarea class="input cell-textarea"
+placeholder="Additional notes"></textarea>
+</td>
+
+</tr>
+
+`;
+
+document
+.getElementById("itineraryBody")
+.insertAdjacentHTML("beforeend", row);
 
 }
 
 /* ---------- SAVE ---------- */
 
 function saveItinerary(){
-
-  alert(
-    "Itinerary saved successfully!"
-  );
-
+alert("Itinerary saved successfully!");
 }
 
 /* ---------- CLEAR ---------- */
 
 function clearAll(){
 
-  if(confirm(
-    "Clear all itinerary data?"
-  )){
+if(confirm("Clear all itinerary data?")){
 
-    document
-      .querySelectorAll("input")
-      .forEach(el=>{
-        el.value="";
-      });
+document.querySelectorAll("input").forEach(el=>{
+el.value="";
+});
 
-    document
-      .querySelectorAll("textarea")
-      .forEach(el=>{
-        el.value="";
-      });
+document.querySelectorAll("textarea").forEach(el=>{
+el.value="";
+});
 
-    document.getElementById(
-      "adultTotal"
-    ).innerText="₹ 0";
-
-    document.getElementById(
-      "childTotal"
-    ).innerText="₹ 0";
-
-    document.getElementById(
-      "infantTotal"
-    ).innerText="₹ 0";
-
-    document.getElementById(
-      "grandTotal"
-    ).innerText="₹ 0";
-
-  }
+}
 
 }
 
 /* ---------- TOTAL ---------- */
 
 const fields = [
-
-  "adultRate",
-  "childRate",
-  "infantRate",
-  "adultPax",
-  "childPax",
-  "infantPax"
-
+"adultRate",
+"childRate",
+"infantRate",
+"adultPax",
+"childPax",
+"infantPax"
 ];
 
 fields.forEach(id=>{
-
-  document
-    .getElementById(id)
-    .addEventListener(
-      "input",
-      calculateTotals
-    );
-
+document.getElementById(id)
+.addEventListener("input", calculateTotals);
 });
 
 function calculateTotals(){
 
-  const adultRate =
-    Number(
-      document.getElementById(
-        "adultRate"
-      ).value
-    ) || 0;
+const adultRate =
+Number(document.getElementById("adultRate").value) || 0;
 
-  const childRate =
-    Number(
-      document.getElementById(
-        "childRate"
-      ).value
-    ) || 0;
+const childRate =
+Number(document.getElementById("childRate").value) || 0;
 
-  const infantRate =
-    Number(
-      document.getElementById(
-        "infantRate"
-      ).value
-    ) || 0;
+const infantRate =
+Number(document.getElementById("infantRate").value) || 0;
 
-  const adultPax =
-    Number(
-      document.getElementById(
-        "adultPax"
-      ).value
-    ) || 0;
+const adultPax =
+Number(document.getElementById("adultPax").value) || 0;
 
-  const childPax =
-    Number(
-      document.getElementById(
-        "childPax"
-      ).value
-    ) || 0;
+const childPax =
+Number(document.getElementById("childPax").value) || 0;
 
-  const infantPax =
-    Number(
-      document.getElementById(
-        "infantPax"
-      ).value
-    ) || 0;
+const infantPax =
+Number(document.getElementById("infantPax").value) || 0;
 
-  const adultTotal =
-    adultRate * adultPax;
+const adultTotal = adultRate * adultPax;
+const childTotal = childRate * childPax;
+const infantTotal = infantRate * infantPax;
 
-  const childTotal =
-    childRate * childPax;
+const grand =
+adultTotal + childTotal + infantTotal;
 
-  const infantTotal =
-    infantRate * infantPax;
+document.getElementById("adultTotal").innerText =
+"₹ " + adultTotal.toLocaleString("en-IN");
 
-  const grand =
-    adultTotal +
-    childTotal +
-    infantTotal;
+document.getElementById("childTotal").innerText =
+"₹ " + childTotal.toLocaleString("en-IN");
 
-  document.getElementById(
-    "adultTotal"
-  ).innerText =
-    "₹ " +
-    adultTotal.toLocaleString("en-IN");
+document.getElementById("infantTotal").innerText =
+"₹ " + infantTotal.toLocaleString("en-IN");
 
-  document.getElementById(
-    "childTotal"
-  ).innerText =
-    "₹ " +
-    childTotal.toLocaleString("en-IN");
-
-  document.getElementById(
-    "infantTotal"
-  ).innerText =
-    "₹ " +
-    infantTotal.toLocaleString("en-IN");
-
-  document.getElementById(
-    "grandTotal"
-  ).innerText =
-    "₹ " +
-    grand.toLocaleString("en-IN");
+document.getElementById("grandTotal").innerText =
+"₹ " + grand.toLocaleString("en-IN");
 
 }
 
@@ -915,142 +826,71 @@ function calculateTotals(){
 
 async function downloadPDF(){
 
-  const { jsPDF } = window.jspdf;
+const { jsPDF } = window.jspdf;
 
-  const element =
-    document.getElementById(
-      "pdfContent"
-    );
+const element =
+document.getElementById("pdfContent");
 
-  /* convert inputs to plain text for perfect PDF */
+const canvas =
+await html2canvas(element,{
+scale:2,
+useCORS:true,
+backgroundColor:"#F4F7F6"
+});
 
-  element.classList.add("pdf-mode");
+const imgData =
+canvas.toDataURL("image/png");
 
-  const fields =
-    element.querySelectorAll(
-      "input, textarea"
-    );
+const pdf =
+new jsPDF("p","mm","a4");
 
-  fields.forEach(field=>{
+const pdfWidth =
+pdf.internal.pageSize.getWidth();
 
-    const value =
-      field.value ||
-      field.placeholder ||
-      "";
+const pdfHeight =
+pdf.internal.pageSize.getHeight();
 
-    const div =
-      document.createElement("div");
+const imgWidth = pdfWidth;
 
-    div.className =
-      "pdf-text";
+const imgHeight =
+(canvas.height * imgWidth) /
+canvas.width;
 
-    div.style.minHeight =
-      field.offsetHeight + "px";
+let heightLeft = imgHeight;
+let position = 0;
 
-    div.style.width = "100%";
+pdf.addImage(
+imgData,
+"PNG",
+0,
+position,
+imgWidth,
+imgHeight
+);
 
-    div.style.whiteSpace =
-      "pre-wrap";
+heightLeft -= pdfHeight;
 
-    div.style.wordBreak =
-      "break-word";
+while(heightLeft > 0){
 
-    div.style.fontSize =
-      "14px";
+position =
+heightLeft - imgHeight;
 
-    div.style.lineHeight =
-      "1.6";
+pdf.addPage();
 
-    div.innerText = value;
+pdf.addImage(
+imgData,
+"PNG",
+0,
+position,
+imgWidth,
+imgHeight
+);
 
-    field.dataset.original =
-      field.outerHTML;
+heightLeft -= pdfHeight;
 
-    field.replaceWith(div);
+}
 
-  });
-
-  await new Promise(resolve =>
-    setTimeout(resolve, 500)
-  );
-
-  const canvas =
-    await html2canvas(
-      element,
-      {
-        scale:2,
-        useCORS:true,
-        backgroundColor:"#F4F7F6"
-      }
-    );
-
-  const imgData =
-    canvas.toDataURL(
-      "image/png"
-    );
-
-  const pdf =
-    new jsPDF(
-      "p",
-      "mm",
-      "a4"
-    );
-
-  const pdfWidth =
-    pdf.internal.pageSize.getWidth();
-
-  const pdfHeight =
-    pdf.internal.pageSize.getHeight();
-
-  const imgWidth =
-    pdfWidth;
-
-  const imgHeight =
-    (canvas.height * imgWidth) /
-    canvas.width;
-
-  let heightLeft =
-    imgHeight;
-
-  let position = 0;
-
-  pdf.addImage(
-    imgData,
-    "PNG",
-    0,
-    position,
-    imgWidth,
-    imgHeight
-  );
-
-  heightLeft -= pdfHeight;
-
-  while(heightLeft > 0){
-
-    position =
-      heightLeft -
-      imgHeight;
-
-    pdf.addPage();
-
-    pdf.addImage(
-      imgData,
-      "PNG",
-      0,
-      position,
-      imgWidth,
-      imgHeight
-    );
-
-    heightLeft -= pdfHeight;
-
-  }
-
-  pdf.save(
-    "travelog-itinerary.pdf"
-  );
-
-  location.reload();
+pdf.save("travelog-itinerary.pdf");
 
 }
 
