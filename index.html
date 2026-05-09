@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +15,7 @@
 :root{
   --brand:#1D9E75;
   --brand-dark:#0F6E56;
+  --blue:#0B3D91;
   --bg:#ffffff;
   --bg-soft:#F7FAF9;
   --line:#E4ECE9;
@@ -122,7 +124,7 @@ textarea,
   width:100%;
   border:1px solid var(--line);
   border-radius:12px;
-  padding:14px 14px 12px;
+  padding:14px;
   font-size:14px;
   background:#fff;
   font-family:var(--font);
@@ -195,6 +197,41 @@ textarea:focus,
   margin-bottom:18px;
 }
 
+.hotel-block,
+.cruise-block{
+  background:var(--bg-soft);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
+}
+
+.block-title{
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:14px;
+  color:var(--brand-dark);
+  text-transform:uppercase;
+}
+
+.hotel-item,
+.cruise-item{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+.add-mini-btn{
+  border:none;
+  background:var(--brand);
+  color:#fff;
+  border-radius:10px;
+  padding:10px 14px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:600;
+}
+
 /* ---------- PRICE ---------- */
 
 .rates-grid{
@@ -226,17 +263,15 @@ textarea:focus,
 }
 
 .small-input{
-  width:120px;
+  width:130px;
   text-align:right;
   border:1px solid var(--line);
   border-radius:10px;
-  padding:12px 12px 10px;
+  padding:12px;
   font-size:15px;
-  line-height:1.4;
-  font-family:var(--font);
-
-  color:#0B3D91;
   font-weight:700;
+  color:var(--blue);
+  font-family:var(--font);
 }
 
 .total{
@@ -272,6 +307,7 @@ textarea:focus,
 table{
   width:100%;
   border-collapse:collapse;
+  min-width:1000px;
 }
 
 th{
@@ -304,13 +340,13 @@ td{
   resize:vertical;
 }
 
-/* ---------- MEAL BUTTONS ---------- */
+/* ---------- OPTIONS ---------- */
 
 .option-group{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
-  margin-top:12px;
+  margin-bottom:10px;
 }
 
 .option-btn{
@@ -367,14 +403,14 @@ td{
   background:#F7FAF9;
 }
 
-/* ---------- PDF FIX ---------- */
+/* ---------- PDF MODE ---------- */
 
 .pdf-mode .actions{
   display:none !important;
 }
 
-.pdf-mode input,
-.pdf-mode textarea{
+.pdf-mode textarea,
+.pdf-mode input{
   border:none !important;
   background:transparent !important;
 }
@@ -386,7 +422,9 @@ td{
   .top-grid,
   .extra-grid,
   .rates-grid,
-  .strip{
+  .strip,
+  .hotel-item,
+  .cruise-item{
     grid-template-columns:1fr;
   }
 
@@ -460,14 +498,68 @@ Travel Itinerary
 
 <div class="extra-grid">
 
+<!-- HOTEL -->
+
+<div class="hotel-block">
+
+<div class="block-title">
+Hotel Details
+</div>
+
+<div id="hotelContainer">
+
+<div class="hotel-item">
+
 <div class="field">
 <label class="label">Hotel Name</label>
 <input class="input" placeholder="Enter hotel name">
 </div>
 
 <div class="field">
+<label class="label">Destination</label>
+<input class="input" placeholder="Enter destination">
+</div>
+
+</div>
+
+</div>
+
+<button class="add-mini-btn" onclick="addHotel()">
++ Add Hotel
+</button>
+
+</div>
+
+<!-- CRUISE -->
+
+<div class="cruise-block">
+
+<div class="block-title">
+Cruise Details
+</div>
+
+<div id="cruiseContainer">
+
+<div class="cruise-item">
+
+<div class="field">
 <label class="label">Cruise Name</label>
 <input class="input" placeholder="Enter cruise name">
+</div>
+
+<div class="field">
+<label class="label">Destination</label>
+<input class="input" placeholder="Enter destination">
+</div>
+
+</div>
+
+</div>
+
+<button class="add-mini-btn" onclick="addCruise()">
++ Add Cruise
+</button>
+
 </div>
 
 </div>
@@ -612,17 +704,17 @@ placeholder="Arrival & City Tour"></textarea>
 
 <div class="option-group">
 
-<button class="option-btn" onclick="toggleBtn(this)">B</button>
-<button class="option-btn" onclick="toggleBtn(this)">L</button>
-<button class="option-btn" onclick="toggleBtn(this)">D</button>
-<button class="option-btn" onclick="toggleBtn(this)">BR</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">B</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">L</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">D</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">BR</button>
 
 </div>
 
 <div class="option-group">
 
-<button class="option-btn" onclick="toggleBtn(this)">Shared</button>
-<button class="option-btn" onclick="toggleBtn(this)">Private</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">Shared</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">Private</button>
 
 </div>
 
@@ -687,6 +779,62 @@ function toggleBtn(btn){
   btn.classList.toggle("active");
 }
 
+/* ---------- ADD HOTEL ---------- */
+
+function addHotel(){
+
+  const html = `
+
+  <div class="hotel-item">
+
+    <div class="field">
+      <label class="label">Hotel Name</label>
+      <input class="input" placeholder="Enter hotel name">
+    </div>
+
+    <div class="field">
+      <label class="label">Destination</label>
+      <input class="input" placeholder="Enter destination">
+    </div>
+
+  </div>
+
+  `;
+
+  document
+  .getElementById("hotelContainer")
+  .insertAdjacentHTML("beforeend", html);
+
+}
+
+/* ---------- ADD CRUISE ---------- */
+
+function addCruise(){
+
+  const html = `
+
+  <div class="cruise-item">
+
+    <div class="field">
+      <label class="label">Cruise Name</label>
+      <input class="input" placeholder="Enter cruise name">
+    </div>
+
+    <div class="field">
+      <label class="label">Destination</label>
+      <input class="input" placeholder="Enter destination">
+    </div>
+
+  </div>
+
+  `;
+
+  document
+  .getElementById("cruiseContainer")
+  .insertAdjacentHTML("beforeend", html);
+
+}
+
 /* ---------- ADD DAY ---------- */
 
 function addDay(){
@@ -710,17 +858,17 @@ placeholder="Activity"></textarea>
 
 <div class="option-group">
 
-<button class="option-btn" onclick="toggleBtn(this)">B</button>
-<button class="option-btn" onclick="toggleBtn(this)">L</button>
-<button class="option-btn" onclick="toggleBtn(this)">D</button>
-<button class="option-btn" onclick="toggleBtn(this)">BR</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">B</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">L</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">D</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">BR</button>
 
 </div>
 
 <div class="option-group">
 
-<button class="option-btn" onclick="toggleBtn(this)">Shared</button>
-<button class="option-btn" onclick="toggleBtn(this)">Private</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">Shared</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">Private</button>
 
 </div>
 
@@ -761,6 +909,10 @@ document.querySelectorAll("textarea").forEach(el=>{
 el.value="";
 });
 
+document.querySelectorAll(".option-btn").forEach(btn=>{
+btn.classList.remove("active");
+});
+
 }
 
 }
@@ -781,25 +933,31 @@ document.getElementById(id)
 .addEventListener("input", calculateTotals);
 });
 
+function cleanNumber(value){
+  return Number(
+    value.replace(/[^0-9]/g,'')
+  ) || 0;
+}
+
 function calculateTotals(){
 
 const adultRate =
-Number(document.getElementById("adultRate").value) || 0;
+cleanNumber(document.getElementById("adultRate").value);
 
 const childRate =
-Number(document.getElementById("childRate").value) || 0;
+cleanNumber(document.getElementById("childRate").value);
 
 const infantRate =
-Number(document.getElementById("infantRate").value) || 0;
+cleanNumber(document.getElementById("infantRate").value);
 
 const adultPax =
-Number(document.getElementById("adultPax").value) || 0;
+cleanNumber(document.getElementById("adultPax").value);
 
 const childPax =
-Number(document.getElementById("childPax").value) || 0;
+cleanNumber(document.getElementById("childPax").value);
 
 const infantPax =
-Number(document.getElementById("infantPax").value) || 0;
+cleanNumber(document.getElementById("infantPax").value);
 
 const adultTotal = adultRate * adultPax;
 const childTotal = childRate * childPax;
@@ -898,3 +1056,5 @@ pdf.save("travelog-itinerary.pdf");
 
 </body>
 </html>
+
+
