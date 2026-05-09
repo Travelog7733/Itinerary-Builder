@@ -44,9 +44,9 @@ body{
   padding:20px;
 }
 
-.top,
-.card,
-.saved-card{
+/* ---------- HEADER ---------- */
+
+.top{
   background:#fff;
   border:1px solid var(--line);
   border-radius:24px;
@@ -99,29 +99,10 @@ body{
   font-weight:600;
 }
 
-.meta-grid,
-.extra-grid,
-.strip,
-.hotel-item,
-.cruise-item,
-.rates-grid{
-  display:grid;
-  gap:14px;
-}
-
 .meta-grid{
+  display:grid;
   grid-template-columns:repeat(2,minmax(220px,1fr));
-}
-
-.extra-grid,
-.rates-grid{
-  grid-template-columns:1fr 1fr;
-}
-
-.strip,
-.hotel-item,
-.cruise-item{
-  grid-template-columns:1fr 1fr;
+  gap:14px;
 }
 
 .field{
@@ -130,9 +111,7 @@ body{
   gap:6px;
 }
 
-.label,
-.strip-title,
-.mini-title{
+.label{
   font-size:11px;
   color:var(--muted);
   text-transform:uppercase;
@@ -140,8 +119,7 @@ body{
 
 .input,
 textarea,
-.date-input,
-.small-input{
+.date-input{
   width:100%;
   border:1px solid var(--line);
   border-radius:12px;
@@ -149,6 +127,7 @@ textarea,
   font-size:14px;
   background:#fff;
   font-family:var(--font);
+  color:#111;
 }
 
 .input:focus,
@@ -158,41 +137,161 @@ textarea:focus,
   border-color:var(--brand);
 }
 
-.strip-card,
+.strip{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:20px;
+}
+
+.strip-card{
+  background:var(--bg-soft);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px;
+}
+
+.strip-title{
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:8px;
+  text-transform:uppercase;
+}
+
+/* ---------- CARD ---------- */
+
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:22px;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+}
+
+.section-head{
+  margin-bottom:18px;
+}
+
+.section-title{
+  font-size:20px;
+  font-weight:600;
+}
+
+.section-sub{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+/* ---------- HOTEL / CRUISE ---------- */
+
+.extra-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
 .hotel-block,
-.cruise-block,
-.mini-card{
+.cruise-block{
   background:var(--bg-soft);
   border:1px solid var(--line);
   border-radius:18px;
   padding:18px;
 }
 
-.block-title,
-.section-title{
+.block-title{
+  font-size:13px;
   font-weight:700;
-  margin-bottom:12px;
+  margin-bottom:14px;
+  color:var(--brand-dark);
+  text-transform:uppercase;
 }
 
-.add-mini-btn,
-.btn{
+.hotel-item,
+.cruise-item{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+.add-mini-btn{
   border:none;
-  border-radius:12px;
-  padding:12px 16px;
+  background:var(--brand);
+  color:#fff;
+  border-radius:10px;
+  padding:10px 14px;
   cursor:pointer;
+  font-size:13px;
   font-weight:600;
 }
 
-.add-mini-btn,
-.btn-primary{
-  background:var(--brand);
-  color:#fff;
+/* ---------- PRICE ---------- */
+
+.rates-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
 }
 
-.btn-light{
-  background:#fff;
+.mini-card{
+  background:var(--bg-soft);
   border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
 }
+
+.mini-title{
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:14px;
+  text-transform:uppercase;
+}
+
+.rate-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+.small-input{
+  width:130px;
+  text-align:right;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:12px;
+  font-size:15px;
+  font-weight:700;
+  color:var(--blue);
+  font-family:var(--font);
+}
+
+.total{
+  margin-top:20px;
+  background:#F2FBF7;
+  border:1px solid #CFECDD;
+  border-radius:18px;
+  padding:22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.total-label{
+  font-size:13px;
+  color:var(--muted);
+}
+
+.total-amt{
+  font-size:42px;
+  font-weight:700;
+  color:var(--brand-dark);
+}
+
+/* ---------- TABLE ---------- */
 
 .table-wrap{
   overflow:auto;
@@ -200,20 +299,26 @@ textarea:focus,
   border-radius:18px;
 }
 
-.table-wrap table{
+table{
   width:100%;
-  min-width:1000px;
   border-collapse:collapse;
-}
-
-th,
-td{
-  border-bottom:1px solid var(--line);
-  padding:14px;
+  min-width:1000px;
 }
 
 th{
   background:#F7FAF9;
+  padding:14px;
+  font-size:12px;
+  color:var(--muted);
+  text-transform:uppercase;
+  text-align:left;
+  border-bottom:1px solid var(--line);
+}
+
+td{
+  padding:14px;
+  border-bottom:1px solid var(--line);
+  vertical-align:top;
 }
 
 .day-pill{
@@ -225,10 +330,17 @@ th{
   font-weight:600;
 }
 
+.cell-textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+/* ---------- OPTIONS ---------- */
+
 .option-group{
   display:flex;
-  gap:8px;
   flex-wrap:wrap;
+  gap:8px;
   margin-bottom:10px;
 }
 
@@ -246,12 +358,45 @@ th{
 .option-btn.active{
   background:#1D9E75;
   color:#fff;
+  border-color:#1D9E75;
 }
+
+/* ---------- BUTTONS ---------- */
 
 .actions{
   display:flex;
   gap:12px;
   flex-wrap:wrap;
+  margin-top:20px;
+}
+
+.btn{
+  border:none;
+  border-radius:14px;
+  padding:12px 18px;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  font-family:var(--font);
+}
+
+.btn-primary{
+  background:var(--brand);
+  color:#fff;
+}
+
+.btn-light{
+  background:#fff;
+  border:1px solid var(--line);
+}
+
+/* ---------- SAVED SECTION ---------- */
+
+.saved-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:22px;
   margin-top:20px;
 }
 
@@ -263,6 +408,27 @@ th{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:10px;
+}
+
+.saved-left{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.saved-title{
+  font-weight:700;
+}
+
+.saved-sub{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.saved-actions{
+  display:flex;
+  gap:8px;
 }
 
 .small-btn{
@@ -270,12 +436,21 @@ th{
   padding:8px 12px;
   border-radius:10px;
   cursor:pointer;
+  font-size:12px;
+  font-weight:600;
+}
+
+.load-btn{
+  background:#EAF8F2;
+  color:#0B664F;
 }
 
 .delete-btn{
   background:#FFE9E9;
   color:#B42318;
 }
+
+/* ---------- MOBILE ---------- */
 
 @media(max-width:960px){
 
@@ -284,8 +459,7 @@ th{
   .rates-grid,
   .strip,
   .hotel-item,
-  .cruise-item,
-  .meta-grid{
+  .cruise-item{
     grid-template-columns:1fr;
   }
 
@@ -298,318 +472,793 @@ th{
 
 <div class="wrap" id="pdfContent">
 
+<!-- HEADER -->
+
 <div class="top">
 
 <div class="top-grid">
 
 <div>
-<div class="brand">travel<span>og</span></div>
+
+<div class="brand">
+travel<span>og</span>
+</div>
 
 <div class="itin-row">
 <span class="itin-label">Itinerary No.</span>
 <span class="itin-badge" id="itinNumber">TG-001</span>
 </div>
 
-<div class="page-title">Travel Itinerary</div>
+<div class="page-title">
+Travel Itinerary
+</div>
+
 </div>
 
 <div class="meta-grid">
 
 <div class="field">
 <label class="label">Customer Name</label>
-<input class="input" id="customerName">
+<input class="input save-field" id="customerName">
 </div>
 
 <div class="field">
 <label class="label">Sales Person</label>
-<input class="input" id="salesPerson">
+<input class="input save-field" id="salesPerson">
 </div>
 
 </div>
+
 </div>
 
 <div class="strip">
 
 <div class="strip-card">
 <div class="strip-title">Travel Date</div>
-<input type="date" class="date-input" id="travelDate">
+<input type="date" class="date-input save-field" id="travelDate">
 </div>
 
 <div class="strip-card">
 <div class="strip-title">Quote Expiry</div>
-<input type="date" class="date-input" id="quoteExpiry">
+<input type="date" class="date-input save-field" id="quoteExpiry">
 </div>
 
 </div>
+
 </div>
+
+<!-- HOTEL / CRUISE -->
 
 <div class="card">
+
 <div class="extra-grid">
 
 <div class="hotel-block">
+
 <div class="block-title">Hotel Details</div>
 
 <div id="hotelContainer">
+
 <div class="hotel-item">
 <input class="input hotel-name" placeholder="Hotel Name">
 <input class="input hotel-destination" placeholder="Destination">
 </div>
+
 </div>
 
-<button class="add-mini-btn" onclick="addHotel()">+ Add Hotel</button>
+<button class="add-mini-btn" onclick="addHotel()">
++ Add Hotel
+</button>
+
 </div>
 
 <div class="cruise-block">
+
 <div class="block-title">Cruise Details</div>
 
 <div id="cruiseContainer">
+
 <div class="cruise-item">
 <input class="input cruise-name" placeholder="Cruise Name">
 <input class="input cruise-destination" placeholder="Destination">
 </div>
-</div>
-
-<button class="add-mini-btn" onclick="addCruise()">+ Add Cruise</button>
-</div>
 
 </div>
+
+<button class="add-mini-btn" onclick="addCruise()">
++ Add Cruise
+</button>
+
 </div>
+
+</div>
+
+</div>
+
+<!-- PRICE -->
 
 <div class="card">
-<div class="section-title">Day-wise Itinerary</div>
+
+<div class="section-head">
+<div class="section-title">Price Quote</div>
+<div class="section-sub">Rates & passenger summary</div>
+</div>
+
+<div class="rates-grid">
+
+<div class="mini-card">
+
+<div class="mini-title">Rates</div>
+
+<div class="rate-row">
+<span>Adult</span>
+<input class="small-input" id="adultRate" placeholder="₹ 0">
+</div>
+
+<div class="rate-row">
+<span>Child</span>
+<input class="small-input" id="childRate" placeholder="₹ 0">
+</div>
+
+<div class="rate-row">
+<span>Infant</span>
+<input class="small-input" id="infantRate" placeholder="₹ 0">
+</div>
+
+</div>
+
+<div class="mini-card">
+
+<div class="mini-title">Passengers</div>
+
+<div class="rate-row">
+<span>Adults</span>
+<input class="small-input" id="adultPax" placeholder="0">
+</div>
+
+<div class="rate-row">
+<span>Children</span>
+<input class="small-input" id="childPax" placeholder="0">
+</div>
+
+<div class="rate-row">
+<span>Infants</span>
+<input class="small-input" id="infantPax" placeholder="0">
+</div>
+
+</div>
+
+<div class="mini-card">
+
+<div class="mini-title">Summary</div>
+
+<div class="rate-row">
+<span>Adults</span>
+<strong id="adultTotal">₹ 0</strong>
+</div>
+
+<div class="rate-row">
+<span>Children</span>
+<strong id="childTotal">₹ 0</strong>
+</div>
+
+<div class="rate-row">
+<span>Infants</span>
+<strong id="infantTotal">₹ 0</strong>
+</div>
+
+</div>
+
+</div>
+
+<div class="total">
+
+<div>
+<div class="total-label">Grand Total</div>
+</div>
+
+<div class="total-amt" id="grandTotal">
+₹ 0
+</div>
+
+</div>
+
+</div>
+
+<!-- ITINERARY -->
+
+<div class="card">
+
+<div class="section-head">
+
+<div class="section-title">
+Day-wise Itinerary
+</div>
+
+<div class="section-sub">
+Daily travel schedule
+</div>
+
+</div>
 
 <div class="table-wrap">
+
 <table>
+
 <thead>
+
 <tr>
 <th>Day</th>
 <th>Activity</th>
 <th>Meals / Transfer</th>
 <th>Notes</th>
 </tr>
+
 </thead>
 
 <tbody id="itineraryBody">
+
 <tr>
-<td><span class="day-pill">Day 1</span></td>
-<td><textarea class="input"></textarea></td>
+
 <td>
+<span class="day-pill">Day 1</span>
+</td>
+
+<td>
+<textarea class="input cell-textarea activity"></textarea>
+</td>
+
+<td>
+
 <div class="option-group">
+
 <button type="button" class="option-btn" onclick="toggleBtn(this)">B</button>
 <button type="button" class="option-btn" onclick="toggleBtn(this)">L</button>
 <button type="button" class="option-btn" onclick="toggleBtn(this)">D</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">BR</button>
+
 </div>
+
+<div class="option-group">
+
+<button type="button" class="option-btn" onclick="toggleBtn(this)">Shared</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">Private</button>
+
+</div>
+
 </td>
-<td><textarea class="input"></textarea></td>
+
+<td>
+<textarea class="input cell-textarea notes"></textarea>
+</td>
+
 </tr>
+
 </tbody>
+
 </table>
+
 </div>
+
 </div>
+
+</div>
+
+<!-- BUTTONS -->
+
+<div class="wrap">
 
 <div class="actions">
-<button class="btn btn-primary" onclick="addDay()">+ Add Day</button>
-<button class="btn btn-primary" onclick="saveItinerary()">Save Itinerary</button>
-<button class="btn btn-light" onclick="clearAll()">Clear All</button>
+
+<button class="btn btn-primary" onclick="addDay()">
++ Add Day
+</button>
+
+<button class="btn btn-primary" onclick="saveItinerary()">
+Save Itinerary
+</button>
+
+<button class="btn btn-light" onclick="downloadPDF()">
+Download PDF
+</button>
+
+<button class="btn btn-light" onclick="clearAll()">
+Clear All
+</button>
+
 </div>
 
+</div>
+
+<!-- SAVED -->
+
+<div class="wrap">
+
 <div class="saved-card">
+
+<div class="section-head">
 <div class="section-title">Saved Itineraries</div>
+<div class="section-sub">
+Saved automatically in browser memory
+</div>
+</div>
+
 <div id="savedList"></div>
+
 </div>
 
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "PASTE_YOUR_API_KEY",
-  authDomain: "PASTE_YOUR_AUTH_DOMAIN",
-  projectId: "PASTE_YOUR_PROJECT_ID",
-  storageBucket: "PASTE_YOUR_STORAGE_BUCKET",
-  messagingSenderId: "PASTE_YOUR_SENDER_ID",
-  appId: "PASTE_YOUR_APP_ID"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-window.db = db;
-window.collection = collection;
-window.addDoc = addDoc;
-window.getDocs = getDocs;
-window.deleteDoc = deleteDoc;
-window.doc = doc;
+<script>
 
 let dayCount = 1;
 
+/* ---------- ITIN NUMBER ---------- */
+
 function getNextItineraryNumber(){
 
-  let current = localStorage.getItem("travelog_last_number");
+  let current =
+    localStorage.getItem("travelog_last_number");
 
   current = current ? Number(current) : 1;
 
-  const formatted = "TG-" + String(current).padStart(3,"0");
+  const formatted =
+    "TG-" +
+    String(current).padStart(3,"0");
 
-  document.getElementById("itinNumber").innerText = formatted;
+  document.getElementById(
+    "itinNumber"
+  ).innerText = formatted;
+
 }
 
 function increaseItineraryNumber(){
 
-  let current = localStorage.getItem("travelog_last_number");
+  let current =
+    localStorage.getItem("travelog_last_number");
 
   current = current ? Number(current) : 1;
 
   current++;
 
-  localStorage.setItem("travelog_last_number", current);
+  localStorage.setItem(
+    "travelog_last_number",
+    current
+  );
+
 }
 
-window.toggleBtn = function(btn){
+/* ---------- TOGGLE ---------- */
+
+function toggleBtn(btn){
   btn.classList.toggle("active");
 }
 
-window.addHotel = function(){
+/* ---------- ADD HOTEL ---------- */
+
+function addHotel(){
 
   const html = `
+
   <div class="hotel-item">
     <input class="input hotel-name" placeholder="Hotel Name">
     <input class="input hotel-destination" placeholder="Destination">
-  </div>`;
+  </div>
 
-  document.getElementById("hotelContainer")
+  `;
+
+  document
+  .getElementById("hotelContainer")
   .insertAdjacentHTML("beforeend", html);
+
 }
 
-window.addCruise = function(){
+/* ---------- ADD CRUISE ---------- */
+
+function addCruise(){
 
   const html = `
+
   <div class="cruise-item">
     <input class="input cruise-name" placeholder="Cruise Name">
     <input class="input cruise-destination" placeholder="Destination">
-  </div>`;
+  </div>
 
-  document.getElementById("cruiseContainer")
+  `;
+
+  document
+  .getElementById("cruiseContainer")
   .insertAdjacentHTML("beforeend", html);
+
 }
 
-window.addDay = function(){
+/* ---------- ADD DAY ---------- */
+
+function addDay(){
 
   dayCount++;
 
   const row = `
+
   <tr>
-  <td><span class="day-pill">Day ${dayCount}</span></td>
-  <td><textarea class="input"></textarea></td>
+
   <td>
+  <span class="day-pill">Day ${dayCount}</span>
+  </td>
+
+  <td>
+  <textarea class="input cell-textarea activity"></textarea>
+  </td>
+
+  <td>
+
   <div class="option-group">
   <button type="button" class="option-btn" onclick="toggleBtn(this)">B</button>
   <button type="button" class="option-btn" onclick="toggleBtn(this)">L</button>
   <button type="button" class="option-btn" onclick="toggleBtn(this)">D</button>
+  <button type="button" class="option-btn" onclick="toggleBtn(this)">BR</button>
   </div>
-  </td>
-  <td><textarea class="input"></textarea></td>
-  </tr>`;
 
-  document.getElementById("itineraryBody")
+  <div class="option-group">
+  <button type="button" class="option-btn" onclick="toggleBtn(this)">Shared</button>
+  <button type="button" class="option-btn" onclick="toggleBtn(this)">Private</button>
+  </div>
+
+  </td>
+
+  <td>
+  <textarea class="input cell-textarea notes"></textarea>
+  </td>
+
+  </tr>
+
+  `;
+
+  document
+  .getElementById("itineraryBody")
   .insertAdjacentHTML("beforeend", row);
+
 }
 
-window.saveItinerary = async function(){
+/* ---------- SAVE MEMORY ---------- */
+
+function saveItinerary(){
 
   const itinerary = {
-    number: document.getElementById("itinNumber").innerText,
-    customer: document.getElementById("customerName").value,
-    sales: document.getElementById("salesPerson").value,
-    travelDate: document.getElementById("travelDate").value,
-    created: new Date().toLocaleString()
+
+    number:
+      document.getElementById(
+        "itinNumber"
+      ).innerText,
+
+    customer:
+      document.getElementById(
+        "customerName"
+      ).value,
+
+    sales:
+      document.getElementById(
+        "salesPerson"
+      ).value,
+
+    travelDate:
+      document.getElementById(
+        "travelDate"
+      ).value,
+
+    created:
+      new Date().toLocaleString()
+
   };
 
-  await addDoc(collection(db, "travelog_saved"), itinerary);
+  let saved =
+    JSON.parse(
+      localStorage.getItem(
+        "travelog_saved"
+      ) || "[]"
+    );
 
-  alert("Itinerary Saved To Cloud!");
+  saved.unshift(itinerary);
+
+  localStorage.setItem(
+    "travelog_saved",
+    JSON.stringify(saved)
+  );
 
   renderSaved();
 
+  alert("Itinerary Saved!");
+
   increaseItineraryNumber();
+
   getNextItineraryNumber();
+
 }
 
-async function renderSaved(){
+/* ---------- RENDER SAVED ---------- */
 
-  const container = document.getElementById("savedList");
+function renderSaved(){
 
-  container.innerHTML = "Loading...";
+  const container =
+    document.getElementById(
+      "savedList"
+    );
 
-  const querySnapshot = await getDocs(collection(db, "travelog_saved"));
+  let saved =
+    JSON.parse(
+      localStorage.getItem(
+        "travelog_saved"
+      ) || "[]"
+    );
 
-  if(querySnapshot.empty){
-    container.innerHTML = "<p>No saved itineraries yet.</p>";
+  if(saved.length === 0){
+
+    container.innerHTML =
+      "<p>No saved itineraries yet.</p>";
+
     return;
+
   }
 
   container.innerHTML = "";
 
-  querySnapshot.forEach((docItem)=>{
-
-    const item = docItem.data();
+  saved.forEach((item,index)=>{
 
     container.innerHTML += `
 
     <div class="saved-item">
 
-      <div>
-        <strong>${item.number}</strong><br>
-        <small>${item.customer || "No Customer"}</small><br>
-        <small>${item.travelDate || ""}</small>
+      <div class="saved-left">
+
+        <div class="saved-title">
+          ${item.number}
+        </div>
+
+        <div class="saved-sub">
+          ${item.customer || "No Customer"}
+        </div>
+
+        <div class="saved-sub">
+          ${item.travelDate || ""}
+        </div>
+
       </div>
 
-      <button
-        class="small-btn delete-btn"
-        onclick="deleteSaved('${docItem.id}')">
-        Delete
-      </button>
+      <div class="saved-actions">
 
-    </div>`;
+        <button
+          class="small-btn delete-btn"
+          onclick="deleteSaved(${index})">
+
+          Delete
+
+        </button>
+
+      </div>
+
+    </div>
+
+    `;
 
   });
+
 }
 
-window.deleteSaved = async function(id){
+/* ---------- DELETE ---------- */
 
-  await deleteDoc(doc(db, "travelog_saved", id));
+function deleteSaved(index){
+
+  let saved =
+    JSON.parse(
+      localStorage.getItem(
+        "travelog_saved"
+      ) || "[]"
+    );
+
+  saved.splice(index,1);
+
+  localStorage.setItem(
+    "travelog_saved",
+    JSON.stringify(saved)
+  );
 
   renderSaved();
+
 }
 
-window.clearAll = function(){
+/* ---------- CLEAR ---------- */
 
-  document.querySelectorAll("input").forEach(el=>{
-    el.value = "";
-  });
+function clearAll(){
 
-  document.querySelectorAll("textarea").forEach(el=>{
-    el.value = "";
-  });
+  if(confirm("Clear all data?")){
 
-  document.querySelectorAll(".option-btn").forEach(btn=>{
-    btn.classList.remove("active");
-  });
+    document
+    .querySelectorAll("input")
+    .forEach(el=>{
+      el.value="";
+    });
+
+    document
+    .querySelectorAll("textarea")
+    .forEach(el=>{
+      el.value="";
+    });
+
+    document
+    .querySelectorAll(".option-btn")
+    .forEach(btn=>{
+      btn.classList.remove("active");
+    });
+
+  }
+
 }
+
+/* ---------- TOTAL ---------- */
+
+const fields = [
+"adultRate",
+"childRate",
+"infantRate",
+"adultPax",
+"childPax",
+"infantPax"
+];
+
+fields.forEach(id=>{
+
+  document
+  .getElementById(id)
+  .addEventListener(
+    "input",
+    calculateTotals
+  );
+
+});
+
+function cleanNumber(value){
+
+  return Number(
+    value.replace(/[^0-9]/g,'')
+  ) || 0;
+
+}
+
+function calculateTotals(){
+
+const adultRate =
+cleanNumber(document.getElementById("adultRate").value);
+
+const childRate =
+cleanNumber(document.getElementById("childRate").value);
+
+const infantRate =
+cleanNumber(document.getElementById("infantRate").value);
+
+const adultPax =
+cleanNumber(document.getElementById("adultPax").value);
+
+const childPax =
+cleanNumber(document.getElementById("childPax").value);
+
+const infantPax =
+cleanNumber(document.getElementById("infantPax").value);
+
+const adultTotal =
+adultRate * adultPax;
+
+const childTotal =
+childRate * childPax;
+
+const infantTotal =
+infantRate * infantPax;
+
+const grand =
+adultTotal +
+childTotal +
+infantTotal;
+
+document.getElementById("adultTotal").innerText =
+"₹ " +
+adultTotal.toLocaleString("en-IN");
+
+document.getElementById("childTotal").innerText =
+"₹ " +
+childTotal.toLocaleString("en-IN");
+
+document.getElementById("infantTotal").innerText =
+"₹ " +
+infantTotal.toLocaleString("en-IN");
+
+document.getElementById("grandTotal").innerText =
+"₹ " +
+grand.toLocaleString("en-IN");
+
+}
+
+/* ---------- PDF ---------- */
+
+async function downloadPDF(){
+
+  const { jsPDF } = window.jspdf;
+
+  const element =
+    document.getElementById(
+      "pdfContent"
+    );
+
+  const canvas =
+    await html2canvas(element,{
+      scale:2,
+      useCORS:true,
+      backgroundColor:"#F4F7F6"
+    });
+
+  const imgData =
+    canvas.toDataURL("image/png");
+
+  const pdf =
+    new jsPDF("p","mm","a4");
+
+  const pdfWidth =
+    pdf.internal.pageSize.getWidth();
+
+  const pdfHeight =
+    pdf.internal.pageSize.getHeight();
+
+  const imgWidth = pdfWidth;
+
+  const imgHeight =
+    (canvas.height * imgWidth) /
+    canvas.width;
+
+  let heightLeft =
+    imgHeight;
+
+  let position = 0;
+
+  pdf.addImage(
+    imgData,
+    "PNG",
+    0,
+    position,
+    imgWidth,
+    imgHeight
+  );
+
+  heightLeft -= pdfHeight;
+
+  while(heightLeft > 0){
+
+    position =
+      heightLeft - imgHeight;
+
+    pdf.addPage();
+
+    pdf.addImage(
+      imgData,
+      "PNG",
+      0,
+      position,
+      imgWidth,
+      imgHeight
+    );
+
+    heightLeft -= pdfHeight;
+
+  }
+
+  pdf.save(
+    "travelog-itinerary.pdf"
+  );
+
+}
+
+/* ---------- INIT ---------- */
 
 getNextItineraryNumber();
 renderSaved();
