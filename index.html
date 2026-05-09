@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Travelog Itinerary</title>
 
@@ -463,13 +463,16 @@ td{
     <div class="section-head">
       <div>
         <div class="section-title">Price Quote</div>
-        <div class="section-sub">Rates, pax & add-ons</div>
+        <div class="section-sub">Rates & passenger summary</div>
       </div>
     </div>
 
     <div class="rates-grid">
 
+      <!-- Rates -->
+
       <div class="mini-card">
+
         <div class="mini-title">Rates</div>
 
         <div class="rate-row">
@@ -486,9 +489,13 @@ td{
           <span>Infant</span>
           <input class="small-input" id="infantRate" placeholder="₹ 0">
         </div>
+
       </div>
 
+      <!-- PAX -->
+
       <div class="mini-card">
+
         <div class="mini-title">Passengers</div>
 
         <div class="rate-row">
@@ -505,9 +512,13 @@ td{
           <span>Infants</span>
           <input class="small-input" id="infantPax" placeholder="0">
         </div>
+
       </div>
 
+      <!-- SUMMARY -->
+
       <div class="mini-card">
+
         <div class="mini-title">Summary</div>
 
         <div class="rate-row">
@@ -524,18 +535,23 @@ td{
           <span>Infants</span>
           <strong id="infantTotal">₹ 0</strong>
         </div>
+
       </div>
 
     </div>
 
     <div class="total">
+
       <div>
-        <div class="total-label">Grand Total</div>
+        <div class="total-label">
+          Grand Total
+        </div>
       </div>
 
       <div class="total-amt" id="grandTotal">
         ₹ 0
       </div>
+
     </div>
 
   </div>
@@ -545,10 +561,17 @@ td{
   <div class="card">
 
     <div class="section-head">
+
       <div>
-        <div class="section-title">Day-wise Itinerary</div>
-        <div class="section-sub">Daily travel schedule</div>
+        <div class="section-title">
+          Day-wise Itinerary
+        </div>
+
+        <div class="section-sub">
+          Daily travel schedule
+        </div>
       </div>
+
     </div>
 
     <div class="table-wrap">
@@ -556,54 +579,74 @@ td{
       <table>
 
         <thead>
+
           <tr>
             <th>Day</th>
             <th>Date</th>
             <th>Activity</th>
             <th>Notes</th>
           </tr>
+
         </thead>
 
         <tbody id="itineraryBody">
 
           <tr>
+
             <td>
-              <span class="day-pill">Day 1</span>
+              <span class="day-pill">
+                Day 1
+              </span>
             </td>
 
             <td>
-              <input type="date" class="input">
+              <input
+                type="text"
+                class="input"
+                placeholder="Enter date manually">
             </td>
 
             <td>
-              <textarea class="input cell-textarea"
-              placeholder="Arrival & City Tour"></textarea>
+              <textarea
+                class="input cell-textarea"
+                placeholder="Arrival & City Tour"></textarea>
             </td>
 
             <td>
-              <textarea class="input cell-textarea"
-              placeholder="Additional notes"></textarea>
+              <textarea
+                class="input cell-textarea"
+                placeholder="Additional notes"></textarea>
             </td>
+
           </tr>
 
           <tr>
+
             <td>
-              <span class="day-pill">Day 2</span>
+              <span class="day-pill">
+                Day 2
+              </span>
             </td>
 
             <td>
-              <input type="date" class="input">
+              <input
+                type="text"
+                class="input"
+                placeholder="Enter date manually">
             </td>
 
             <td>
-              <textarea class="input cell-textarea"
-              placeholder="Beach visit"></textarea>
+              <textarea
+                class="input cell-textarea"
+                placeholder="Beach visit"></textarea>
             </td>
 
             <td>
-              <textarea class="input cell-textarea"
-              placeholder="Additional notes"></textarea>
+              <textarea
+                class="input cell-textarea"
+                placeholder="Additional notes"></textarea>
             </td>
+
           </tr>
 
         </tbody>
@@ -651,6 +694,7 @@ function addDay(){
   const tbody = document.getElementById("itineraryBody");
 
   const row = `
+
     <tr>
 
       <td>
@@ -660,20 +704,26 @@ function addDay(){
       </td>
 
       <td>
-        <input type="date" class="input">
+        <input
+          type="text"
+          class="input"
+          placeholder="Enter date manually">
       </td>
 
       <td>
-        <textarea class="input cell-textarea"
-        placeholder="Activity"></textarea>
+        <textarea
+          class="input cell-textarea"
+          placeholder="Activity"></textarea>
       </td>
 
       <td>
-        <textarea class="input cell-textarea"
-        placeholder="Notes"></textarea>
+        <textarea
+          class="input cell-textarea"
+          placeholder="Notes"></textarea>
       </td>
 
     </tr>
+
   `;
 
   tbody.insertAdjacentHTML("beforeend", row);
@@ -683,11 +733,6 @@ function addDay(){
 /* SAVE */
 
 function saveItinerary(){
-
-  localStorage.setItem(
-    "travelog-data",
-    document.body.innerHTML
-  );
 
   alert("Itinerary saved successfully!");
 
@@ -716,18 +761,15 @@ function clearAll(){
     });
 
     document.getElementById("grandTotal").innerText = "₹ 0";
-
     document.getElementById("adultTotal").innerText = "₹ 0";
-
     document.getElementById("childTotal").innerText = "₹ 0";
-
     document.getElementById("infantTotal").innerText = "₹ 0";
 
   }
 
 }
 
-/* AUTO TOTAL */
+/* TOTAL CALCULATION */
 
 const calcInputs = [
   "adultRate",
@@ -740,25 +782,40 @@ const calcInputs = [
 
 calcInputs.forEach(id=>{
 
-  document.getElementById(id).addEventListener("input",calculateTotals);
+  document
+    .getElementById(id)
+    .addEventListener("input", calculateTotals);
 
 });
 
 function calculateTotals(){
 
-  const adultRate = Number(document.getElementById("adultRate").value) || 0;
-  const childRate = Number(document.getElementById("childRate").value) || 0;
-  const infantRate = Number(document.getElementById("infantRate").value) || 0;
+  const adultRate =
+    Number(document.getElementById("adultRate").value) || 0;
 
-  const adultPax = Number(document.getElementById("adultPax").value) || 0;
-  const childPax = Number(document.getElementById("childPax").value) || 0;
-  const infantPax = Number(document.getElementById("infantPax").value) || 0;
+  const childRate =
+    Number(document.getElementById("childRate").value) || 0;
+
+  const infantRate =
+    Number(document.getElementById("infantRate").value) || 0;
+
+  const adultPax =
+    Number(document.getElementById("adultPax").value) || 0;
+
+  const childPax =
+    Number(document.getElementById("childPax").value) || 0;
+
+  const infantPax =
+    Number(document.getElementById("infantPax").value) || 0;
 
   const adultTotal = adultRate * adultPax;
   const childTotal = childRate * childPax;
   const infantTotal = infantRate * infantPax;
 
-  const grand = adultTotal + childTotal + infantTotal;
+  const grand =
+    adultTotal +
+    childTotal +
+    infantTotal;
 
   document.getElementById("adultTotal").innerText =
     "₹ " + adultTotal.toLocaleString("en-IN");
