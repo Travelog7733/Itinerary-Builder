@@ -3,14 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
 <title>Travelog Itinerary</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
-
 :root{
   --brand:#1D9E75;
   --brand-dark:#0F6E56;
@@ -22,790 +18,489 @@
   --muted:#6B7471;
   --shadow:0 8px 30px rgba(0,0,0,.04);
   --font:'Inter',sans-serif;
+  --red:#B42318;
+  --red-bg:#FFF0EF;
+  --red-line:#FFCFC9;
 }
+*{ margin:0; padding:0; box-sizing:border-box; }
+body{ font-family:var(--font); background:#F4F7F6; color:var(--text); }
+.wrap{ width:100%; max-width:1280px; margin:auto; padding:20px; }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+/* HEADER */
+.top{ background:#fff; border:1px solid var(--line); border-radius:24px; padding:22px; box-shadow:var(--shadow); margin-bottom:18px; }
+.top-grid{ display:grid; grid-template-columns:1fr auto; gap:20px; }
+.brand{ font-size:34px; font-weight:700; }
+.brand span{ color:var(--brand); }
+.itin-row{ margin-top:10px; display:flex; gap:10px; align-items:center; }
+.itin-label{ font-size:12px; color:var(--muted); text-transform:uppercase; }
+.itin-badge{ background:#E8F7F1; color:#085041; border:1px solid #BFE8D9; padding:6px 12px; border-radius:999px; font-size:13px; font-weight:600; }
+.page-title{ margin-top:20px; font-size:24px; font-weight:600; }
+.meta-grid{ display:grid; grid-template-columns:repeat(2,minmax(220px,1fr)); gap:14px; }
+.field{ display:flex; flex-direction:column; gap:6px; }
+.label{ font-size:11px; color:var(--muted); text-transform:uppercase; }
+.input, textarea, .date-input{ width:100%; border:1px solid var(--line); border-radius:12px; padding:14px; font-size:14px; background:#fff; font-family:var(--font); color:#111; }
+.input:focus, textarea:focus, .date-input:focus{ outline:none; border-color:var(--brand); }
+.strip{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:20px; }
+.strip-card{ background:var(--bg-soft); border:1px solid var(--line); border-radius:16px; padding:14px; }
+.strip-title{ font-size:11px; color:var(--muted); margin-bottom:8px; text-transform:uppercase; }
 
-body{
-  font-family:var(--font);
-  background:#F4F7F6;
-  color:var(--text);
-}
+/* CARD */
+.card{ background:#fff; border:1px solid var(--line); border-radius:24px; padding:22px; box-shadow:var(--shadow); margin-bottom:18px; }
+.section-head{ margin-bottom:18px; }
+.section-title{ font-size:20px; font-weight:600; }
+.section-sub{ font-size:13px; color:var(--muted); margin-top:4px; }
 
-.wrap{
-  width:100%;
-  max-width:1280px;
-  margin:auto;
-  padding:20px;
-}
+/* HOTEL / CRUISE */
+.extra-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.hotel-block, .cruise-block{ background:var(--bg-soft); border:1px solid var(--line); border-radius:18px; padding:18px; }
+.block-title{ font-size:13px; font-weight:700; margin-bottom:14px; color:var(--brand-dark); text-transform:uppercase; }
+.hotel-item, .cruise-item{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
+.add-mini-btn{ border:none; background:var(--brand); color:#fff; border-radius:10px; padding:10px 14px; cursor:pointer; font-size:13px; font-weight:600; }
+.add-mini-btn:hover{ background:var(--brand-dark); }
 
-/* ---------- HEADER ---------- */
+/* PRICE */
+.rates-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.mini-card{ background:var(--bg-soft); border:1px solid var(--line); border-radius:18px; padding:16px; }
+.mini-title{ font-size:12px; color:var(--muted); margin-bottom:14px; text-transform:uppercase; }
+.rate-row{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:14px; }
+.small-input{ width:130px; text-align:right; border:1px solid var(--line); border-radius:10px; padding:12px; font-size:15px; font-weight:700; color:var(--blue); font-family:var(--font); }
+.total{ margin-top:20px; background:#F2FBF7; border:1px solid #CFECDD; border-radius:18px; padding:22px; display:flex; justify-content:space-between; align-items:center; }
+.total-label{ font-size:13px; color:var(--muted); }
+.total-amt{ font-size:42px; font-weight:700; color:var(--brand-dark); }
 
-.top{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:24px;
-  padding:22px;
-  box-shadow:var(--shadow);
-  margin-bottom:18px;
-}
+/* TABLE */
+.table-wrap{ overflow:auto; border:1px solid var(--line); border-radius:18px; }
+table{ width:100%; border-collapse:collapse; min-width:1000px; }
+th{ background:#F7FAF9; padding:14px; font-size:12px; color:var(--muted); text-transform:uppercase; text-align:left; border-bottom:1px solid var(--line); }
+td{ padding:14px; border-bottom:1px solid var(--line); vertical-align:top; }
+.day-pill{ background:#EAF8F2; color:#0B664F; padding:6px 12px; border-radius:999px; font-size:12px; font-weight:600; }
+.cell-textarea{ min-height:90px; resize:vertical; }
 
-.top-grid{
-  display:grid;
-  grid-template-columns:1fr auto;
-  gap:20px;
-}
+/* OPTIONS */
+.option-group{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+.option-btn{ border:1px solid #CFECDD; background:#fff; color:#0B664F; border-radius:10px; padding:7px 12px; font-size:12px; cursor:pointer; font-weight:600; }
+.option-btn.active{ background:#1D9E75; color:#fff; border-color:#1D9E75; }
 
-.brand{
-  font-size:34px;
-  font-weight:700;
-}
-
-.brand span{
-  color:var(--brand);
-}
-
-.itin-row{
-  margin-top:10px;
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-
-.itin-label{
-  font-size:12px;
-  color:var(--muted);
-  text-transform:uppercase;
-}
-
-.itin-badge{
-  background:#E8F7F1;
-  color:#085041;
-  border:1px solid #BFE8D9;
-  padding:6px 12px;
-  border-radius:999px;
-  font-size:13px;
-  font-weight:600;
-}
-
-.page-title{
-  margin-top:20px;
-  font-size:24px;
-  font-weight:600;
-}
-
-.meta-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(220px,1fr));
-  gap:14px;
-}
-
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
-.label{
-  font-size:11px;
-  color:var(--muted);
-  text-transform:uppercase;
-}
-
-.input,
-textarea,
-.date-input{
-  width:100%;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:14px;
-  font-size:14px;
-  background:#fff;
-  font-family:var(--font);
-  color:#111;
-}
-
-.input:focus,
-textarea:focus,
-.date-input:focus{
-  outline:none;
-  border-color:var(--brand);
-}
-
-.strip{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-  margin-top:20px;
-}
-
-.strip-card{
-  background:var(--bg-soft);
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:14px;
-}
-
-.strip-title{
-  font-size:11px;
-  color:var(--muted);
-  margin-bottom:8px;
-  text-transform:uppercase;
-}
-
-/* ---------- CARD ---------- */
-
-.card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:24px;
-  padding:22px;
-  box-shadow:var(--shadow);
-  margin-bottom:18px;
-}
-
-.section-head{
-  margin-bottom:18px;
-}
-
-.section-title{
-  font-size:20px;
-  font-weight:600;
-}
-
-.section-sub{
-  font-size:13px;
-  color:var(--muted);
-  margin-top:4px;
-}
-
-/* ---------- HOTEL / CRUISE ---------- */
-
-.extra-grid{
+/* ========== INCLUSIONS & EXCLUSIONS ========== */
+.inc-exc-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:18px;
 }
 
-.hotel-block,
-.cruise-block{
-  background:var(--bg-soft);
-  border:1px solid var(--line);
+.inc-block{
+  background:#F2FBF7;
+  border:1px solid #CFECDD;
   border-radius:18px;
   padding:18px;
 }
 
-.block-title{
+.exc-block{
+  background:var(--red-bg);
+  border:1px solid var(--red-line);
+  border-radius:18px;
+  padding:18px;
+}
+
+.inc-title{
   font-size:13px;
   font-weight:700;
   margin-bottom:14px;
-  color:var(--brand-dark);
-  text-transform:uppercase;
-}
-
-.hotel-item,
-.cruise-item{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-bottom:14px;
-}
-
-.add-mini-btn{
-  border:none;
-  background:var(--brand);
-  color:#fff;
-  border-radius:10px;
-  padding:10px 14px;
-  cursor:pointer;
-  font-size:13px;
-  font-weight:600;
-}
-
-/* ---------- PRICE ---------- */
-
-.rates-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-
-.mini-card{
-  background:var(--bg-soft);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:16px;
-}
-
-.mini-title{
-  font-size:12px;
-  color:var(--muted);
-  margin-bottom:14px;
-  text-transform:uppercase;
-}
-
-.rate-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:14px;
-}
-
-.small-input{
-  width:130px;
-  text-align:right;
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:12px;
-  font-size:15px;
-  font-weight:700;
-  color:var(--blue);
-  font-family:var(--font);
-}
-
-.total{
-  margin-top:20px;
-  background:#F2FBF7;
-  border:1px solid #CFECDD;
-  border-radius:18px;
-  padding:22px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.total-label{
-  font-size:13px;
-  color:var(--muted);
-}
-
-.total-amt{
-  font-size:42px;
-  font-weight:700;
-  color:var(--brand-dark);
-}
-
-/* ---------- TABLE ---------- */
-
-.table-wrap{
-  overflow:auto;
-  border:1px solid var(--line);
-  border-radius:18px;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:1000px;
-}
-
-th{
-  background:#F7FAF9;
-  padding:14px;
-  font-size:12px;
-  color:var(--muted);
-  text-transform:uppercase;
-  text-align:left;
-  border-bottom:1px solid var(--line);
-}
-
-td{
-  padding:14px;
-  border-bottom:1px solid var(--line);
-  vertical-align:top;
-}
-
-.day-pill{
-  background:#EAF8F2;
   color:#0B664F;
-  padding:6px 12px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:600;
-}
-
-.cell-textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-/* ---------- OPTIONS ---------- */
-
-.option-group{
+  text-transform:uppercase;
   display:flex;
-  flex-wrap:wrap;
+  align-items:center;
   gap:8px;
-  margin-bottom:10px;
 }
 
-.option-btn{
-  border:1px solid #CFECDD;
-  background:#fff;
-  color:#0B664F;
-  border-radius:10px;
-  padding:7px 12px;
-  font-size:12px;
-  cursor:pointer;
-  font-weight:600;
-}
-
-.option-btn.active{
-  background:#1D9E75;
-  color:#fff;
-  border-color:#1D9E75;
-}
-
-/* ---------- BUTTONS ---------- */
-
-.actions{
+.exc-title{
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:14px;
+  color:var(--red);
+  text-transform:uppercase;
   display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:20px;
-}
-
-.btn{
-  border:none;
-  border-radius:14px;
-  padding:12px 18px;
-  font-size:14px;
-  font-weight:600;
-  cursor:pointer;
-  font-family:var(--font);
-}
-
-.btn-primary{
-  background:var(--brand);
-  color:#fff;
-}
-
-.btn-light{
-  background:#fff;
-  border:1px solid var(--line);
-}
-
-/* ---------- SAVED SECTION ---------- */
-
-.saved-card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:24px;
-  padding:22px;
-  margin-top:20px;
-}
-
-.saved-item{
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:14px;
-  margin-bottom:12px;
-  display:flex;
-  justify-content:space-between;
   align-items:center;
-  gap:10px;
+  gap:8px;
 }
 
-.saved-left{
+.inc-title .dot{
+  width:8px; height:8px;
+  border-radius:50%;
+  background:#1D9E75;
+  flex-shrink:0;
+}
+
+.exc-title .dot{
+  width:8px; height:8px;
+  border-radius:50%;
+  background:var(--red);
+  flex-shrink:0;
+}
+
+.item-list{
   display:flex;
   flex-direction:column;
-  gap:4px;
-}
-
-.saved-title{
-  font-weight:700;
-}
-
-.saved-sub{
-  font-size:12px;
-  color:var(--muted);
-}
-
-.saved-actions{
-  display:flex;
   gap:8px;
+  margin-bottom:12px;
+  min-height:10px;
 }
 
-.small-btn{
-  border:none;
-  padding:8px 12px;
+.item-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:#fff;
   border-radius:10px;
-  cursor:pointer;
-  font-size:12px;
-  font-weight:600;
+  padding:10px 12px;
+  border:1px solid var(--line);
+  animation: fadeInRow 0.18s ease;
 }
 
-.load-btn{
-  background:#EAF8F2;
+@keyframes fadeInRow{
+  from{ opacity:0; transform:translateY(-4px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+.item-icon{
+  font-size:16px;
+  flex-shrink:0;
+  line-height:1;
+}
+
+.item-text{
+  flex:1;
+  border:none;
+  outline:none;
+  font-size:14px;
+  font-family:var(--font);
+  color:var(--text);
+  background:transparent;
+  padding:0;
+}
+
+.item-text::placeholder{ color:#C4D0CB; }
+
+.remove-item-btn{
+  border:none;
+  background:none;
+  cursor:pointer;
+  color:#C4D0CB;
+  font-size:18px;
+  line-height:1;
+  padding:0 2px;
+  transition:color 0.15s;
+  flex-shrink:0;
+}
+
+.remove-item-btn:hover{ color:var(--red); }
+
+.add-item-btn{
+  border:none;
+  border-radius:10px;
+  padding:9px 14px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:600;
+  font-family:var(--font);
+  display:flex;
+  align-items:center;
+  gap:6px;
+  transition:background 0.15s;
+}
+
+.add-inc-btn{
+  background:#D6F5E9;
   color:#0B664F;
 }
+.add-inc-btn:hover{ background:#BFE8D9; }
 
-.delete-btn{
-  background:#FFE9E9;
-  color:#B42318;
+.add-exc-btn{
+  background:#FFD8D5;
+  color:var(--red);
+}
+.add-exc-btn:hover{ background:var(--red-line); }
+
+/* quick-add chips */
+.quick-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:10px;
 }
 
-/* ---------- MOBILE ---------- */
+.chip{
+  border:1px dashed;
+  background:transparent;
+  border-radius:999px;
+  padding:4px 10px;
+  font-size:11px;
+  font-weight:600;
+  cursor:pointer;
+  font-family:var(--font);
+  transition:all 0.12s;
+}
 
+.inc-chip{
+  border-color:#8DD8B8;
+  color:#0B664F;
+}
+.inc-chip:hover{ background:#D6F5E9; }
+
+.exc-chip{
+  border-color:#FFB3AD;
+  color:var(--red);
+}
+.exc-chip:hover{ background:#FFD8D5; }
+
+/* ============================================= */
+
+/* BUTTONS */
+.actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:20px; }
+.btn{ border:none; border-radius:14px; padding:12px 18px; font-size:14px; font-weight:600; cursor:pointer; font-family:var(--font); }
+.btn-primary{ background:var(--brand); color:#fff; }
+.btn-primary:hover{ background:var(--brand-dark); }
+.btn-light{ background:#fff; border:1px solid var(--line); }
+
+/* SAVED */
+.saved-card{ background:#fff; border:1px solid var(--line); border-radius:24px; padding:22px; margin-top:20px; }
+.saved-item{ border:1px solid var(--line); border-radius:16px; padding:14px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.saved-left{ display:flex; flex-direction:column; gap:4px; }
+.saved-title{ font-weight:700; }
+.saved-sub{ font-size:12px; color:var(--muted); }
+.saved-actions{ display:flex; gap:8px; }
+.small-btn{ border:none; padding:8px 12px; border-radius:10px; cursor:pointer; font-size:12px; font-weight:600; }
+.load-btn{ background:#EAF8F2; color:#0B664F; }
+.delete-btn{ background:#FFE9E9; color:#B42318; }
+
+/* MOBILE */
 @media(max-width:960px){
-
-  .top-grid,
-  .extra-grid,
-  .rates-grid,
-  .strip,
-  .hotel-item,
-  .cruise-item{
-    grid-template-columns:1fr;
-  }
-
+  .top-grid, .extra-grid, .rates-grid, .strip, .hotel-item, .cruise-item, .inc-exc-grid{ grid-template-columns:1fr; }
 }
-
 </style>
 </head>
-
 <body>
 
 <div class="wrap" id="pdfContent">
 
 <!-- HEADER -->
-
 <div class="top">
-
-<div class="top-grid">
-
-<div>
-
-<div class="brand">
-travel<span>og</span>
-</div>
-
-<div class="itin-row">
-<span class="itin-label">Itinerary No.</span>
-<span class="itin-badge" id="itinNumber">TG-001</span>
-</div>
-
-<div class="page-title">
-Travel Itinerary
-</div>
-
-</div>
-
-<div class="meta-grid">
-
-<div class="field">
-<label class="label">Customer Name</label>
-<input class="input save-field" id="customerName">
-</div>
-
-<div class="field">
-<label class="label">Sales Person</label>
-<input class="input save-field" id="salesPerson">
-</div>
-
-</div>
-
-</div>
-
-<div class="strip">
-
-<div class="strip-card">
-<div class="strip-title">Travel Date</div>
-<input type="date" class="date-input save-field" id="travelDate">
-</div>
-
-<div class="strip-card">
-<div class="strip-title">Quote Expiry</div>
-<input type="date" class="date-input save-field" id="quoteExpiry">
-</div>
-
-</div>
-
+  <div class="top-grid">
+    <div>
+      <div class="brand">travel<span>og</span></div>
+      <div class="itin-row">
+        <span class="itin-label">Itinerary No.</span>
+        <span class="itin-badge" id="itinNumber">TG-001</span>
+      </div>
+      <div class="page-title">Travel Itinerary</div>
+    </div>
+    <div class="meta-grid">
+      <div class="field">
+        <label class="label">Customer Name</label>
+        <input class="input save-field" id="customerName">
+      </div>
+      <div class="field">
+        <label class="label">Sales Person</label>
+        <input class="input save-field" id="salesPerson">
+      </div>
+    </div>
+  </div>
+  <div class="strip">
+    <div class="strip-card">
+      <div class="strip-title">Travel Date</div>
+      <input type="date" class="date-input save-field" id="travelDate">
+    </div>
+    <div class="strip-card">
+      <div class="strip-title">Quote Expiry</div>
+      <input type="date" class="date-input save-field" id="quoteExpiry">
+    </div>
+  </div>
 </div>
 
 <!-- HOTEL / CRUISE -->
-
 <div class="card">
-
-<div class="extra-grid">
-
-<div class="hotel-block">
-
-<div class="block-title">Hotel Details</div>
-
-<div id="hotelContainer">
-
-<div class="hotel-item">
-<input class="input hotel-name" placeholder="Hotel Name">
-<input class="input hotel-destination" placeholder="Destination">
-</div>
-
-</div>
-
-<button class="add-mini-btn" onclick="addHotel()">
-+ Add Hotel
-</button>
-
-</div>
-
-<div class="cruise-block">
-
-<div class="block-title">Cruise Details</div>
-
-<div id="cruiseContainer">
-
-<div class="cruise-item">
-<input class="input cruise-name" placeholder="Cruise Name">
-<input class="input cruise-destination" placeholder="Destination">
-</div>
-
-</div>
-
-<button class="add-mini-btn" onclick="addCruise()">
-+ Add Cruise
-</button>
-
-</div>
-
-</div>
-
+  <div class="extra-grid">
+    <div class="hotel-block">
+      <div class="block-title">Hotel Details</div>
+      <div id="hotelContainer">
+        <div class="hotel-item">
+          <input class="input hotel-name" placeholder="Hotel Name">
+          <input class="input hotel-destination" placeholder="Destination">
+        </div>
+      </div>
+      <button class="add-mini-btn" onclick="addHotel()">+ Add Hotel</button>
+    </div>
+    <div class="cruise-block">
+      <div class="block-title">Cruise Details</div>
+      <div id="cruiseContainer">
+        <div class="cruise-item">
+          <input class="input cruise-name" placeholder="Cruise Name">
+          <input class="input cruise-destination" placeholder="Destination">
+        </div>
+      </div>
+      <button class="add-mini-btn" onclick="addCruise()">+ Add Cruise</button>
+    </div>
+  </div>
 </div>
 
 <!-- PRICE -->
-
 <div class="card">
-
-<div class="section-head">
-<div class="section-title">Price Quote</div>
-<div class="section-sub">Rates & passenger summary</div>
+  <div class="section-head">
+    <div class="section-title">Price Quote</div>
+    <div class="section-sub">Rates & passenger summary</div>
+  </div>
+  <div class="rates-grid">
+    <div class="mini-card">
+      <div class="mini-title">Rates</div>
+      <div class="rate-row"><span>Adult</span><input class="small-input" id="adultRate" placeholder="₹ 0"></div>
+      <div class="rate-row"><span>Child</span><input class="small-input" id="childRate" placeholder="₹ 0"></div>
+      <div class="rate-row"><span>Infant</span><input class="small-input" id="infantRate" placeholder="₹ 0"></div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-title">Passengers</div>
+      <div class="rate-row"><span>Adults</span><input class="small-input" id="adultPax" placeholder="0"></div>
+      <div class="rate-row"><span>Children</span><input class="small-input" id="childPax" placeholder="0"></div>
+      <div class="rate-row"><span>Infants</span><input class="small-input" id="infantPax" placeholder="0"></div>
+    </div>
+    <div class="mini-card">
+      <div class="mini-title">Summary</div>
+      <div class="rate-row"><span>Adults</span><strong id="adultTotal">₹ 0</strong></div>
+      <div class="rate-row"><span>Children</span><strong id="childTotal">₹ 0</strong></div>
+      <div class="rate-row"><span>Infants</span><strong id="infantTotal">₹ 0</strong></div>
+    </div>
+  </div>
+  <div class="total">
+    <div><div class="total-label">Grand Total</div></div>
+    <div class="total-amt" id="grandTotal">₹ 0</div>
+  </div>
 </div>
 
-<div class="rates-grid">
+<!-- ========== INCLUSIONS & EXCLUSIONS ========== -->
+<div class="card">
+  <div class="section-head">
+    <div class="section-title">Inclusions &amp; Exclusions</div>
+    <div class="section-sub">What's covered and what's not in this package</div>
+  </div>
 
-<div class="mini-card">
+  <div class="inc-exc-grid">
 
-<div class="mini-title">Rates</div>
+    <!-- INCLUSIONS -->
+    <div class="inc-block">
+      <div class="inc-title"><span class="dot"></span> Inclusions</div>
 
-<div class="rate-row">
-<span>Adult</span>
-<input class="small-input" id="adultRate" placeholder="₹ 0">
+      <div class="item-list" id="inclusionsList"></div>
+
+      <button class="add-item-btn add-inc-btn" onclick="addItem('inclusions')">
+        <span>＋</span> Add Inclusion
+      </button>
+
+      <div class="quick-chips" id="incChips">
+        <span class="chip inc-chip" onclick="quickAdd('inclusions','Accommodation')">🏨 Accommodation</span>
+        <span class="chip inc-chip" onclick="quickAdd('inclusions','Breakfast')">🍳 Breakfast</span>
+        <span class="chip inc-chip" onclick="quickAdd('inclusions','Airport Transfers')">🚐 Airport Transfers</span>
+        <span class="chip inc-chip" onclick="quickAdd('inclusions','Sightseeing')">🗺️ Sightseeing</span>
+        <span class="chip inc-chip" onclick="quickAdd('inclusions','Flight Tickets')">✈️ Flight Tickets</span>
+        <span class="chip inc-chip" onclick="quickAdd('inclusions','Visa Assistance')">📄 Visa Assistance</span>
+        <span class="chip inc-chip" onclick="quickAdd('inclusions','Travel Insurance')">🛡️ Travel Insurance</span>
+        <span class="chip inc-chip" onclick="quickAdd('inclusions','All Meals')">🍽️ All Meals</span>
+      </div>
+    </div>
+
+    <!-- EXCLUSIONS -->
+    <div class="exc-block">
+      <div class="exc-title"><span class="dot"></span> Exclusions</div>
+
+      <div class="item-list" id="exclusionsList"></div>
+
+      <button class="add-item-btn add-exc-btn" onclick="addItem('exclusions')">
+        <span>＋</span> Add Exclusion
+      </button>
+
+      <div class="quick-chips" id="excChips">
+        <span class="chip exc-chip" onclick="quickAdd('exclusions','Personal Expenses')">💸 Personal Expenses</span>
+        <span class="chip exc-chip" onclick="quickAdd('exclusions','Tips & Gratuities')">🤝 Tips & Gratuities</span>
+        <span class="chip exc-chip" onclick="quickAdd('exclusions','Visa Fees')">📋 Visa Fees</span>
+        <span class="chip exc-chip" onclick="quickAdd('exclusions','Drinks & Beverages')">🥤 Drinks & Beverages</span>
+        <span class="chip exc-chip" onclick="quickAdd('exclusions','Camera Fees')">📷 Camera Fees</span>
+        <span class="chip exc-chip" onclick="quickAdd('exclusions','Travel Insurance')">🛡️ Travel Insurance</span>
+        <span class="chip exc-chip" onclick="quickAdd('exclusions','Room Service')">🛎️ Room Service</span>
+        <span class="chip exc-chip" onclick="quickAdd('exclusions','Laundry')">👕 Laundry</span>
+      </div>
+    </div>
+
+  </div>
 </div>
-
-<div class="rate-row">
-<span>Child</span>
-<input class="small-input" id="childRate" placeholder="₹ 0">
-</div>
-
-<div class="rate-row">
-<span>Infant</span>
-<input class="small-input" id="infantRate" placeholder="₹ 0">
-</div>
-
-</div>
-
-<div class="mini-card">
-
-<div class="mini-title">Passengers</div>
-
-<div class="rate-row">
-<span>Adults</span>
-<input class="small-input" id="adultPax" placeholder="0">
-</div>
-
-<div class="rate-row">
-<span>Children</span>
-<input class="small-input" id="childPax" placeholder="0">
-</div>
-
-<div class="rate-row">
-<span>Infants</span>
-<input class="small-input" id="infantPax" placeholder="0">
-</div>
-
-</div>
-
-<div class="mini-card">
-
-<div class="mini-title">Summary</div>
-
-<div class="rate-row">
-<span>Adults</span>
-<strong id="adultTotal">₹ 0</strong>
-</div>
-
-<div class="rate-row">
-<span>Children</span>
-<strong id="childTotal">₹ 0</strong>
-</div>
-
-<div class="rate-row">
-<span>Infants</span>
-<strong id="infantTotal">₹ 0</strong>
-</div>
-
-</div>
-
-</div>
-
-<div class="total">
-
-<div>
-<div class="total-label">Grand Total</div>
-</div>
-
-<div class="total-amt" id="grandTotal">
-₹ 0
-</div>
-
-</div>
-
-</div>
+<!-- ================================================ -->
 
 <!-- ITINERARY -->
-
 <div class="card">
-
-<div class="section-head">
-
-<div class="section-title">
-Day-wise Itinerary
+  <div class="section-head">
+    <div class="section-title">Day-wise Itinerary</div>
+    <div class="section-sub">Daily travel schedule</div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Activity</th>
+          <th>Meals / Transfer</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody id="itineraryBody">
+        <tr>
+          <td><span class="day-pill">Day 1</span></td>
+          <td><textarea class="input cell-textarea activity"></textarea></td>
+          <td>
+            <div class="option-group">
+              <button type="button" class="option-btn" onclick="toggleBtn(this)">B</button>
+              <button type="button" class="option-btn" onclick="toggleBtn(this)">L</button>
+              <button type="button" class="option-btn" onclick="toggleBtn(this)">D</button>
+              <button type="button" class="option-btn" onclick="toggleBtn(this)">BR</button>
+            </div>
+            <div class="option-group">
+              <button type="button" class="option-btn" onclick="toggleBtn(this)">Shared</button>
+              <button type="button" class="option-btn" onclick="toggleBtn(this)">Private</button>
+            </div>
+          </td>
+          <td><textarea class="input cell-textarea notes"></textarea></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
-<div class="section-sub">
-Daily travel schedule
-</div>
-
-</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-<th>Day</th>
-<th>Activity</th>
-<th>Meals / Transfer</th>
-<th>Notes</th>
-</tr>
-
-</thead>
-
-<tbody id="itineraryBody">
-
-<tr>
-
-<td>
-<span class="day-pill">Day 1</span>
-</td>
-
-<td>
-<textarea class="input cell-textarea activity"></textarea>
-</td>
-
-<td>
-
-<div class="option-group">
-
-<button type="button" class="option-btn" onclick="toggleBtn(this)">B</button>
-<button type="button" class="option-btn" onclick="toggleBtn(this)">L</button>
-<button type="button" class="option-btn" onclick="toggleBtn(this)">D</button>
-<button type="button" class="option-btn" onclick="toggleBtn(this)">BR</button>
-
-</div>
-
-<div class="option-group">
-
-<button type="button" class="option-btn" onclick="toggleBtn(this)">Shared</button>
-<button type="button" class="option-btn" onclick="toggleBtn(this)">Private</button>
-
-</div>
-
-</td>
-
-<td>
-<textarea class="input cell-textarea notes"></textarea>
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
+</div><!-- end pdfContent -->
 
 <!-- BUTTONS -->
-
 <div class="wrap">
-
-<div class="actions">
-
-<button class="btn btn-primary" onclick="addDay()">
-+ Add Day
-</button>
-
-<button class="btn btn-primary" onclick="saveItinerary()">
-Save Itinerary
-</button>
-
-<button class="btn btn-light" onclick="downloadPDF()">
-Download PDF
-</button>
-
-<button class="btn btn-light" onclick="clearAll()">
-Clear All
-</button>
-
-</div>
-
+  <div class="actions">
+    <button class="btn btn-primary" onclick="addDay()">+ Add Day</button>
+    <button class="btn btn-primary" onclick="saveItinerary()">Save Itinerary</button>
+    <button class="btn btn-light" onclick="downloadPDF()">Download PDF</button>
+    <button class="btn btn-light" onclick="clearAll()">Clear All</button>
+  </div>
 </div>
 
 <!-- SAVED -->
-
 <div class="wrap">
-
-<div class="saved-card">
-
-<div class="section-head">
-<div class="section-title">Saved Itineraries</div>
-<div class="section-sub">
-Saved automatically in browser memory
-</div>
-</div>
-
-<div id="savedList"></div>
-
-</div>
-
+  <div class="saved-card">
+    <div class="section-head">
+      <div class="section-title">Saved Itineraries</div>
+      <div class="section-sub">Saved automatically in browser memory</div>
+    </div>
+    <div id="savedList"></div>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <!-- FIREBASE -->
-
 <script type="module">
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc
-} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyALSpB73XK5DiR2Ut59NSkKmalPkUGb49c",
@@ -817,16 +512,13 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
-
 window.db = db;
 window.collection = collection;
 window.addDoc = addDoc;
 window.getDocs = getDocs;
 window.deleteDoc = deleteDoc;
 window.doc = doc;
-
 </script>
 
 <script>
@@ -834,458 +526,236 @@ window.doc = doc;
 let dayCount = 1;
 
 /* ---------- ITIN NUMBER ---------- */
-
 function getNextItineraryNumber(){
-
-  let current =
-    localStorage.getItem("travelog_last_number");
-
+  let current = localStorage.getItem("travelog_last_number");
   current = current ? Number(current) : 1;
-
-  const formatted =
-    "TG-" +
-    String(current).padStart(3,"0");
-
-  document.getElementById(
-    "itinNumber"
-  ).innerText = formatted;
-
+  document.getElementById("itinNumber").innerText = "TG-" + String(current).padStart(3,"0");
 }
 
 function increaseItineraryNumber(){
-
-  let current =
-    localStorage.getItem("travelog_last_number");
-
+  let current = localStorage.getItem("travelog_last_number");
   current = current ? Number(current) : 1;
-
   current++;
-
-  localStorage.setItem(
-    "travelog_last_number",
-    current
-  );
-
+  localStorage.setItem("travelog_last_number", current);
 }
 
 /* ---------- TOGGLE ---------- */
-
-function toggleBtn(btn){
-  btn.classList.toggle("active");
-}
+function toggleBtn(btn){ btn.classList.toggle("active"); }
 
 /* ---------- ADD HOTEL ---------- */
-
 function addHotel(){
-
-  const html = `
-
-  <div class="hotel-item">
-    <input class="input hotel-name" placeholder="Hotel Name">
-    <input class="input hotel-destination" placeholder="Destination">
-  </div>
-
-  `;
-
-  document
-  .getElementById("hotelContainer")
-  .insertAdjacentHTML("beforeend", html);
-
+  document.getElementById("hotelContainer").insertAdjacentHTML("beforeend",`
+    <div class="hotel-item">
+      <input class="input hotel-name" placeholder="Hotel Name">
+      <input class="input hotel-destination" placeholder="Destination">
+    </div>`);
 }
 
 /* ---------- ADD CRUISE ---------- */
-
 function addCruise(){
-
-  const html = `
-
-  <div class="cruise-item">
-    <input class="input cruise-name" placeholder="Cruise Name">
-    <input class="input cruise-destination" placeholder="Destination">
-  </div>
-
-  `;
-
-  document
-  .getElementById("cruiseContainer")
-  .insertAdjacentHTML("beforeend", html);
-
+  document.getElementById("cruiseContainer").insertAdjacentHTML("beforeend",`
+    <div class="cruise-item">
+      <input class="input cruise-name" placeholder="Cruise Name">
+      <input class="input cruise-destination" placeholder="Destination">
+    </div>`);
 }
 
-/* ---------- ADD DAY ---------- */
+/* ============================================================
+   INCLUSIONS & EXCLUSIONS
+   ============================================================ */
 
-function addDay(){
+function addItem(type, text = ""){
+  const listId  = type === "inclusions" ? "inclusionsList" : "exclusionsList";
+  const icon    = type === "inclusions" ? "✅" : "❌";
+  const list    = document.getElementById(listId);
 
-  dayCount++;
-
-  const row = `
-
-  <tr>
-
-  <td>
-  <span class="day-pill">Day ${dayCount}</span>
-  </td>
-
-  <td>
-  <textarea class="input cell-textarea activity"></textarea>
-  </td>
-
-  <td>
-
-  <div class="option-group">
-  <button type="button" class="option-btn" onclick="toggleBtn(this)">B</button>
-  <button type="button" class="option-btn" onclick="toggleBtn(this)">L</button>
-  <button type="button" class="option-btn" onclick="toggleBtn(this)">D</button>
-  <button type="button" class="option-btn" onclick="toggleBtn(this)">BR</button>
-  </div>
-
-  <div class="option-group">
-  <button type="button" class="option-btn" onclick="toggleBtn(this)">Shared</button>
-  <button type="button" class="option-btn" onclick="toggleBtn(this)">Private</button>
-  </div>
-
-  </td>
-
-  <td>
-  <textarea class="input cell-textarea notes"></textarea>
-  </td>
-
-  </tr>
-
+  const row = document.createElement("div");
+  row.className = "item-row";
+  row.innerHTML = `
+    <span class="item-icon">${icon}</span>
+    <input class="item-text" type="text" placeholder="Type here…" value="${escapeHtml(text)}">
+    <button class="remove-item-btn" title="Remove" onclick="this.closest('.item-row').remove()">×</button>
   `;
+  list.appendChild(row);
 
-  document
-  .getElementById("itineraryBody")
-  .insertAdjacentHTML("beforeend", row);
+  // Auto-focus new empty row
+  if(!text){
+    row.querySelector(".item-text").focus();
+  }
+}
 
+function quickAdd(type, text){
+  // Prevent duplicates
+  const listId = type === "inclusions" ? "inclusionsList" : "exclusionsList";
+  const existing = [...document.querySelectorAll(`#${listId} .item-text`)].map(i=>i.value.trim());
+  if(existing.includes(text)){ return; }
+  addItem(type, text);
+}
+
+function escapeHtml(str){
+  return str.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+function getInclusionExclusionData(){
+  const inclusions = [...document.querySelectorAll("#inclusionsList .item-text")]
+    .map(i=>i.value.trim()).filter(Boolean);
+  const exclusions = [...document.querySelectorAll("#exclusionsList .item-text")]
+    .map(i=>i.value.trim()).filter(Boolean);
+  return { inclusions, exclusions };
+}
+
+function loadInclusionExclusionData(data){
+  document.getElementById("inclusionsList").innerHTML = "";
+  document.getElementById("exclusionsList").innerHTML = "";
+  (data.inclusions||[]).forEach(t=>addItem("inclusions",t));
+  (data.exclusions||[]).forEach(t=>addItem("exclusions",t));
+}
+
+/* ============================================================ */
+
+/* ---------- ADD DAY ---------- */
+function addDay(){
+  dayCount++;
+  document.getElementById("itineraryBody").insertAdjacentHTML("beforeend",`
+    <tr>
+      <td><span class="day-pill">Day ${dayCount}</span></td>
+      <td><textarea class="input cell-textarea activity"></textarea></td>
+      <td>
+        <div class="option-group">
+          <button type="button" class="option-btn" onclick="toggleBtn(this)">B</button>
+          <button type="button" class="option-btn" onclick="toggleBtn(this)">L</button>
+          <button type="button" class="option-btn" onclick="toggleBtn(this)">D</button>
+          <button type="button" class="option-btn" onclick="toggleBtn(this)">BR</button>
+        </div>
+        <div class="option-group">
+          <button type="button" class="option-btn" onclick="toggleBtn(this)">Shared</button>
+          <button type="button" class="option-btn" onclick="toggleBtn(this)">Private</button>
+        </div>
+      </td>
+      <td><textarea class="input cell-textarea notes"></textarea></td>
+    </tr>`);
 }
 
 /* ---------- SAVE FIREBASE ---------- */
-
 async function saveItinerary(){
+  const { inclusions, exclusions } = getInclusionExclusionData();
 
   const itinerary = {
-
-    number:
-      document.getElementById(
-        "itinNumber"
-      ).innerText,
-
-    customer:
-      document.getElementById(
-        "customerName"
-      ).value,
-
-    sales:
-      document.getElementById(
-        "salesPerson"
-      ).value,
-
-    travelDate:
-      document.getElementById(
-        "travelDate"
-      ).value,
-
-    created:
-      new Date().toLocaleString()
-
+    number:     document.getElementById("itinNumber").innerText,
+    customer:   document.getElementById("customerName").value,
+    sales:      document.getElementById("salesPerson").value,
+    travelDate: document.getElementById("travelDate").value,
+    created:    new Date().toLocaleString(),
+    inclusions,
+    exclusions
   };
 
-  await addDoc(
-    collection(db, "itineraries"),
-    itinerary
-  );
-
+  await addDoc(collection(db,"itineraries"), itinerary);
   renderSaved();
-
   alert("Itinerary Saved!");
-
   increaseItineraryNumber();
-
   getNextItineraryNumber();
-
 }
 
 /* ---------- RENDER SAVED ---------- */
-
 async function renderSaved(){
-
-  const container =
-    document.getElementById(
-      "savedList"
-    );
-
-  const querySnapshot =
-    await getDocs(
-      collection(db, "itineraries")
-    );
+  const container = document.getElementById("savedList");
+  const querySnapshot = await getDocs(collection(db,"itineraries"));
 
   if(querySnapshot.empty){
-
-    container.innerHTML =
-      "<p>No saved itineraries yet.</p>";
-
+    container.innerHTML = "<p>No saved itineraries yet.</p>";
     return;
-
   }
 
   container.innerHTML = "";
 
   querySnapshot.forEach((docItem)=>{
-
     const item = docItem.data();
+    const incCount = (item.inclusions||[]).length;
+    const excCount = (item.exclusions||[]).length;
 
     container.innerHTML += `
-
-    <div class="saved-item">
-
-      <div class="saved-left">
-
-        <div class="saved-title">
-          ${item.number}
+      <div class="saved-item">
+        <div class="saved-left">
+          <div class="saved-title">${item.number}</div>
+          <div class="saved-sub">${item.customer || "No Customer"}</div>
+          <div class="saved-sub">${item.travelDate || ""}</div>
+          ${incCount||excCount ? `<div class="saved-sub">✅ ${incCount} inclusions &nbsp;❌ ${excCount} exclusions</div>` : ""}
         </div>
-
-        <div class="saved-sub">
-          ${item.customer || "No Customer"}
+        <div class="saved-actions">
+          <button class="small-btn delete-btn" onclick="deleteSaved('${docItem.id}')">Delete</button>
         </div>
-
-        <div class="saved-sub">
-          ${item.travelDate || ""}
-        </div>
-
-      </div>
-
-      <div class="saved-actions">
-
-        <button
-          class="small-btn delete-btn"
-          onclick="deleteSaved('${docItem.id}')">
-
-          Delete
-
-        </button>
-
-      </div>
-
-    </div>
-
-    `;
-
+      </div>`;
   });
-
 }
 
 /* ---------- DELETE ---------- */
-
 async function deleteSaved(id){
-
-  await deleteDoc(
-    doc(db, "itineraries", id)
-  );
-
+  await deleteDoc(doc(db,"itineraries",id));
   renderSaved();
-
 }
 
 /* ---------- CLEAR ---------- */
-
 function clearAll(){
-
   if(confirm("Clear all data?")){
-
-    document
-    .querySelectorAll("input")
-    .forEach(el=>{
-      el.value="";
-    });
-
-    document
-    .querySelectorAll("textarea")
-    .forEach(el=>{
-      el.value="";
-    });
-
-    document
-    .querySelectorAll(".option-btn")
-    .forEach(btn=>{
-      btn.classList.remove("active");
-    });
-
+    document.querySelectorAll("input").forEach(el=>{ el.value=""; });
+    document.querySelectorAll("textarea").forEach(el=>{ el.value=""; });
+    document.querySelectorAll(".option-btn").forEach(btn=>{ btn.classList.remove("active"); });
+    document.getElementById("inclusionsList").innerHTML = "";
+    document.getElementById("exclusionsList").innerHTML = "";
   }
-
 }
 
-/* ---------- TOTAL ---------- */
-
-const fields = [
-"adultRate",
-"childRate",
-"infantRate",
-"adultPax",
-"childPax",
-"infantPax"
-];
-
-fields.forEach(id=>{
-
-  document
-  .getElementById(id)
-  .addEventListener(
-    "input",
-    calculateTotals
-  );
-
+/* ---------- TOTALS ---------- */
+["adultRate","childRate","infantRate","adultPax","childPax","infantPax"].forEach(id=>{
+  document.getElementById(id).addEventListener("input", calculateTotals);
 });
 
-function cleanNumber(value){
-
-  return Number(
-    value.replace(/[^0-9]/g,'')
-  ) || 0;
-
-}
+function cleanNumber(v){ return Number(v.replace(/[^0-9]/g,""))||0; }
 
 function calculateTotals(){
-
-const adultRate =
-cleanNumber(document.getElementById("adultRate").value);
-
-const childRate =
-cleanNumber(document.getElementById("childRate").value);
-
-const infantRate =
-cleanNumber(document.getElementById("infantRate").value);
-
-const adultPax =
-cleanNumber(document.getElementById("adultPax").value);
-
-const childPax =
-cleanNumber(document.getElementById("childPax").value);
-
-const infantPax =
-cleanNumber(document.getElementById("infantPax").value);
-
-const adultTotal =
-adultRate * adultPax;
-
-const childTotal =
-childRate * childPax;
-
-const infantTotal =
-infantRate * infantPax;
-
-const grand =
-adultTotal +
-childTotal +
-infantTotal;
-
-document.getElementById("adultTotal").innerText =
-"₹ " +
-adultTotal.toLocaleString("en-IN");
-
-document.getElementById("childTotal").innerText =
-"₹ " +
-childTotal.toLocaleString("en-IN");
-
-document.getElementById("infantTotal").innerText =
-"₹ " +
-infantTotal.toLocaleString("en-IN");
-
-document.getElementById("grandTotal").innerText =
-"₹ " +
-grand.toLocaleString("en-IN");
-
+  const ar = cleanNumber(document.getElementById("adultRate").value);
+  const cr = cleanNumber(document.getElementById("childRate").value);
+  const ir = cleanNumber(document.getElementById("infantRate").value);
+  const ap = cleanNumber(document.getElementById("adultPax").value);
+  const cp = cleanNumber(document.getElementById("childPax").value);
+  const ip = cleanNumber(document.getElementById("infantPax").value);
+  const at = ar*ap, ct = cr*cp, it = ir*ip, grand = at+ct+it;
+  document.getElementById("adultTotal").innerText  = "₹ " + at.toLocaleString("en-IN");
+  document.getElementById("childTotal").innerText  = "₹ " + ct.toLocaleString("en-IN");
+  document.getElementById("infantTotal").innerText = "₹ " + it.toLocaleString("en-IN");
+  document.getElementById("grandTotal").innerText  = "₹ " + grand.toLocaleString("en-IN");
 }
 
 /* ---------- PDF ---------- */
-
 async function downloadPDF(){
-
   const { jsPDF } = window.jspdf;
-
-  const element =
-    document.getElementById(
-      "pdfContent"
-    );
-
-  const canvas =
-    await html2canvas(element,{
-      scale:2,
-      useCORS:true,
-      backgroundColor:"#F4F7F6"
-    });
-
-  const imgData =
-    canvas.toDataURL("image/png");
-
-  const pdf =
-    new jsPDF("p","mm","a4");
-
-  const pdfWidth =
-    pdf.internal.pageSize.getWidth();
-
-  const pdfHeight =
-    pdf.internal.pageSize.getHeight();
-
+  const element = document.getElementById("pdfContent");
+  const canvas = await html2canvas(element,{ scale:2, useCORS:true, backgroundColor:"#F4F7F6" });
+  const imgData = canvas.toDataURL("image/png");
+  const pdf = new jsPDF("p","mm","a4");
+  const pdfWidth = pdf.internal.pageSize.getWidth();
+  const pdfHeight = pdf.internal.pageSize.getHeight();
   const imgWidth = pdfWidth;
-
-  const imgHeight =
-    (canvas.height * imgWidth) /
-    canvas.width;
-
-  let heightLeft =
-    imgHeight;
-
-  let position = 0;
-
-  pdf.addImage(
-    imgData,
-    "PNG",
-    0,
-    position,
-    imgWidth,
-    imgHeight
-  );
-
+  const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  let heightLeft = imgHeight, position = 0;
+  pdf.addImage(imgData,"PNG",0,position,imgWidth,imgHeight);
   heightLeft -= pdfHeight;
-
   while(heightLeft > 0){
-
-    position =
-      heightLeft - imgHeight;
-
+    position = heightLeft - imgHeight;
     pdf.addPage();
-
-    pdf.addImage(
-      imgData,
-      "PNG",
-      0,
-      position,
-      imgWidth,
-      imgHeight
-    );
-
+    pdf.addImage(imgData,"PNG",0,position,imgWidth,imgHeight);
     heightLeft -= pdfHeight;
-
   }
-
-  pdf.save(
-    "travelog-itinerary.pdf"
-  );
-
+  pdf.save("travelog-itinerary.pdf");
 }
 
 /* ---------- INIT ---------- */
-
 window.addEventListener("load", async () => {
-
   getNextItineraryNumber();
-
   await renderSaved();
-
 });
 
 </script>
-
 </body>
 </html>
