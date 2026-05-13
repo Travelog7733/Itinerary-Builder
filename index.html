@@ -568,7 +568,7 @@ td{
       type="text"
       class="date-input"
       id="travelDate"
-      placeholder="DD/MM/YY"
+      placeholder="DD/MM/YYYY"
       oninput="formatDate(this)"
       onchange="setExpiryDate()"
       maxlength="8">
@@ -582,7 +582,7 @@ td{
       type="text"
       class="date-input"
       id="quoteExpiry"
-      placeholder="DD/MM/YY"
+      placeholder="DD/MM/YYYY"
       readonly>
 
   </div>
@@ -970,7 +970,7 @@ function setExpiryDate(){
   const yy = String(date.getFullYear()).slice(-2);
 
   document.getElementById("quoteExpiry").value =
-  `${dd}/${mm}/${yy}`;
+  `${dd}/${mm}/${yyyy}`;
 }
 
 /* TOGGLE */
