@@ -561,15 +561,31 @@ td{
 
 <div class="strip">
 
-<div class="strip-card">
-<div class="strip-title">Quote Date</div>
-<input type="date" class="date-input" id="travelDate" onchange="setExpiryDate()">
-</div>
+  <div class="strip-card">
+    <div class="strip-title">Quote Date</div>
 
-<div class="strip-card">
-<div class="strip-title">Quote Expiry</div>
-<input type="date" class="date-input" id="quoteExpiry">
-</div>
+    <input
+      type="text"
+      class="date-input"
+      id="travelDate"
+      placeholder="DD/MM/YY"
+      oninput="formatDate(this)"
+      onchange="setExpiryDate()"
+      maxlength="8">
+
+  </div>
+
+  <div class="strip-card">
+    <div class="strip-title">Quote Expiry</div>
+
+    <input
+      type="text"
+      class="date-input"
+      id="quoteExpiry"
+      placeholder="DD/MM/YY"
+      readonly>
+
+  </div>
 
 </div>
 </div>
