@@ -571,7 +571,7 @@ td{
       placeholder="DD/MM/YYYY"
       oninput="formatDate(this)"
       onchange="setExpiryDate()"
-      maxlength="8">
+      maxlength="10">
 
   </div>
 
@@ -941,7 +941,7 @@ function formatDate(input){
   }
 
   if(value.length > 5){
-    value = value.substring(0,5) + '/' + value.substring(5,7);
+    value = value.substring(0,5) + '/' + value.substring(5,9);
   }
 
   input.value = value;
@@ -951,13 +951,13 @@ function setExpiryDate(){
 
   const value = document.getElementById("travelDate").value;
 
-  if(!value || value.length !== 8) return;
+  if(!value || value.length !== 10) return;
 
   const parts = value.split('/');
 
   const day = parseInt(parts[0]);
   const month = parseInt(parts[1]) - 1;
-  const year = 2000 + parseInt(parts[2]);
+  const year = parseInt(parts[2]);
 
   const date = new Date(year, month, day);
 
@@ -967,7 +967,7 @@ function setExpiryDate(){
 
   const dd = String(date.getDate()).padStart(2,'0');
   const mm = String(date.getMonth() + 1).padStart(2,'0');
-  const yy = String(date.getFullYear()).slice(-2);
+  const yyyy = date.getFullYear();
 
   document.getElementById("quoteExpiry").value =
   `${dd}/${mm}/${yyyy}`;
