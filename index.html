@@ -43,6 +43,8 @@ body{
   padding:20px;
 }
 
+/* ---------- HEADER ---------- */
+
 .top{
   background:#fff;
   border:1px solid var(--line);
@@ -116,8 +118,7 @@ body{
 
 .input,
 textarea,
-.date-input,
-select{
+.date-input{
   width:100%;
   border:1px solid var(--line);
   border-radius:12px;
@@ -130,8 +131,7 @@ select{
 
 .input:focus,
 textarea:focus,
-.date-input:focus,
-select:focus{
+.date-input:focus{
   outline:none;
   border-color:var(--brand);
 }
@@ -157,6 +157,8 @@ select:focus{
   text-transform:uppercase;
 }
 
+/* ---------- CARD ---------- */
+
 .card{
   background:#fff;
   border:1px solid var(--line);
@@ -180,6 +182,8 @@ select:focus{
   color:var(--muted);
   margin-top:4px;
 }
+
+/* ---------- HOTEL / CRUISE ---------- */
 
 .extra-grid{
   display:grid;
@@ -221,6 +225,8 @@ select:focus{
   font-size:13px;
   font-weight:600;
 }
+
+/* ---------- PRICE ---------- */
 
 .rates-grid{
   display:grid;
@@ -284,6 +290,8 @@ select:focus{
   color:var(--brand-dark);
 }
 
+/* ---------- TABLE ---------- */
+
 .table-wrap{
   overflow:auto;
   border:1px solid var(--line);
@@ -293,7 +301,7 @@ select:focus{
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:1100px;
+  min-width:1000px;
 }
 
 th{
@@ -326,6 +334,8 @@ td{
   resize:vertical;
 }
 
+/* ---------- OPTIONS ---------- */
+
 .option-group{
   display:flex;
   flex-wrap:wrap;
@@ -349,6 +359,8 @@ td{
   color:#fff;
   border-color:#1D9E75;
 }
+
+/* ---------- BUTTONS ---------- */
 
 .actions{
   display:flex;
@@ -376,6 +388,8 @@ td{
   background:#fff;
   border:1px solid var(--line);
 }
+
+/* ---------- SAVED SECTION ---------- */
 
 .saved-card{
   background:#fff;
@@ -435,16 +449,7 @@ td{
   color:#B42318;
 }
 
-.remove-day-btn{
-  background:#FFE9E9;
-  color:#B42318;
-  border:none;
-  padding:8px 10px;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:12px;
-  font-weight:600;
-}
+/* ---------- MOBILE ---------- */
 
 @media(max-width:960px){
 
@@ -465,6 +470,8 @@ td{
 <body>
 
 <div class="wrap" id="pdfContent">
+
+<!-- HEADER -->
 
 <div class="top">
 
@@ -519,6 +526,8 @@ Travel Itinerary
 
 </div>
 
+<!-- HOTEL / CRUISE -->
+
 <div class="card">
 
 <div class="extra-grid">
@@ -564,6 +573,8 @@ Travel Itinerary
 </div>
 
 </div>
+
+<!-- PRICE -->
 
 <div class="card">
 
@@ -653,6 +664,8 @@ Travel Itinerary
 
 </div>
 
+<!-- ITINERARY -->
+
 <div class="card">
 
 <div class="section-head">
@@ -678,7 +691,6 @@ Daily travel schedule
 <th>Activity</th>
 <th>Meals / Transfer</th>
 <th>Notes</th>
-<th>Action</th>
 </tr>
 
 </thead>
@@ -719,12 +731,6 @@ Daily travel schedule
 <textarea class="input cell-textarea notes"></textarea>
 </td>
 
-<td>
-<button class="remove-day-btn" onclick="removeDay(this)">
-Remove
-</button>
-</td>
-
 </tr>
 
 </tbody>
@@ -737,29 +743,7 @@ Remove
 
 </div>
 
-  <!-- PRICE -->
-
-<div class="card">
-...
-</div>
-
-<!-- ITINERARY -->
-
-<div class="card">
-...
-</div>
-
-<!-- INCLUSIONS & EXCLUSIONS -->
-
-<div class="card">
-...
-</div>
-
 <!-- BUTTONS -->
-
-<div class="wrap">
-...
-</div>
 
 <div class="wrap">
 
@@ -785,6 +769,8 @@ Clear All
 
 </div>
 
+<!-- SAVED -->
+
 <div class="wrap">
 
 <div class="saved-card">
@@ -805,6 +791,8 @@ Saved automatically in browser memory
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- FIREBASE -->
 
 <script type="module">
 
@@ -845,6 +833,8 @@ window.doc = doc;
 
 let dayCount = 1;
 
+/* ---------- ITIN NUMBER ---------- */
+
 function getNextItineraryNumber(){
 
   let current =
@@ -878,9 +868,13 @@ function increaseItineraryNumber(){
 
 }
 
+/* ---------- TOGGLE ---------- */
+
 function toggleBtn(btn){
   btn.classList.toggle("active");
 }
+
+/* ---------- ADD HOTEL ---------- */
 
 function addHotel(){
 
@@ -899,6 +893,8 @@ function addHotel(){
 
 }
 
+/* ---------- ADD CRUISE ---------- */
+
 function addCruise(){
 
   const html = `
@@ -915,6 +911,8 @@ function addCruise(){
   .insertAdjacentHTML("beforeend", html);
 
 }
+
+/* ---------- ADD DAY ---------- */
 
 function addDay(){
 
@@ -952,12 +950,6 @@ function addDay(){
   <textarea class="input cell-textarea notes"></textarea>
   </td>
 
-  <td>
-  <button class="remove-day-btn" onclick="removeDay(this)">
-  Remove
-  </button>
-  </td>
-
   </tr>
 
   `;
@@ -968,44 +960,7 @@ function addDay(){
 
 }
 
-function removeDay(button){
-
-  const rows =
-    document.querySelectorAll(
-      "#itineraryBody tr"
-    );
-
-  if(rows.length === 1){
-
-    alert("Minimum one day required");
-
-    return;
-
-  }
-
-  button.closest("tr").remove();
-
-  updateDayNumbers();
-
-}
-
-function updateDayNumbers(){
-
-  const rows =
-    document.querySelectorAll(
-      "#itineraryBody tr"
-    );
-
-  rows.forEach((row,index)=>{
-
-    row.querySelector(".day-pill").innerText =
-      `Day ${index + 1}`;
-
-  });
-
-  dayCount = rows.length;
-
-}
+/* ---------- SAVE FIREBASE ---------- */
 
 async function saveItinerary(){
 
@@ -1050,6 +1005,8 @@ async function saveItinerary(){
   getNextItineraryNumber();
 
 }
+
+/* ---------- RENDER SAVED ---------- */
 
 async function renderSaved(){
 
@@ -1118,6 +1075,8 @@ async function renderSaved(){
 
 }
 
+/* ---------- DELETE ---------- */
+
 async function deleteSaved(id){
 
   await deleteDoc(
@@ -1127,6 +1086,8 @@ async function deleteSaved(id){
   renderSaved();
 
 }
+
+/* ---------- CLEAR ---------- */
 
 function clearAll(){
 
@@ -1153,6 +1114,8 @@ function clearAll(){
   }
 
 }
+
+/* ---------- TOTAL ---------- */
 
 const fields = [
 "adultRate",
@@ -1234,6 +1197,8 @@ grand.toLocaleString("en-IN");
 
 }
 
+/* ---------- PDF ---------- */
+
 async function downloadPDF(){
 
   const { jsPDF } = window.jspdf;
@@ -1309,6 +1274,8 @@ async function downloadPDF(){
   );
 
 }
+
+/* ---------- INIT ---------- */
 
 window.addEventListener("load", async () => {
 
