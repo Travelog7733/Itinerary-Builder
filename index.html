@@ -43,8 +43,6 @@ body{
   padding:20px;
 }
 
-/* ---------- HEADER ---------- */
-
 .top{
   background:#fff;
   border:1px solid var(--line);
@@ -118,7 +116,8 @@ body{
 
 .input,
 textarea,
-.date-input{
+.date-input,
+select{
   width:100%;
   border:1px solid var(--line);
   border-radius:12px;
@@ -131,7 +130,8 @@ textarea,
 
 .input:focus,
 textarea:focus,
-.date-input:focus{
+.date-input:focus,
+select:focus{
   outline:none;
   border-color:var(--brand);
 }
@@ -157,8 +157,6 @@ textarea:focus,
   text-transform:uppercase;
 }
 
-/* ---------- CARD ---------- */
-
 .card{
   background:#fff;
   border:1px solid var(--line);
@@ -182,8 +180,6 @@ textarea:focus,
   color:var(--muted);
   margin-top:4px;
 }
-
-/* ---------- HOTEL / CRUISE ---------- */
 
 .extra-grid{
   display:grid;
@@ -225,8 +221,6 @@ textarea:focus,
   font-size:13px;
   font-weight:600;
 }
-
-/* ---------- PRICE ---------- */
 
 .rates-grid{
   display:grid;
@@ -290,8 +284,6 @@ textarea:focus,
   color:var(--brand-dark);
 }
 
-/* ---------- TABLE ---------- */
-
 .table-wrap{
   overflow:auto;
   border:1px solid var(--line);
@@ -301,7 +293,7 @@ textarea:focus,
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:1000px;
+  min-width:1100px;
 }
 
 th{
@@ -334,8 +326,6 @@ td{
   resize:vertical;
 }
 
-/* ---------- OPTIONS ---------- */
-
 .option-group{
   display:flex;
   flex-wrap:wrap;
@@ -359,8 +349,6 @@ td{
   color:#fff;
   border-color:#1D9E75;
 }
-
-/* ---------- BUTTONS ---------- */
 
 .actions{
   display:flex;
@@ -388,8 +376,6 @@ td{
   background:#fff;
   border:1px solid var(--line);
 }
-
-/* ---------- SAVED SECTION ---------- */
 
 .saved-card{
   background:#fff;
@@ -449,7 +435,16 @@ td{
   color:#B42318;
 }
 
-/* ---------- MOBILE ---------- */
+.remove-day-btn{
+  background:#FFE9E9;
+  color:#B42318;
+  border:none;
+  padding:8px 10px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:600;
+}
 
 @media(max-width:960px){
 
@@ -470,8 +465,6 @@ td{
 <body>
 
 <div class="wrap" id="pdfContent">
-
-<!-- HEADER -->
 
 <div class="top">
 
@@ -526,8 +519,6 @@ Travel Itinerary
 
 </div>
 
-<!-- HOTEL / CRUISE -->
-
 <div class="card">
 
 <div class="extra-grid">
@@ -574,109 +565,736 @@ Travel Itinerary
 
 </div>
 
-<!-- INCLUSIONS / EXCLUSIONS -->
+<div class="card">
+
+<div class="section-head">
+<div class="section-title">Price Quote</div>
+<div class="section-sub">Rates & passenger summary</div>
+</div>
+
+<div class="rates-grid">
+
+<div class="mini-card">
+
+<div class="mini-title">Rates</div>
+
+<div class="rate-row">
+<span>Adult</span>
+<input class="small-input" id="adultRate" placeholder="₹ 0">
+</div>
+
+<div class="rate-row">
+<span>Child</span>
+<input class="small-input" id="childRate" placeholder="₹ 0">
+</div>
+
+<div class="rate-row">
+<span>Infant</span>
+<input class="small-input" id="infantRate" placeholder="₹ 0">
+</div>
+
+</div>
+
+<div class="mini-card">
+
+<div class="mini-title">Passengers</div>
+
+<div class="rate-row">
+<span>Adults</span>
+<input class="small-input" id="adultPax" placeholder="0">
+</div>
+
+<div class="rate-row">
+<span>Children</span>
+<input class="small-input" id="childPax" placeholder="0">
+</div>
+
+<div class="rate-row">
+<span>Infants</span>
+<input class="small-input" id="infantPax" placeholder="0">
+</div>
+
+</div>
+
+<div class="mini-card">
+
+<div class="mini-title">Summary</div>
+
+<div class="rate-row">
+<span>Adults</span>
+<strong id="adultTotal">₹ 0</strong>
+</div>
+
+<div class="rate-row">
+<span>Children</span>
+<strong id="childTotal">₹ 0</strong>
+</div>
+
+<div class="rate-row">
+<span>Infants</span>
+<strong id="infantTotal">₹ 0</strong>
+</div>
+
+</div>
+
+</div>
+
+<div class="total">
+
+<div>
+<div class="total-label">Grand Total</div>
+</div>
+
+<div class="total-amt" id="grandTotal">
+₹ 0
+</div>
+
+</div>
+
+</div>
 
 <div class="card">
 
 <div class="section-head">
 
 <div class="section-title">
-Inclusions & Exclusions
+Day-wise Itinerary
 </div>
 
 <div class="section-sub">
-Package inclusions and exclusions
+Daily travel schedule
 </div>
 
 </div>
 
-<div class="extra-grid">
+<div class="table-wrap">
 
-<div class="hotel-block">
+<table>
 
-<div class="block-title">
-Inclusions
+<thead>
+
+<tr>
+<th>Day</th>
+<th>Activity</th>
+<th>Meals / Transfer</th>
+<th>Notes</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody id="itineraryBody">
+
+<tr>
+
+<td>
+<span class="day-pill">Day 1</span>
+</td>
+
+<td>
+<textarea class="input cell-textarea activity"></textarea>
+</td>
+
+<td>
+
+<div class="option-group">
+
+<button type="button" class="option-btn" onclick="toggleBtn(this)">B</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">L</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">D</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">BR</button>
+
 </div>
 
-<div id="inclusionContainer">
+<div class="option-group">
 
-<div class="hotel-item">
-<input class="input inclusion-input" placeholder="Enter inclusion">
+<button type="button" class="option-btn" onclick="toggleBtn(this)">Shared</button>
+<button type="button" class="option-btn" onclick="toggleBtn(this)">Private</button>
+
+</div>
+
+</td>
+
+<td>
+<textarea class="input cell-textarea notes"></textarea>
+</td>
+
+<td>
+<button class="remove-day-btn" onclick="removeDay(this)">
+Remove
+</button>
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
 </div>
 
 </div>
 
-<button class="add-mini-btn" onclick="addInclusion()">
-+ Add Inclusion
+</div>
+
+<div class="wrap">
+
+<div class="actions">
+
+<button class="btn btn-primary" onclick="addDay()">
++ Add Day
+</button>
+
+<button class="btn btn-primary" onclick="saveItinerary()">
+Save Itinerary
+</button>
+
+<button class="btn btn-light" onclick="downloadPDF()">
+Download PDF
+</button>
+
+<button class="btn btn-light" onclick="clearAll()">
+Clear All
 </button>
 
 </div>
 
-<div class="cruise-block">
-
-<div class="block-title">
-Exclusions
 </div>
 
-<div id="exclusionContainer">
+<div class="wrap">
 
-<div class="cruise-item">
-<input class="input exclusion-input" placeholder="Enter exclusion">
+<div class="saved-card">
+
+<div class="section-head">
+<div class="section-title">Saved Itineraries</div>
+<div class="section-sub">
+Saved automatically in browser memory
+</div>
 </div>
 
-</div>
-
-<button class="add-mini-btn" onclick="addExclusion()">
-+ Add Exclusion
-</button>
+<div id="savedList"></div>
 
 </div>
 
 </div>
 
-</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyALSpB73XK5DiR2Ut59NSkKmalPkUGb49c",
+  authDomain: "travelog-itinerary.firebaseapp.com",
+  projectId: "travelog-itinerary",
+  storageBucket: "travelog-itinerary.firebasestorage.app",
+  messagingSenderId: "33567258851",
+  appId: "1:33567258851:web:790e8f165a3d917bf7edd6"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+window.db = db;
+window.collection = collection;
+window.addDoc = addDoc;
+window.getDocs = getDocs;
+window.deleteDoc = deleteDoc;
+window.doc = doc;
+
+</script>
 
 <script>
 
-/* ---------- ADD INCLUSION ---------- */
+let dayCount = 1;
 
-function addInclusion(){
+function getNextItineraryNumber(){
+
+  let current =
+    localStorage.getItem("travelog_last_number");
+
+  current = current ? Number(current) : 1;
+
+  const formatted =
+    "TG-" +
+    String(current).padStart(3,"0");
+
+  document.getElementById(
+    "itinNumber"
+  ).innerText = formatted;
+
+}
+
+function increaseItineraryNumber(){
+
+  let current =
+    localStorage.getItem("travelog_last_number");
+
+  current = current ? Number(current) : 1;
+
+  current++;
+
+  localStorage.setItem(
+    "travelog_last_number",
+    current
+  );
+
+}
+
+function toggleBtn(btn){
+  btn.classList.toggle("active");
+}
+
+function addHotel(){
 
   const html = `
 
   <div class="hotel-item">
-    <input class="input inclusion-input" placeholder="Enter inclusion">
+    <input class="input hotel-name" placeholder="Hotel Name">
+    <input class="input hotel-destination" placeholder="Destination">
   </div>
 
   `;
 
   document
-  .getElementById("inclusionContainer")
+  .getElementById("hotelContainer")
   .insertAdjacentHTML("beforeend", html);
 
 }
 
-/* ---------- ADD EXCLUSION ---------- */
-
-function addExclusion(){
+function addCruise(){
 
   const html = `
 
   <div class="cruise-item">
-    <input class="input exclusion-input" placeholder="Enter exclusion">
+    <input class="input cruise-name" placeholder="Cruise Name">
+    <input class="input cruise-destination" placeholder="Destination">
   </div>
 
   `;
 
   document
-  .getElementById("exclusionContainer")
+  .getElementById("cruiseContainer")
   .insertAdjacentHTML("beforeend", html);
 
 }
 
+function addDay(){
+
+  dayCount++;
+
+  const row = `
+
+  <tr>
+
+  <td>
+  <span class="day-pill">Day ${dayCount}</span>
+  </td>
+
+  <td>
+  <textarea class="input cell-textarea activity"></textarea>
+  </td>
+
+  <td>
+
+  <div class="option-group">
+  <button type="button" class="option-btn" onclick="toggleBtn(this)">B</button>
+  <button type="button" class="option-btn" onclick="toggleBtn(this)">L</button>
+  <button type="button" class="option-btn" onclick="toggleBtn(this)">D</button>
+  <button type="button" class="option-btn" onclick="toggleBtn(this)">BR</button>
+  </div>
+
+  <div class="option-group">
+  <button type="button" class="option-btn" onclick="toggleBtn(this)">Shared</button>
+  <button type="button" class="option-btn" onclick="toggleBtn(this)">Private</button>
+  </div>
+
+  </td>
+
+  <td>
+  <textarea class="input cell-textarea notes"></textarea>
+  </td>
+
+  <td>
+  <button class="remove-day-btn" onclick="removeDay(this)">
+  Remove
+  </button>
+  </td>
+
+  </tr>
+
+  `;
+
+  document
+  .getElementById("itineraryBody")
+  .insertAdjacentHTML("beforeend", row);
+
+}
+
+function removeDay(button){
+
+  const rows =
+    document.querySelectorAll(
+      "#itineraryBody tr"
+    );
+
+  if(rows.length === 1){
+
+    alert("Minimum one day required");
+
+    return;
+
+  }
+
+  button.closest("tr").remove();
+
+  updateDayNumbers();
+
+}
+
+function updateDayNumbers(){
+
+  const rows =
+    document.querySelectorAll(
+      "#itineraryBody tr"
+    );
+
+  rows.forEach((row,index)=>{
+
+    row.querySelector(".day-pill").innerText =
+      `Day ${index + 1}`;
+
+  });
+
+  dayCount = rows.length;
+
+}
+
+async function saveItinerary(){
+
+  const itinerary = {
+
+    number:
+      document.getElementById(
+        "itinNumber"
+      ).innerText,
+
+    customer:
+      document.getElementById(
+        "customerName"
+      ).value,
+
+    sales:
+      document.getElementById(
+        "salesPerson"
+      ).value,
+
+    travelDate:
+      document.getElementById(
+        "travelDate"
+      ).value,
+
+    created:
+      new Date().toLocaleString()
+
+  };
+
+  await addDoc(
+    collection(db, "itineraries"),
+    itinerary
+  );
+
+  renderSaved();
+
+  alert("Itinerary Saved!");
+
+  increaseItineraryNumber();
+
+  getNextItineraryNumber();
+
+}
+
+async function renderSaved(){
+
+  const container =
+    document.getElementById(
+      "savedList"
+    );
+
+  const querySnapshot =
+    await getDocs(
+      collection(db, "itineraries")
+    );
+
+  if(querySnapshot.empty){
+
+    container.innerHTML =
+      "<p>No saved itineraries yet.</p>";
+
+    return;
+
+  }
+
+  container.innerHTML = "";
+
+  querySnapshot.forEach((docItem)=>{
+
+    const item = docItem.data();
+
+    container.innerHTML += `
+
+    <div class="saved-item">
+
+      <div class="saved-left">
+
+        <div class="saved-title">
+          ${item.number}
+        </div>
+
+        <div class="saved-sub">
+          ${item.customer || "No Customer"}
+        </div>
+
+        <div class="saved-sub">
+          ${item.travelDate || ""}
+        </div>
+
+      </div>
+
+      <div class="saved-actions">
+
+        <button
+          class="small-btn delete-btn"
+          onclick="deleteSaved('${docItem.id}')">
+
+          Delete
+
+        </button>
+
+      </div>
+
+    </div>
+
+    `;
+
+  });
+
+}
+
+async function deleteSaved(id){
+
+  await deleteDoc(
+    doc(db, "itineraries", id)
+  );
+
+  renderSaved();
+
+}
+
+function clearAll(){
+
+  if(confirm("Clear all data?")){
+
+    document
+    .querySelectorAll("input")
+    .forEach(el=>{
+      el.value="";
+    });
+
+    document
+    .querySelectorAll("textarea")
+    .forEach(el=>{
+      el.value="";
+    });
+
+    document
+    .querySelectorAll(".option-btn")
+    .forEach(btn=>{
+      btn.classList.remove("active");
+    });
+
+  }
+
+}
+
+const fields = [
+"adultRate",
+"childRate",
+"infantRate",
+"adultPax",
+"childPax",
+"infantPax"
+];
+
+fields.forEach(id=>{
+
+  document
+  .getElementById(id)
+  .addEventListener(
+    "input",
+    calculateTotals
+  );
+
+});
+
+function cleanNumber(value){
+
+  return Number(
+    value.replace(/[^0-9]/g,'')
+  ) || 0;
+
+}
+
+function calculateTotals(){
+
+const adultRate =
+cleanNumber(document.getElementById("adultRate").value);
+
+const childRate =
+cleanNumber(document.getElementById("childRate").value);
+
+const infantRate =
+cleanNumber(document.getElementById("infantRate").value);
+
+const adultPax =
+cleanNumber(document.getElementById("adultPax").value);
+
+const childPax =
+cleanNumber(document.getElementById("childPax").value);
+
+const infantPax =
+cleanNumber(document.getElementById("infantPax").value);
+
+const adultTotal =
+adultRate * adultPax;
+
+const childTotal =
+childRate * childPax;
+
+const infantTotal =
+infantRate * infantPax;
+
+const grand =
+adultTotal +
+childTotal +
+infantTotal;
+
+document.getElementById("adultTotal").innerText =
+"₹ " +
+adultTotal.toLocaleString("en-IN");
+
+document.getElementById("childTotal").innerText =
+"₹ " +
+childTotal.toLocaleString("en-IN");
+
+document.getElementById("infantTotal").innerText =
+"₹ " +
+infantTotal.toLocaleString("en-IN");
+
+document.getElementById("grandTotal").innerText =
+"₹ " +
+grand.toLocaleString("en-IN");
+
+}
+
+async function downloadPDF(){
+
+  const { jsPDF } = window.jspdf;
+
+  const element =
+    document.getElementById(
+      "pdfContent"
+    );
+
+  const canvas =
+    await html2canvas(element,{
+      scale:2,
+      useCORS:true,
+      backgroundColor:"#F4F7F6"
+    });
+
+  const imgData =
+    canvas.toDataURL("image/png");
+
+  const pdf =
+    new jsPDF("p","mm","a4");
+
+  const pdfWidth =
+    pdf.internal.pageSize.getWidth();
+
+  const pdfHeight =
+    pdf.internal.pageSize.getHeight();
+
+  const imgWidth = pdfWidth;
+
+  const imgHeight =
+    (canvas.height * imgWidth) /
+    canvas.width;
+
+  let heightLeft =
+    imgHeight;
+
+  let position = 0;
+
+  pdf.addImage(
+    imgData,
+    "PNG",
+    0,
+    position,
+    imgWidth,
+    imgHeight
+  );
+
+  heightLeft -= pdfHeight;
+
+  while(heightLeft > 0){
+
+    position =
+      heightLeft - imgHeight;
+
+    pdf.addPage();
+
+    pdf.addImage(
+      imgData,
+      "PNG",
+      0,
+      position,
+      imgWidth,
+      imgHeight
+    );
+
+    heightLeft -= pdfHeight;
+
+  }
+
+  pdf.save(
+    "travelog-itinerary.pdf"
+  );
+
+}
+
+window.addEventListener("load", async () => {
+
+  getNextItineraryNumber();
+
+  await renderSaved();
+
+});
+
 </script>
 
-</body>
-</html>
 </body>
 </html>
