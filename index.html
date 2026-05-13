@@ -932,23 +932,45 @@ localStorage.setItem("travelog_last_number", current);
 
 /* EXPIRY */
 
+function formatDate(input){
+
+  let value = input.value.replace(/\D/g,'');
+
+  if(value.length > 2){
+    value = value.substring(0,2) + '/' + value.substring(2);
+  }
+
+  if(value.length > 5){
+    value = value.substring(0,5) + '/' + value.substring(5,7);
+  }
+
+  input.value = value;
+}
+
 function setExpiryDate(){
 
-const travelDate = document.getElementById("travelDate").value;
+  const value = document.getElementById("travelDate").value;
 
-if(!travelDate) return;
+  if(!value || value.length !== 8) return;
 
-const date = new Date(travelDate);
+  const parts = value.split('/');
 
-date.setDate(date.getDate() + 7);
+  const day = parseInt(parts[0]);
+  const month = parseInt(parts[1]) - 1;
+  const year = 2000 + parseInt(parts[2]);
 
-const yyyy = date.getFullYear();
-const mm = String(date.getMonth()+1).padStart(2,'0');
-const dd = String(date.getDate()).padStart(2,'0');
+  const date = new Date(year, month, day);
 
-document.getElementById("quoteExpiry").value =
-`${yyyy}-${mm}-${dd}`;
+  if(isNaN(date.getTime())) return;
 
+  date.setDate(date.getDate() + 7);
+
+  const dd = String(date.getDate()).padStart(2,'0');
+  const mm = String(date.getMonth() + 1).padStart(2,'0');
+  const yy = String(date.getFullYear()).slice(-2);
+
+  document.getElementById("quoteExpiry").value =
+  `${dd}/${mm}/${yy}`;
 }
 
 /* TOGGLE */
